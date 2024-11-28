@@ -6,7 +6,7 @@
     <div class="logo">
       <img src="/img/olglas.png">
       Pubrunde leken 
-      <img src="../assets/logo.svg">
+      <img src="/img/olglas.png">
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
