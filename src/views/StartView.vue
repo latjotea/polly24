@@ -5,7 +5,7 @@
     </div>
     <div class="logo">
       <img src="/img/logo.png">
-      Polly polling tool 
+      Pubrunde leken 
       <img src="../assets/logo.svg">
     </div>
   </header>
