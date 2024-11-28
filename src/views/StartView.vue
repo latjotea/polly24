@@ -4,7 +4,7 @@
          v-on:click="toggleNav">
     </div>
     <div class="logo">
-      <img src="/img/ölglas.png">
+      <img src="/img/olglas.png">
       Pubrunde leken 
       <img src="../assets/logo.svg">
     </div>
