@@ -9,6 +9,7 @@
       <img src="/img/olglas.png">
     </div>
   </header>
+  <div id="colour">
   <ResponsiveNav v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">
       {{ uiLabels.changeLanguage }}
@@ -30,6 +31,7 @@
   <router-link v-bind:to="'/lobby/' + newPollId">
     {{ uiLabels.participatePoll }}
   </router-link>
+</div>
 </template>
 
 <script>
@@ -72,8 +74,10 @@ export default {
 }
 </script>
 <style scoped>
+  #colour{background-color: rgb(255, 240, 245);}
+
   header {
-    background-color: gray;
+    background-color: rgb(65, 105, 225);
     width: 100%;
     display: grid;
     grid-template-columns: 2em auto;
