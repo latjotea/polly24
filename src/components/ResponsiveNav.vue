@@ -34,6 +34,7 @@ export default {
     align-items: center;
     justify-content: center;
     border-left: 1px solid gray;
+    
   }
 
 @media screen and (max-width:50em) {

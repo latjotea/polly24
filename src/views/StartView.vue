@@ -10,37 +10,38 @@
     </div>
   </header>
 
+  
   <body>
-  <div id="colour">
-  <ResponsiveNav v-bind:hideNav="hideNav" id="menubar">
-    <button v-on:click="switchLanguage" class="full-width">
-      {{ uiLabels.changeLanguage }}
-    </button>
-    <button class="full-width" v-on:click="navigateToCreate">
-      {{ uiLabels.createCrawl }}
-    </button>
-  </ResponsiveNav>
-  <h1>{{ uiLabels["sales-pitch"] }}</h1>
-  <h4>{{ uiLabels.subHeading }}</h4>
-  <label>
-    <input type="text" placeholder="Ex. 1234" v-model="newPollId">
-  </label>
-  <br>
-  <br>
-  <button>
-    <router-link v-bind:to="'/lobby/' + newPollId">
-    {{ uiLabels.participateCrawl }}
-  </router-link>
-  </button>
+    
+      <div id="colour">
+      <ResponsiveNav v-bind:hideNav="hideNav" id="menubar">
+        <button v-on:click="switchLanguage" class="full-width">
+          {{ uiLabels.changeLanguage }}
+        </button>
+        <button class="full-width" v-on:click="navigateToCreate">
+          {{ uiLabels.createCrawl }}
+        </button>
+      </ResponsiveNav>
 
-</div>
+    <section id="start-section">
+      <h1>{{ uiLabels["sales-pitch"] }}</h1>
+      <h3>{{ uiLabels.subHeading }}</h3>
+      <label>
+        <input type="text" placeholder="Ex. 1234" v-model="newPollId">
+      </label>
+
+      <button>
+        <router-link v-bind:to="'/lobby/' + newPollId">
+        {{ uiLabels.participateCrawl }}
+      </router-link>
+      </button>
+    </section>
+      </div>
+    
+
+  </body>
 
 
-</body>
-
-<footer>
-  <hr>
-</footer>
 </template>
 
 <script>
@@ -141,6 +142,7 @@ export default {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 #menubar {
@@ -154,9 +156,41 @@ a {
   flex: 1; /* Gör att varje knapp fyller ut lika mycket */
   padding: 22px; /* Gör knapparna större */
   font-size: 16px; /* Läsbar textstorlek */
-  background-color: red; /* Exempel på bakgrundsfärg för knappar */
+  background-color: rgb(65, 105, 225); 
   border: 1px solid black; /* Lätt ram */
   cursor: pointer;
+
 }
+
+input{
+    font-size:2rem;
+    font-family: 'Galindo';
+   
+  }
+
+  button {
+    font-size: 2rem;
+    font-family: 'Galindo';
+    background-color: rgb(65, 105, 225)
+    
+  }
+
+#menubar button:hover{
+  color: white;
+}
+
+  body {
+    font-family: 'Galindo';
+    background-color: rgb(255, 240, 245); 
+    margin: 0; 
+    min-height: 100vh; 
+  }
+
+  #start-section{
+    padding-top: 10rem;
+    font-size: 1.5rem;
+  }
+
+
 
 </style>
