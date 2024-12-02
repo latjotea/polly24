@@ -21,12 +21,20 @@
   <h1>{{ uiLabels["sales-pitch"] }}</h1>
   <h4>{{ uiLabels.subHeading }}</h4>
   <label>
-    <input type="text" v-model="newPollId">
+    <input type="text" placeholder="Ex. 1234" v-model="newPollId">
   </label>
-  <router-link v-bind:to="'/lobby/' + newPollId">
-    {{ uiLabels.participatePoll }}
+  <br>
+  <br>
+  <button>
+    <router-link v-bind:to="'/lobby/' + newPollId">
+    {{ uiLabels.participateCrawl }}
   </router-link>
+  </button>
+
 </div>
+
+
+
 </template>
 
 <script>
@@ -120,4 +128,9 @@ export default {
     left:-12em;
   }
 }
+
+a {
+  text-decoration: none;
+}
+
 </style>
