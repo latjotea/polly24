@@ -5,10 +5,12 @@
     </div>
     <div class="logo">
       <img src="/img/olglas.png">
-      Pubrunde leken 
+      {{ uiLabels.headLabel }} 
       <img src="/img/olglas.png">
     </div>
   </header>
+
+  <body>
   <div id="colour">
   <ResponsiveNav v-bind:hideNav="hideNav" id="menubar">
     <button v-on:click="switchLanguage" class="full-width">
@@ -34,7 +36,11 @@
 </div>
 
 
+</body>
 
+<footer>
+  <hr>
+</footer>
 </template>
 
 <script>
@@ -149,7 +155,7 @@ a {
   padding: 22px; /* Gör knapparna större */
   font-size: 16px; /* Läsbar textstorlek */
   background-color: red; /* Exempel på bakgrundsfärg för knappar */
-  border: 1px solid red; /* Lätt ram */
+  border: 1px solid black; /* Lätt ram */
   cursor: pointer;
 }
 
