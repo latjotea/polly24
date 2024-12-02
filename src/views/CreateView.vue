@@ -2,7 +2,7 @@
   <div>
     Poll link: 
     <input type="text" v-model="pollId">
-    <button v-on:click="createPoll">
+    <button v-on:click="createCrawl">
       Create poll
     </button>
     <div>
@@ -57,8 +57,8 @@ export default {
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
-    createPoll: function () {
-      socket.emit("createPoll", {pollId: this.pollId, lang: this.lang })
+    createCrawl: function () {
+      socket.emit("createCrawl", {pollId: this.pollId, lang: this.lang })
       socket.emit("joinPoll", this.pollId);
     },
     startPoll: function () {

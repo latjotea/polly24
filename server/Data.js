@@ -38,7 +38,7 @@ Data.prototype.getUILabels = function (lang) {
   return JSON.parse(labels);
 }
 
-Data.prototype.createPoll = function(pollId, lang="en") {
+Data.prototype.createCrawl = function(pollId, lang="en") {
   if (!this.pollExists(pollId)) {
     let poll = {};
     poll.lang = lang;  
