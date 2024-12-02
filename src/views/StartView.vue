@@ -17,10 +17,6 @@
     <router-link to="/create/">
       {{ uiLabels.createPoll }}
     </router-link>
-    <a href="">
-      {{ uiLabels.about }}
-    </a>
-    <a href="">FAQ</a>
   </ResponsiveNav>
   <h1>{{ uiLabels["sales-pitch"] }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
