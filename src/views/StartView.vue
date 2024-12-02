@@ -81,7 +81,7 @@ export default {
     },
 
     navigateToCreate() {
-    this.$router.push('/create/');
+    this.$router.push('/mode/');
     } 
   }
 }
@@ -158,5 +158,4 @@ a {
   border: 1px solid black; /* Lätt ram */
   cursor: pointer;
 }
-
 </style>

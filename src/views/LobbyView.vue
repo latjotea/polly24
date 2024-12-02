@@ -1,3 +1,4 @@
+/*/ TEA OCH EMMA ANSVARIG FÖR SENASTE VERSIONEN /*/
 <template>
   <div>
     <div id="crawlInfo">
@@ -71,7 +72,11 @@ body{
   button {
     font-size: 2rem;
     font-family: 'Galindo';
-    background-color: rgb(65, 105, 225)
+    background-color: rgb(65, 105, 225);
+    cursor:pointer;
+  }
+  button:hover{
+    color:white;
   }
   input{
     font-size:2rem;

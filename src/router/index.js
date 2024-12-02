@@ -28,7 +28,20 @@ const router = createRouter({
       path: '/result/:id',
       name: 'ResultView',
       component: () => import('../views/ResultView.vue')
+    },
+    {
+      path: '/mode/',
+      name: 'ModeView',
+      component: () => import('../views/ModeView.vue')
+
+    },
+    {
+      path: '/city/',
+      name: 'CityView',
+      component: () => import('../views/CityView.vue')
+
     }
+
   ]
 })
 

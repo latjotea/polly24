@@ -10,6 +10,12 @@
 	"about": "Om oss",
 	"participateInPoll": "Gå med!",
 	"writeName": "Skriv in ditt namn: ",
-	"crawlID": "Rundans ID: "
+	"crawlID": "Rundans ID: ",
+	"chooseMode": "Välj vilken typ av runda du vill skapa",
+	"standardCrawl": "Standard",
+	"loveCrawl":"Haff-runda",
+	"golfCrawl":"Pubgolf",
+	"crazyCrawl":"Galen",
+	"chooseCity":"Välj stad för din runda"
 
 }

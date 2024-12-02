@@ -10,5 +10,11 @@
 	"about": "About",
 	"participateInPoll": "Join!",
 	"writeName": "Type your name: ",
-	"crawlID": "Crawl ID: "
+	"crawlID": "Crawl ID: ",
+	"chooseMode": "Choose what kind of crawl you want to create",
+	"standardCrawl": "Standard",
+	"loveCrawl":"Flirty",
+	"golfCrawl":"Golf Crawl",
+	"crazyCrawl":"Crazy",
+	"chooseCity":"Choose city to crawl in"
 }
