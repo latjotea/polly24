@@ -1,11 +1,18 @@
 <template>
   <div>
-    {{pollId}}
+    <div id="crawlInfo">
+      <span>{{this.uiLabels.crawlID}}</span> {{ pollId }}
+    </div>
     <div v-if="!joined">
-      <input type="text" v-model="userName">
-      <button v-on:click="participateInPoll">
-        {{ this.uiLabels.participateInPoll }}
-      </button>
+      <label>
+        {{this.uiLabels.writeName}}
+      </label>
+      <div id="addName">
+        <input type="text" v-model="userName">
+        <button v-on:click="participateInPoll">
+          {{ this.uiLabels.participateInPoll }}
+        </button>
+      </div>
     </div>
     <div v-if="joined">
       <p>Waiting for host to start poll</p>
@@ -46,3 +53,29 @@ export default {
   }
 }
 </script>
+
+<style>
+body{
+  margin-top: 12rem;
+  background-color:rgb(255, 240, 245);
+  font-family: 'Galindo';
+  height: 100vh;
+  }
+  div {
+  font-size: 1.7rem;
+  font-family: 'Galindo';
+  }
+  #crawlInfo {
+    color: rgb(65, 105, 225)
+  }
+  button {
+    font-size: 2rem;
+    font-family: 'Galindo';
+    background-color: rgb(65, 105, 225)
+  }
+  input{
+    font-size:2rem;
+    font-family: 'Galindo';
+  }
+  
+</style>

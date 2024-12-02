@@ -7,5 +7,8 @@
 	"question": "Fråga",
 	"changeLanguage": "Change to English",
 	"about": "Om oss",
-	"participateInPoll": "Delta i enkäten"
+	"participateInPoll": "Gå med!",
+	"writeName": "Skriv in ditt namn: ",
+	"crawlID": "Rundans ID: "
+
 }

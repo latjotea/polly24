@@ -7,5 +7,7 @@
 	"question": "Question",
 	"changeLanguage": "Byt till svenska",
 	"about": "About",
-	"participateInPoll": "Participate in poll"
+	"participateInPoll": "Join!",
+	"writeName": "Type your name: ",
+	"crawlID": "Crawl ID: "
 }
