@@ -23,12 +23,13 @@ export default {
     grid-template-columns: repeat(auto-fit, 10em);
   }
 
-  nav ::v-slotted(a) {
+  nav ::v-slotted(a), 
+  nav ::v-slotted(button){
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 0.1em;
     text-decoration: none;
-    color: gray;
+    color: black;
     display: grid;
     align-items: center;
     justify-content: center;
@@ -41,7 +42,7 @@ export default {
     height:100vh;
     top: 3em;
     left: 0;
-    width:12em;
+    width: 100%;
     display: grid;
     grid-template-rows: repeat(auto-fit, 2em);
     transition: 0.5s;
@@ -49,6 +50,8 @@ export default {
   nav ::v-slotted(a) {
     justify-content: left;
     padding-left: 1em;
+    
+
   }
   .hide {
     left:-12em;

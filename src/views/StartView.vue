@@ -10,13 +10,13 @@
     </div>
   </header>
   <div id="colour">
-  <ResponsiveNav v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage">
+  <ResponsiveNav v-bind:hideNav="hideNav" id="menubar">
+    <button v-on:click="switchLanguage" class="full-width">
       {{ uiLabels.changeLanguage }}
     </button>
-    <router-link to="/create/">
+    <button class="full-width" v-on:click="navigateToCreate">
       {{ uiLabels.createCrawl }}
-    </router-link>
+    </button>
   </ResponsiveNav>
   <h1>{{ uiLabels["sales-pitch"] }}</h1>
   <h4>{{ uiLabels.subHeading }}</h4>
@@ -72,7 +72,11 @@ export default {
     },
     toggleNav: function () {
       this.hideNav = ! this.hideNav;
-    }
+    },
+
+    navigateToCreate() {
+    this.$router.push('/create/');
+    } 
   }
 }
 </script>
@@ -131,6 +135,22 @@ export default {
 
 a {
   text-decoration: none;
+}
+
+#menubar {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  background-color: rgb(211, 211, 211); 
+}
+
+#menubar button {
+  flex: 1; /* Gör att varje knapp fyller ut lika mycket */
+  padding: 22px; /* Gör knapparna större */
+  font-size: 16px; /* Läsbar textstorlek */
+  background-color: red; /* Exempel på bakgrundsfärg för knappar */
+  border: 1px solid red; /* Lätt ram */
+  cursor: pointer;
 }
 
 </style>
