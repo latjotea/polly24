@@ -15,13 +15,12 @@
       {{ uiLabels.changeLanguage }}
     </button>
     <router-link to="/create/">
-      {{ uiLabels.createPoll }}
+      {{ uiLabels.createCrawl }}
     </router-link>
   </ResponsiveNav>
   <h1>{{ uiLabels["sales-pitch"] }}</h1>
-  <h2>{{ uiLabels.subHeading }}</h2>
+  <h4>{{ uiLabels.subHeading }}</h4>
   <label>
-    Write poll id: 
     <input type="text" v-model="newPollId">
   </label>
   <router-link v-bind:to="'/lobby/' + newPollId">

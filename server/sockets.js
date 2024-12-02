@@ -4,8 +4,8 @@ function sockets(io, socket, data) {
     socket.emit('uiLabels', data.getUILabels(lang));
   });
 
-  socket.on('createPoll', function(d) {
-    data.createPoll(d.pollId, d.lang)
+  socket.on('createCrawl', function(d) {
+    data.createCrawl(d.pollId, d.lang)
     socket.emit('pollData', data.getPoll(d.pollId));
   });
 
