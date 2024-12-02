@@ -30,8 +30,8 @@
         <input type="text" placeholder="Ex. 1234" v-model="newPollId">
       </label>
 
-      <button>
-        <router-link v-bind:to="'/lobby/' + newPollId">
+      <button class="join-button">
+      <router-link v-bind:to="'/lobby/' + newPollId">
         {{ uiLabels.participateCrawl }}
       </router-link>
       </button>
@@ -140,6 +140,13 @@ export default {
   }
 }
 
+body {
+    font-family: 'Galindo';
+    background-color: rgb(255, 240, 245); 
+    margin: 0; 
+    min-height: 100vh; 
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -164,33 +171,30 @@ a {
 
 input{
     font-size:2rem;
-    font-family: 'Galindo';
-   
-  }
+    font-family: 'Galindo';   
+}
 
-  button {
-    font-size: 2rem;
-    font-family: 'Galindo';
-    background-color: rgb(65, 105, 225)
-    
-  }
+button {
+  font-size: 2rem;
+  font-family: 'Galindo';
+  background-color: rgb(65, 105, 225)
+}
 
 #menubar button:hover{
   color: white;
 }
 
-  body {
-    font-family: 'Galindo';
-    background-color: rgb(255, 240, 245); 
-    margin: 0; 
-    min-height: 100vh; 
-  }
+#start-section{
+  padding-top: 10rem;
+  font-size: 1.5rem;
+}
 
-  #start-section{
-    padding-top: 10rem;
-    font-size: 1.5rem;
-  }
+.join-button:hover {
+  color: white; /* Gör texten vit vid hover */
+}
 
-
+button.join-button:hover a {
+  color: inherit; /* Säkerställer att länken ärver den vita färgen vid hover */
+}
 
 </style>
