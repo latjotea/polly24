@@ -44,7 +44,7 @@ body{
   }
 
 #goto button{
-    font-size: 2rem;
+    font-size: 4rem;
     font-family: 'Galindo';
     background-color: rgb(65, 105, 225);
     cursor:pointer;
