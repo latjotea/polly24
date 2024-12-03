@@ -3,9 +3,9 @@
   <div>
     {{this.uiLabels.chooseCity}}
     <div class="button-container">
-      <button v-on:click="navigateToPubList"> Uppsala </button>
-      <button v-on:click="navigateToPubList">Stockholm</button>
-      <button v-on:click="navigateToPubList">Malmö</button>
+      <button v-on:click="navigateToPubList" city="Uppsala"> Uppsala </button>
+      <button v-on:click="navigateToPubList" city="Stockholm">Stockholm</button>
+      <button v-on:click="navigateToPubList" city="Malmö">Malmö</button>
     </div>  
   </div>
 
@@ -17,12 +17,12 @@ import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 export default {
-  name: 'ModeView',
+  name: 'CityView',
   data: function () {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      city:''
+      city:""
     }
   },
   created: function () {
