@@ -16,6 +16,9 @@
 	"loveCrawl":"Haff-runda",
 	"golfCrawl":"Pubgolf",
 	"crazyCrawl":"Galen",
-	"chooseCity":"Välj stad för din runda"
+	"chooseCity":"Välj stad för din runda",
+	"goTo": "Gå till:",
+	"imHere":"Jag är här!"
+
 
 }

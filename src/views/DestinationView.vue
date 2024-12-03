@@ -1,21 +1,31 @@
 <template>
 
-
-    <header>
+    <body>
+        <p> hej</p>
         <div>
-        Hej hhhhh
-        </div>
-
-    </header>
-
-
+        <button v-on:click="navigateToCreate">
+          {{ uiLabels.createCrawl }}
+        </button>
+    </div>
+    </body>
 </template>
-
-
 
 
 <script>
 
+import Pubs from '/server/data/Pubs.json';
+
+export default{
+    name:"DestinationView",
+    
+
+data: function () {
+    return {
+      uiLabels: {},
+     
+    }
+  }
+}
 
 </script>
 
@@ -25,13 +35,25 @@
 
 <style>
 
-header {
-    background-color: rgb(179, 26, 77); 
-}
+body{
+  margin-top: 12rem;
+  background-color:rgb(255, 240, 245);
+  font-family: 'Galindo';
+  height: 100vh;
+  }
 
 header h1{
     color: black;
 }
+button {
+    font-size: 2rem;
+    font-family: 'Galindo';
+    background-color: rgb(65, 105, 225);
+    cursor:pointer;
+  }
+  button:hover{
+    color:white;
+  }
 
 
 </style>
