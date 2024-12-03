@@ -1,6 +1,6 @@
 <template>
     <body>
-      <h1>{{ uiLabels.goTo }}</h1>
+      <h1 v-if="chosenPub">{{ uiLabels.goTo }} {{ chosenPub }}</h1>
 
       <div id="goto">
         <button>
@@ -14,7 +14,8 @@
 <script>
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
-import Pubs from '/server/data/Pubs.json';
+
+
 
 export default{
     name:"DestinationView",
@@ -22,14 +23,32 @@ export default{
 data: function () {
     return {
       uiLabels: {},
-      selectedPubs: [], /*koppla över socket till publistview*/
-      teamPubs: [] 
+      teamPubs: [],
+      chosenPub: null,
+      selectedPubs: ["Stock", "Snerikes", "Norrlands"]
     }
   },
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
+
+    this.chooseRandomPub();
   },
+
+  
+
+  methods: {
+    chooseRandomPub() {
+      if(this.selectedPubs.length === 0) {
+        this.chosenPub = null;
+      }
+
+      const randomIndex = Math.floor(Math.random() * this.selectedPubs.length);
+      const selectedPub = this.selectedPubs.splice(randomIndex, 1)[0]; // Ta bort från `selectedPubs`
+      this.teamPubs.push(selectedPub);
+    }
+  }
+
 }
 </script>
 
