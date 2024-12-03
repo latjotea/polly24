@@ -3,9 +3,9 @@
   <div>
     {{this.uiLabels.chooseCity}}
     <div class="button-container">
-      <button v-on:click="navigateToCity"> Uppsala </button>
-      <button v-on:click="navigateToCity">Stockholm</button>
-      <button v-on:click="navigateToCity">Malmö</button>
+      <button v-on:click="navigateToPubList"> Uppsala </button>
+      <button v-on:click="navigateToPubList">Stockholm</button>
+      <button v-on:click="navigateToPubList">Malmö</button>
     </div>  
   </div>
 
@@ -22,7 +22,7 @@ export default {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      mode:{}
+      city:''
     }
   },
   created: function () {
@@ -31,8 +31,8 @@ export default {
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
-    navigateToCity() {
-    this.$router.push('/city/');
+    navigateToPubList() {
+    this.$router.push('/pubList/');
     }
   }
 }
@@ -61,6 +61,7 @@ body{
   .button-container {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr; 
+  grid-template-columns: 1fr;
   gap: 0.5rem; 
   width: 100%; 
   height: 80vh; 
