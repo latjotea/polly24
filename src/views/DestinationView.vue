@@ -1,37 +1,56 @@
 <template>
+    <body>
+      <h1>{{ uiLabels.goTo }}</h1>
 
-
-    <header>
-        <div>
-        Hej hhhhh
-        </div>
-
-    </header>
-
-
+      <div id="goto">
+        <button>
+          {{ uiLabels.imHere }}
+        </button>
+    </div>
+    </body>
 </template>
 
 
-
-
 <script>
+import io from 'socket.io-client';
+const socket = io("localhost:3000");
+import Pubs from '/server/data/Pubs.json';
 
-
+export default{
+    name:"DestinationView",
+    
+data: function () {
+    return {
+      uiLabels: {},
+      selectedPubs: [], /*koppla över socket till publistview*/
+      teamPubs: [] 
+    }
+  },
+  created: function () {
+    socket.on( "uiLabels", labels => this.uiLabels = labels );
+    socket.emit( "getUILabels", this.lang );
+  },
+}
 </script>
 
 
-
-
-
 <style>
+body{
+  margin-top: 12rem;
+  background-color:rgb(255, 240, 245);
+  font-family: 'Galindo';
+  height: 100vh;
+  font-size: 2rem;
+  }
 
-header {
-    background-color: rgb(179, 26, 77); 
-}
+#goto button{
+    font-size: 4rem;
+    font-family: 'Galindo';
+    background-color: rgb(65, 105, 225);
+    cursor:pointer;
+  }
 
-header h1{
-    color: black;
-}
-
-
+#goto button:hover{
+    color:white;
+  }
 </style>

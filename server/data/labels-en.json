@@ -17,6 +17,8 @@
 	"golfCrawl":"Golf Crawl",
 	"crazyCrawl":"Crazy",
 	"chooseCity":"Choose city to crawl in",
+	"goTo":"Go To:",
+	"imHere":"I'm here!",
 	"choosePubs":"Choose pubs to visit during your crawl",
 	"sendPubs": "Done"
 }
