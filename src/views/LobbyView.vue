@@ -1,4 +1,4 @@
-/*/ TEA OCH EMMA ANSVARIG FÖR SENASTE VERSIONEN /*/
+/* TEA OCH EMMA ANSVARIG FÖR SENASTE VERSIONEN */
 <template>
   <div>
     <div id="crawlInfo">
