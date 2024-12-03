@@ -20,5 +20,6 @@
 	"goTo":"Go To:",
 	"imHere":"I'm here!",
 	"choosePubs":"Choose pubs to visit during your crawl",
-	"sendPubs": "Done"
+	"sendPubs": "Done",
+	"tasks-standard": ["Sing a song","Dance","Buy a beer"]
 }
