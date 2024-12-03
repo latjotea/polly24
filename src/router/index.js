@@ -40,8 +40,13 @@ const router = createRouter({
       name: 'CityView',
       component: () => import('../views/CityView.vue')
 
-    }
+    },
+    {
+      path: '/pubList/',
+      name: 'PubListView',
+      component: () => import('../views/PubListView.vue')
 
+    },
   ]
 })
 
