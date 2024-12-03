@@ -40,14 +40,16 @@ function sockets(io, socket, data) {
   //*// CHAT UNDER //*//
 
 
-  socket.on('sendSelectedPubs', function(pubs) {
-    selectedPubs = pubs; 
-    console.log('Valda pubar mottagna:', selectedPubs);
+  socket.on('sendSelectedPubs', function(d) {
+    console.log("sendselectedpubs");
+    console.log(d);
+    data.setSelectedPubs(d.pollId, d.selectedPubs);
+    console.log('Valda pubar mottagna:', d.selectedPubs);
   });
 
-  socket.on('getSelectedPubs', function() {
+  socket.on('getSelectedPubs', function(d) {
     console.log("Begäran om valda pubar mottagen.");
-    socket.emit("selectedPubsResponse", selectedPubs);
+    socket.emit("selectedPubsResponse", data.getSelectedPubs(d.pollId));
   });
 }
 

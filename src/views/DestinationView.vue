@@ -24,13 +24,14 @@ data: function () {
       uiLabels: {},
       teamPubs: [],
       chosenPub: null,
-     selectedPubs: []
+      selectedPubs: []
     }
   },
   created: function () {
+    this.pollId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit("getSelectedPubs");
+    socket.emit("getSelectedPubs", {pollId: this.pollId });
 
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;

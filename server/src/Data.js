@@ -1,5 +1,6 @@
 'use strict';
 import {readFileSync} from "fs";
+import path, { dirname } from "path";
 
 // Store data in an object to keep the global namespace clean. In an actual implementation this would be interfacing a database...
 function Data() {
@@ -16,7 +17,8 @@ function Data() {
     ],
     answers: [],
     currentQuestion: 0,
-    participants: []
+    participants: [],
+    selectedPubs: []
   }
 }
 
@@ -30,11 +32,25 @@ Data.prototype.pollExists = function (pollId) {
   return typeof this.polls[pollId] !== "undefined"
 }
 
+Data.prototype.setSelectedPubs = function (pollId, selectedPubs) {
+  if (!this.pollExists(pollId)) {
+    return false;
+  }
+  this.polls[pollId].selectedPubs = selectedPubs
+  return true
+}
+
+Data.prototype.getSelectedPubs = function (pollId) {
+  if (!this.pollExists(pollId)) return false;
+
+  return this.polls[pollId].selectedPubs
+}
+
 Data.prototype.getUILabels = function (lang) {
   //check if lang is valid before trying to load the dictionary file
   if (!["en", "sv"].some( el => el === lang))
     lang = "en";
-  const labels = readFileSync("./server/data/labels-" + lang + ".json");
+  const labels = readFileSync("../server/data/labels-" + lang + ".json");
   return JSON.parse(labels);
 }
 

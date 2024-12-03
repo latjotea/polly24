@@ -37,7 +37,6 @@
       <router-link v-bind:to="'/lobby/' + newPollId">
         {{ uiLabels.participateCrawl }}
       </router-link>
-      Test
       </button>
     </section>
       </div>
