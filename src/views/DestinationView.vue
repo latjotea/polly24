@@ -3,7 +3,7 @@
       <h1 v-if="chosenPub">{{ uiLabels.goTo }} {{ chosenPub }}</h1>
 
       <div id="goto"> 
-        <button v-on:click="this.chooseRandomPub()">  
+        <button v-on:click="this.chooseRandomPub()"> 
           {{ uiLabels.imHere }}
         </button>
     </div>
@@ -17,6 +17,7 @@ const socket = io("localhost:3000");
 
 
 
+
 export default{
     name:"DestinationView",
     
@@ -25,7 +26,7 @@ data: function () {
       uiLabels: {},
       teamPubs: [],
       chosenPub: null,
-      selectedPubs: ["Stock", "Snerikes", "Norrlands"]
+      selectedPubs: [],
     }
   },
   created: function () {
@@ -43,11 +44,11 @@ data: function () {
 
   methods: {
     chooseRandomPub() {
-      if(this.selectedPubs.length === 0) {
+      /*if(this.selectedPubs.length === 0) {
         this.$router.push("/result"); // Ersätt "/ny-sida" med den faktiska sidan Tagit från chatgpt
         return;
 
-      }
+      }*/
 
       const randomIndex = Math.floor(Math.random() * this.selectedPubs.length);
       const selectedPub = this.selectedPubs.splice(randomIndex, 1)[0]; // Ta bort från `selectedPubs`
