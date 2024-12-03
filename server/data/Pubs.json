@@ -1,9 +1,28 @@
-{
-    "Stocken": "Stocken",
-    "Snerikes": "Snerikes",
-    "Värmlands": "Värmlands",
-    "Norrlands": "Norrlands",
-    "Göteborgs": "Göteborg",
-    "Palermo": "Palermo"
-}
+[   
+    
+    {"name": "Stocken", 
+    "city": "Uppsala",
+    "selected": false },
 
+    {"name": "Snerikes",
+    "city": "Uppsala",
+    "selected": false},
+
+    {"name": "Värmlands",
+    "city": "Uppsala",
+    "selected": false},
+
+    {"name": "Norrlands",
+    "city": "Uppsala",
+    "selected": false},
+
+    {"name": "Göteborg",
+    "city": "Uppsala",
+    "selected": false},
+    
+    {"name": "Palermo",
+    "city": "Uppsala",
+    "selected": false}
+
+
+]
