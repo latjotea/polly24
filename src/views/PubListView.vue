@@ -1,12 +1,19 @@
 /*/ TEA OCH EMMA ANSVARIG FÖR SENASTE VERSIONEN /*/
 <template>
   <div>
-    {{this.uiLabels.chooseCity}}
-    <div class="button-container">
-      <button v-on:click="navigateToPubList"> Uppsala </button>
-      <button v-on:click="navigateToPubList">Stockholm</button>
-      <button v-on:click="navigateToPubList">Malmö</button>
-    </div>  
+    {{this.uiLabels.choosePubs}} 
+    <div class="pub-grid">
+      <div v-for="pub in pubList" :key="pub.name" class="pub-section">
+        <label>{{ pub.name }}</label>
+        <input 
+          type="checkbox" 
+          :id="pub.name" 
+          v-model="pub.selected"
+          v-on:change="updateSelectedPubs(pub)" 
+        />
+      </div>
+    </div>
+    <button v-on:click="submitSelection" v-bind:disabled="selectedPubs.length===0"> {{this.uiLabels.sendPubs}} </button>
   </div>
 
 
@@ -14,15 +21,20 @@
 
 <script>
 import io from 'socket.io-client';
+import pubs from '/server/data/Pubs.json';
+
 const socket = io("localhost:3000");
 
+
 export default {
-  name: 'ModeView',
+  name: 'PubListView',
   data: function () {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      city:''
+      city:"",
+      pubList: pubs,
+      selectedPubs: []
     }
   },
   created: function () {
@@ -33,8 +45,24 @@ export default {
   methods: {
     navigateToPubList() {
     this.$router.push('/pubList/');
+    },
+    updateSelectedPubs(pub) {
+      if (pub.selected) {
+        if (!this.selectedPubs.includes(pub.name)) {
+          this.selectedPubs.push(pub.name);
+        }
+        /*/Vi har använt Chat för else raderna /*/
+      } else {
+        this.selectedPubs = this.selectedPubs.filter(
+          (selectedPub) => selectedPub !== pub.name
+        );
+      }
+    },
+    submitSelection() {
+      // Ändra så att den skickas till servern
+      console.log("Valda pubar:", this.selectedPubs);
     }
-  }
+}
 }
 </script>
 
@@ -49,23 +77,35 @@ body{
   font-size: 1.7rem;
   font-family: 'Galindo';
   }
-  button {
+
+  .pub-grid {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 1rem; 
+    margin-top: 2rem;
+}
+.pub-section{
+    background-color: rgb(65, 105, 225);
+    font-size: 3rem;
+    border-radius: 15px;
+    width:80%;
+    text-align: center;
+}
+input[type="checkbox"] {
+    margin-left:2rem;
+    transform: scale(2.5); /* Chat användes för att göra knappen större */
+  
+}
+input[type="checkbox"]:checked {
+  accent-color:hotpink; /* Ändrar färgen när markerad */
+}
+button {
+    margin-top:3rem;
     font-size: 2rem;
     font-family: 'Galindo';
-    background-color: rgb(65, 105, 225);
+    background-color: rgb(141, 242, 141);
     cursor:pointer;
   }
-  button:hover{
-    color: white;
-  }
-  .button-container {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr; 
-  grid-template-columns: 1fr;
-  gap: 0.5rem; 
-  width: 100%; 
-  height: 80vh; 
-  margin-top: 1rem;
-}
   
 </style>
