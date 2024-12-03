@@ -59,9 +59,12 @@ export default {
       }
     },
     submitSelection() {
-      // Ändra så att den skickas till servern
+        if (this.selectedPubs.length > 0) {
+            socket.emit("sendSelectedPubs", this.selectedPubs);
+
       console.log("Valda pubar:", this.selectedPubs);
     }
+}
 }
 }
 </script>
