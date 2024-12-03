@@ -20,6 +20,7 @@
 	"goTo": "Gå till:",
 	"imHere":"Jag är här!",
 	"choosePubs":"Välj barer att gå till under rundan",
-	"sendPubs": "Klar"
+	"sendPubs": "Klar",
+	"tasks-standard": ["Sjung en sång","Dansa","Köp en öl"]
 
 }

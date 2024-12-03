@@ -16,8 +16,6 @@ import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 
-
-
 export default{
     name:"DestinationView",
     
@@ -32,7 +30,7 @@ data: function () {
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.on("getSelectedPubs", (selectedPubs) => {
+    socket.emit("getSelectedPubs", (selectedPubs) => {
     this.selectedPubs = selectedPubs;
     console.log("Hämtade pubar från servern:", this.selectedPubs);
     this.chooseRandomPub(); // Välj en slumpad pub efter att ha hämtat pubarna
