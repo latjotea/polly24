@@ -1,9 +1,10 @@
 <template>
     <body>
-        hej
+        <h1>"{{ uiLabels.tasks}}"</h1>
+        <li v-for="(task, index) in tasks" :key="index">
+            {{ task }}
+        </li>
     </body>
-
-
 </template>
 
 
@@ -14,14 +15,23 @@ const socket = io("localhost:3000");
 
 export default{
     name:"TaskView",
-
+    
 data: function () {
     return {
-      uiLabels: {},    
+      uiLabels: {},
+      task: [],
+      lang: localStorage.getItem("lang") || "en",
 
-}  
+      
+    }
+  },
+  created: function () {
+  socket.on("uiLabels", (labels) => {
+    this.uiLabels = labels;
+  });
+  socket.emit("getUILabels", this.lang); 
+    },
 
-}
 }
 
 
