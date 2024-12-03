@@ -60,7 +60,7 @@ export default {
     },
     submitSelection() {
         if (this.selectedPubs.length > 0) {
-            socket.emit("sendSelectedPubs", this.selectedPubs);
+            socket.emit("sendSelectedPubs",this.selectedPubs);
 
       console.log("Valda pubar:", this.selectedPubs);
     }
