@@ -38,15 +38,16 @@ function sockets(io, socket, data) {
     io.to(d.pollId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.pollId));
   }); 
   //*// CHAT UNDER //*//
-  let selectedPubs = []; // Temporär lagring av valda pubar
+
 
   socket.on('sendSelectedPubs', function(pubs) {
     selectedPubs = pubs; 
     console.log('Valda pubar mottagna:', selectedPubs);
   });
 
-  socket.on('getSelectedPubs', function(callback) {
-    callback(selectedPubs);
+  socket.on('getSelectedPubs', function() {
+    console.log("Begäran om valda pubar mottagen.");
+    socket.emit("selectedPubsResponse", selectedPubs);
   });
 }
 

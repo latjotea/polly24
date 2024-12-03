@@ -26,16 +26,18 @@ data: function () {
       uiLabels: {},
       teamPubs: [],
       chosenPub: null,
-      selectedPubs: [],
+     selectedPubs: []
     }
   },
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.on("getSelectedPubs", (selectedPubs) => {
-    this.selectedPubs = selectedPubs;
-    console.log("Hämtade pubar från servern:", this.selectedPubs);
-    this.chooseRandomPub(); // Välj en slumpad pub efter att ha hämtat pubarna
+
+    socket.emit("getSelectedPubs");
+
+    socket.on("selectedPubsResponse", (selectedPubs) => {
+      this.selectedPubs = selectedPubs;
+      console.log("Hämtade pubar från servern:", this.selectedPubs); 
     });
 
   },
@@ -44,16 +46,16 @@ data: function () {
 
   methods: {
     chooseRandomPub() {
-      /*if(this.selectedPubs.length === 0) {
+      /*/if(this.selectedPubs.length === 0) {
         this.$router.push("/result"); // Ersätt "/ny-sida" med den faktiska sidan Tagit från chatgpt
         return;
 
-      }*/
+      }/*/
+    
 
       const randomIndex = Math.floor(Math.random() * this.selectedPubs.length);
       const selectedPub = this.selectedPubs.splice(randomIndex, 1)[0]; // Ta bort från `selectedPubs`
       this.teamPubs.push(selectedPub);
-
       this.chosenPub = selectedPub;
     }
   }
