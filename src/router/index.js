@@ -42,14 +42,14 @@ const router = createRouter({
 
     },
     {
-      path: '/pubList/',
+      path: '/:id/pubList/',
       name: 'PubListView',
       component: () => import('../views/PubListView.vue')
 
     },
 
     {
-      path: '/Destination/',
+      path: '/:id/Destination/',
       name: 'DestinationView',
       component: () => import('../views/DestinationView.vue')
     }
