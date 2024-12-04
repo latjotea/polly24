@@ -30,7 +30,7 @@ data: function () {
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit("getSelectedPubs");
+       socket.emit("getSelectedPubs");
 
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;

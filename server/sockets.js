@@ -41,13 +41,10 @@ function sockets(io, socket, data) {
 
 
   socket.on('sendSelectedPubs', function(pubs) {
-    selectedPubs = pubs; 
     console.log('Valda pubar mottagna:', selectedPubs);
   });
 
   socket.on('getSelectedPubs', function() {
-    console.log("Begäran om valda pubar mottagen.");
-    socket.emit("selectedPubsResponse", selectedPubs);
   });
 }
 
