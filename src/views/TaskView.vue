@@ -8,6 +8,7 @@
 </template>
 
 
+
 <script>
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
@@ -33,7 +34,6 @@ data: function () {
     },
 
 }
-
 
 </script>
 

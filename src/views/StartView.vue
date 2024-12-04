@@ -85,7 +85,7 @@ export default {
     },
 
     navigateToCreate() {
-    this.$router.push('/mode/');
+    this.$router.push('/create/');
     } 
   }
 }

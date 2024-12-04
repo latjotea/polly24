@@ -1,35 +1,12 @@
 <template>
   <div>
-    Poll link: 
-    <input type="text" v-model="pollId">
-    <button v-on:click="createCrawl">
-      Create poll
-    </button>
     <div>
-      {{ uiLabels.question }}:
-      <input type="text" v-model="question">
-      <div>
-        Answers:
-        <input v-for="(_, i) in answers" 
-               v-model="answers[i]" 
-               v-bind:key="'answer' + i">
-        <button v-on:click="addAnswer">
-          Add answer alternative
-        </button>
-      </div>
+    {{ uiLabels.createCrawlId }} 
     </div>
-    <button v-on:click="addQuestion">
-      Add question
+    <input type="text" placeholder="Ex. 1234" v-model="pollId">
+    <button v-on:click="createCrawl">
+      {{ uiLabels.sendPubs }}
     </button>
-    <input type="number" v-model="questionNumber">
-    <button v-on:click="startPoll">
-      Start poll
-    </button>
-    <button v-on:click="runQuestion">
-      Run question
-    </button>
-    <router-link v-bind:to="'/result/' + pollId">Check result</router-link>
-    Data: {{ pollData }}
   </div>
 </template>
 
@@ -76,3 +53,32 @@ export default {
   }
 }
 </script>
+
+<style>
+body{
+  margin-top: 12rem;
+  background-color:rgb(255, 240, 245);
+  font-family: 'Galindo';
+  height: 100vh;
+  }
+  div {
+  font-size: 1.7rem;
+  font-family: 'Galindo';
+  }
+
+  button {
+    font-size: 2rem;
+    font-family: 'Galindo';
+    background-color: rgb(65, 105, 225);
+    cursor:pointer;
+  }
+  button:hover{
+    color:white;
+  }
+  input{
+    font-size:2rem;
+    font-family: 'Galindo';
+  }
+  
+</style>
+
