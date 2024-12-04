@@ -50,6 +50,16 @@ function sockets(io, socket, data) {
     console.log("Begäran om valda pubar mottagen.");
     socket.emit("selectedPubsResponse", data.getSelectedPubs(d.pollId));
   });
+
+  socket.on('setMode', function(d){
+    data.setMode(d.pollId, d.mode)
+  });
+
+
+  socket.on('getMode', function(d){
+    socket.emit("selectedModeResponse", data.getMode(d.pollId))
+
+  });
 }
 
 export { sockets };

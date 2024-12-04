@@ -3,10 +3,10 @@
   <div>
     {{this.uiLabels.chooseMode}}
     <div class="button-container">
-      <button v-on:click="navigateToCity"> {{this.uiLabels.standardCrawl }} </button>
-      <button v-on:click="navigateToCity">{{this.uiLabels.loveCrawl}}</button>
-      <button v-on:click="navigateToCity">{{this.uiLabels.golfCrawl}}</button>
-      <button v-on:click="navigateToCity">{{this.uiLabels.crazyCrawl}}</button>
+      <button v-on:click="chooseMode('standard')"> {{this.uiLabels.standardCrawl }} </button>
+      <button v-on:click="chooseMode('love')">{{this.uiLabels.loveCrawl}}</button>
+      <button v-on:click="chooseMode('golf')">{{this.uiLabels.golfCrawl}}</button>
+      <button v-on:click="chooseMode('crazy')">{{this.uiLabels.crazyCrawl}}</button>
     </div>  
   </div>
 
@@ -23,7 +23,7 @@ export default {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      mode:{}
+      mode:''
     }
   },
   created: function () {
@@ -32,9 +32,11 @@ export default {
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
-    navigateToCity() {
-    this.$router.push('/city/');
-    }
+    chooseMode: function (mode) {
+      this.mode=mode;
+      socket.emit("chooseMode", {pollId: this.pollId, mode:this.mode })
+      this.$router.push(`/${this.pollId}/city/`);
+    },
   }
 }
 </script>

@@ -7,16 +7,6 @@ function Data() {
   this.polls = {};
   this.polls['test'] = {
     lang: "en",
-    questions: [
-      {q: "How old are you?", 
-       a: ["0-13", "14-18", "19-25", "26-35", "36-45","45-"]
-      },
-      {q: "How much do you enjoy coding?", 
-       a: ["1", "2", "3", "4", "5"]
-      }
-    ],
-    answers: [],
-    currentQuestion: 0,
     participants: [],
     selectedPubs: []
   }
@@ -46,6 +36,23 @@ Data.prototype.getSelectedPubs = function (pollId) {
   return this.polls[pollId].selectedPubs
 }
 
+Data.prototype.setMode = function (pollId, mode) {
+  if (!this.pollExists(pollId)) {
+    return false;
+  }
+  this.polls[pollId].mode = mode; 
+  return true;
+};
+
+Data.prototype.getMode = function (pollId) {
+  if (!this.pollExists(pollId)) {
+    return null;
+  }
+  return this.polls[pollId].mode; 
+};
+
+
+
 Data.prototype.getUILabels = function (lang) {
   //check if lang is valid before trying to load the dictionary file
   if (!["en", "sv"].some( el => el === lang))
@@ -58,10 +65,9 @@ Data.prototype.createCrawl = function(pollId, lang="en") {
   if (!this.pollExists(pollId)) {
     let poll = {};
     poll.lang = lang;  
-    poll.questions = [];
-    poll.answers = [];
-    poll.participants = [];
-    poll.currentQuestion = 0;              
+    poll.mode = '';
+    poll.city = '';
+    poll.participants = [];             
     this.polls[pollId] = poll;
     console.log("poll created", pollId, poll);
   }

@@ -4,7 +4,7 @@
     {{ uiLabels.createCrawlId }} 
     </div>
     <input type="text" placeholder="Ex. 1234" v-model="pollId">
-    <button v-on:click="createCrawl">
+    <button v-on:click="handleCrawlIdButtom">
       {{ uiLabels.sendPubs }}
     </button>
   </div>
@@ -20,9 +20,6 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       pollId: "",
-      question: "",
-      answers: ["", ""],
-      questionNumber: 0,
       pollData: {},
       uiLabels: {},
     }
@@ -38,17 +35,10 @@ export default {
       socket.emit("createCrawl", {pollId: this.pollId, lang: this.lang })
       socket.emit("joinPoll", this.pollId);
     },
-    startPoll: function () {
-      socket.emit("startPoll", this.pollId)
-    },
-    addQuestion: function () {
-      socket.emit("addQuestion", {pollId: this.pollId, q: this.question, a: this.answers } )
-    },
-    addAnswer: function () {
-      this.answers.push("");
-    },
-    runQuestion: function () {
-      socket.emit("runQuestion", {pollId: this.pollId, questionNumber: this.questionNumber})
+
+    handleCrawlIdButtom(){
+      this.createCrawl();
+      this.$router.push(`/${this.pollId}/mode/`);
     }
   }
 }
