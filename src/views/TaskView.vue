@@ -24,7 +24,6 @@ data: function () {
 }
 }
 
-
 </script>
 
 
