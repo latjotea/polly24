@@ -22,9 +22,7 @@
 	"imHere":"Jag är här!",
 	"choosePubs":"Välj barer att gå till under rundan",
 	"sendPubs": "Klar",
-
-
-
+	"pickAmountTeam": "Välj antal lag:",
 	"tasks-standard": ["Sjung en sång","Dansa","Köp en öl"],
 	"tasks":"Uppdrag"
 

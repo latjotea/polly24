@@ -52,6 +52,13 @@ const router = createRouter({
       path: '/:id/Destination/',
       name: 'DestinationView',
       component: () => import('../views/DestinationView.vue')
+    },
+
+    {
+      path: '/CreateTeam/', //Lägg till id
+      name: 'CreateTeamView',
+      component: () => import('../views/CreateTeamView.vue')
+
     }
   ]
 })
