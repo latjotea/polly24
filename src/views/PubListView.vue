@@ -42,6 +42,8 @@ export default {
     this.pollId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
+    socket.emit("getSelectedCity", {pollId: this.pollId });
+    
     socket.on("citySelectedResponse", (city) => {
       console.log("Given city:", city);
       this.city = city;
