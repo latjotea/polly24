@@ -75,6 +75,7 @@ export default {
             socket.emit("sendSelectedPubs", { selectedPubs: this.selectedPubs, crawlId: this.crawlId });
 
       console.log("Valda pubar:", this.selectedPubs);
+      this.$router.push(`/${this.crawlId}/map/`);
     }
 }
 }
