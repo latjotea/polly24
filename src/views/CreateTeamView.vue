@@ -1,6 +1,6 @@
 <template>
     <body>
-        <h2>{{ uiLabels.pickAmountTeam }}</h2>
+        <h2>{{ this.uiLabels.pickAmountTeam }}</h2>
 
         <div>
             <p>{{ amountTeams }}</p>
@@ -31,6 +31,7 @@ data: function () {
 return {
     amountTeams: 0,
     uiLabels: {},
+    lang: localStorage.getItem("lang") || "en",
     }
 },
 

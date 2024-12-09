@@ -23,7 +23,7 @@ export default {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      mode:''
+      mode:'',
     }
   },
   created: function () {
