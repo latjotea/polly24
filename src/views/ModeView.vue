@@ -34,7 +34,7 @@ export default {
   methods: {
     chooseMode: function (mode) {
       this.mode=mode;
-      socket.emit("chooseMode", {pollId: this.pollId, mode:this.mode })
+      socket.emit("setMode", {pollId: this.pollId, mode:this.mode })
       this.$router.push(`/${this.pollId}/city/`);
     },
   }

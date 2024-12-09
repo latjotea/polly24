@@ -3,9 +3,9 @@
   <div>
     {{this.uiLabels.chooseCity}}
     <div class="button-container">
-      <button v-on:click="navigateToPubList" city="Uppsala"> Uppsala </button>
-      <button v-on:click="navigateToPubList" city="Stockholm">Stockholm</button>
-      <button v-on:click="navigateToPubList" city="Malmö">Malmö</button>
+      <button v-on:click="chooseCity('Uppsala')" > Uppsala </button>
+      <button v-on:click="chooseCity('Stockholm')" >Stockholm</button>
+      <button v-on:click="chooseCity('Malmö')" >Malmö</button>
     </div>  
   </div>
 
@@ -31,8 +31,10 @@ export default {
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
-    navigateToPubList() {
-    this.$router.push('/pubList/');
+    chooseCity: function (city) {
+      this.city=city;
+      socket.emit("setCity", {pollId: this.pollId, city:this.city })
+      this.$router.push(`/${this.pollId}/pubList/`);
     }
   }
 }

@@ -60,6 +60,16 @@ function sockets(io, socket, data) {
     socket.emit("selectedModeResponse", data.getMode(d.pollId))
 
   });
+
+  socket.on('setCity', function(d){
+    data.setCity(d.pollId, d.city)
+  });
+
+
+  socket.on('getCity', function(d){
+    socket.emit("selectedCityResponse", data.getCity(d.pollId))
+
+  });
 }
 
 export { sockets };

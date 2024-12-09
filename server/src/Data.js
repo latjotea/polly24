@@ -8,7 +8,9 @@ function Data() {
   this.polls['test'] = {
     lang: "en",
     participants: [],
-    selectedPubs: []
+    selectedPubs: [],
+    mode:'',
+    city:''
   }
 }
 
@@ -49,6 +51,21 @@ Data.prototype.getMode = function (pollId) {
     return null;
   }
   return this.polls[pollId].mode; 
+};
+
+Data.prototype.setCity = function (pollId, city) {
+  if (!this.pollExists(pollId)) {
+    return false;
+  }
+  this.polls[pollId].city = city; 
+  return true;
+};
+
+Data.prototype.getCity = function (pollId) {
+  if (!this.pollExists(pollId)) {
+    return null;
+  }
+  return this.polls[pollId].city; 
 };
 
 
