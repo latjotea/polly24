@@ -42,23 +42,20 @@ export default {
     this.pollId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit("getSelectedCity", {pollId: this.pollId });
+    socket.emit("getCity", {pollId: this.pollId });
     
-    socket.on("citySelectedResponse", (city) => {
+    socket.on("selectedCityResponse", (city) => {
       console.log("Given city:", city);
       this.city = city;
       this.updatePubList(city); // Uppdatera publistan när en stad väljs
     });
   },
   methods: {
-    navigateToPubList() {
-    this.$router.push('/pubList/');
-    },
 
     updatePubList(city) {
       // Filtrera pubar baserat på vald stad
       this.pubList = this.allPubs.filter(pub => pub.city === city);
-      console.log(pubList)
+      console.log(this.pubList)
     },
 
     updateSelectedPubs(pub) {
