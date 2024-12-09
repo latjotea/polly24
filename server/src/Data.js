@@ -74,7 +74,7 @@ Data.prototype.getUILabels = function (lang) {
   //check if lang is valid before trying to load the dictionary file
   if (!["en", "sv"].some( el => el === lang))
     lang = "en";
-  const labels = readFileSync("../server/data/labels-" + lang + ".json");
+  const labels = readFileSync("./server/data/labels-" + lang + ".json");
   return JSON.parse(labels);
 }
 
@@ -126,7 +126,7 @@ Data.prototype.activateQuestion = function(pollId, qId = null) {
     if (qId !== null) {
       poll.currentQuestion = qId;
     }
-    return poll.questions[poll.currentQuestion];
+    return poll.questions?.[poll.currentQuestion];
   }
   return {}
 }
@@ -134,8 +134,8 @@ Data.prototype.activateQuestion = function(pollId, qId = null) {
 Data.prototype.getSubmittedAnswers = function(pollId) {
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
-    const answers = poll.answers[poll.currentQuestion];
-    if (typeof poll.questions[poll.currentQuestion] !== 'undefined') {
+    const answers = poll.answers?.[poll.currentQuestion];
+    if (typeof poll.questions?.[poll.currentQuestion] !== 'undefined') {
       return answers;
     }
   }
@@ -145,7 +145,7 @@ Data.prototype.getSubmittedAnswers = function(pollId) {
 Data.prototype.submitAnswer = function(pollId, answer) {
   if (this.pollExists(pollId)) {
     const poll = this.polls[pollId];
-    let answers = poll.answers[poll.currentQuestion];
+    let answers = poll.answers?.[poll.currentQuestion];
     // create answers object if no answers have yet been submitted
     if (typeof answers !== 'object') {
       answers = {};

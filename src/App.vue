@@ -1,5 +1,12 @@
 <script setup>
 import { RouterView } from 'vue-router'
+
+
+// !!!!!! gör en ny request till servern, OBS vi vill kanske inte detta !!!!!//
+window.onpopstate = function () {
+    location.reload()
+};
+
 </script>
 
 <template>
