@@ -30,11 +30,11 @@
       <h1>{{ uiLabels["sales-pitch"] }}</h1>
       <h3>{{ uiLabels.subHeading }}</h3>
       <label>
-        <input type="text" placeholder="Ex. 1234" v-model="newPollId">
+        <input type="text" placeholder="Ex. 1234" v-model="newcrawlId">
       </label>
 
       <button class="join-button">
-      <router-link v-bind:to="'/lobby/' + newPollId">
+      <router-link v-bind:to="'/lobby/' + newcrawlId">
         {{ uiLabels.participateCrawl }}
       </router-link>
       </button>
@@ -60,7 +60,7 @@ export default {
   data: function () {
     return {
       uiLabels: {},
-      newPollId: "",
+      newcrawlId: "",
       lang: localStorage.getItem( "lang") || "en",
       hideNav: true
     }

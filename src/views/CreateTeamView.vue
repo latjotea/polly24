@@ -37,7 +37,7 @@ return {
 
 
 created: function () {
-this.pollId = this.$route.params.id;
+this.crawlId = this.$route.params.id;
 socket.on( "uiLabels", labels => this.uiLabels = labels );
 socket.emit( "getUILabels", this.lang );
 

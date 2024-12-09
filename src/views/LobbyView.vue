@@ -2,7 +2,7 @@
 <template>
   <div>
     <div id="crawlInfo">
-      <span>{{this.uiLabels.crawlID}}</span> {{ pollId }}
+      <span>{{this.uiLabels.crawlID}}</span> {{ crawlId }}
     </div>
     <div v-if="!joined">
       <label>
@@ -31,7 +31,7 @@ export default {
   data: function () {
     return {
       userName: "",
-      pollId: "inactive poll",
+      crawlId: "inactive poll",
       uiLabels: {},
       joined: false,
       lang: localStorage.getItem("lang") || "en",
@@ -39,16 +39,16 @@ export default {
     }
   },
   created: function () {
-    this.pollId = this.$route.params.id;
+    this.crawlId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on( "participantsUpdate", p => this.participants = p );
-    socket.on( "startPoll", () => this.$router.push("/poll/" + this.pollId) );
-    socket.emit( "joinPoll", this.pollId );
+    socket.on( "startPoll", () => this.$router.push("/poll/" + this.crawlId) );
+    socket.emit( "joinPoll", this.crawlId );
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
     participateInPoll: function () {
-      socket.emit( "participateInPoll", {pollId: this.pollId, name: this.userName} )
+      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: this.userName} )
       this.joined = true;
     }
   }

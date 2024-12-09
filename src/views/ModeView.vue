@@ -27,15 +27,15 @@ export default {
     }
   },
   created: function () {
-    this.pollId = this.$route.params.id;
+    this.crawlId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
     chooseMode: function (mode) {
       this.mode=mode;
-      socket.emit("setMode", {pollId: this.pollId, mode:this.mode })
-      this.$router.push(`/${this.pollId}/city/`);
+      socket.emit("setMode", {crawlId: this.crawlId, mode:this.mode })
+      this.$router.push(`/${this.crawlId}/city/`);
     },
   }
 }

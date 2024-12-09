@@ -28,10 +28,10 @@ data: function () {
     }
   },
   created: function () {
-    this.pollId = this.$route.params.id;
+    this.crawlId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit("getSelectedPubs", {pollId: this.pollId });
+    socket.emit("getSelectedPubs", {crawlId: this.crawlId });
 
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;

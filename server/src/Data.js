@@ -20,52 +20,52 @@ prototype of the Data object/class
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 ***********************************************/
 
-Data.prototype.pollExists = function (pollId) {
-  return typeof this.polls[pollId] !== "undefined"
+Data.prototype.pollExists = function (crawlId) {
+  return typeof this.polls[crawlId] !== "undefined"
 }
 
-Data.prototype.setSelectedPubs = function (pollId, selectedPubs) {
-  if (!this.pollExists(pollId)) {
+Data.prototype.setSelectedPubs = function (crawlId, selectedPubs) {
+  if (!this.pollExists(crawlId)) {
     return false;
   }
-  this.polls[pollId].selectedPubs = selectedPubs
+  this.polls[crawlId].selectedPubs = selectedPubs
   return true
 }
 
-Data.prototype.getSelectedPubs = function (pollId) {
-  if (!this.pollExists(pollId)) return false;
+Data.prototype.getSelectedPubs = function (crawlId) {
+  if (!this.pollExists(crawlId)) return false;
 
-  return this.polls[pollId].selectedPubs
+  return this.polls[crawlId].selectedPubs
 }
 
-Data.prototype.setMode = function (pollId, mode) {
-  if (!this.pollExists(pollId)) {
+Data.prototype.setMode = function (crawlId, mode) {
+  if (!this.pollExists(crawlId)) {
     return false;
   }
-  this.polls[pollId].mode = mode; 
+  this.polls[crawlId].mode = mode; 
   return true;
 };
 
-Data.prototype.getMode = function (pollId) {
-  if (!this.pollExists(pollId)) {
+Data.prototype.getMode = function (crawlId) {
+  if (!this.pollExists(crawlId)) {
     return null;
   }
-  return this.polls[pollId].mode; 
+  return this.polls[crawlId].mode; 
 };
 
-Data.prototype.setCity = function (pollId, city) {
-  if (!this.pollExists(pollId)) {
+Data.prototype.setCity = function (crawlId, city) {
+  if (!this.pollExists(crawlId)) {
     return false;
   }
-  this.polls[pollId].city = city; 
+  this.polls[crawlId].city = city; 
   return true;
 };
 
-Data.prototype.getCity = function (pollId) {
-  if (!this.pollExists(pollId)) {
+Data.prototype.getCity = function (crawlId) {
+  if (!this.pollExists(crawlId)) {
     return null;
   }
-  return this.polls[pollId].city; 
+  return this.polls[crawlId].city; 
 };
 
 
@@ -78,51 +78,51 @@ Data.prototype.getUILabels = function (lang) {
   return JSON.parse(labels);
 }
 
-Data.prototype.createCrawl = function(pollId, lang="en") {
-  if (!this.pollExists(pollId)) {
+Data.prototype.createCrawl = function(crawlId, lang="en") {
+  if (!this.pollExists(crawlId)) {
     let poll = {};
     poll.lang = lang;  
     poll.mode = '';
     poll.city = '';
     poll.participants = [];             
-    this.polls[pollId] = poll;
-    console.log("poll created", pollId, poll);
+    this.polls[crawlId] = poll;
+    console.log("poll created", crawlId, poll);
   }
-  return this.polls[pollId];
+  return this.polls[crawlId];
 }
 
-Data.prototype.getPoll = function(pollId) {
-  if (this.pollExists(pollId)) {
-    return this.polls[pollId];
+Data.prototype.getPoll = function(crawlId) {
+  if (this.pollExists(crawlId)) {
+    return this.polls[crawlId];
   }
   return {};
 }
 
-Data.prototype.participateInPoll = function(pollId, name) {
-  console.log("participant will be added to", pollId, name);
-  if (this.pollExists(pollId)) {
-    this.polls[pollId].participants.push({name: name, answers: []})
+Data.prototype.participateInPoll = function(crawlId, name) {
+  console.log("participant will be added to", crawlId, name);
+  if (this.pollExists(crawlId)) {
+    this.polls[crawlId].participants.push({name: name, answers: []})
   }
 }
 
-Data.prototype.getParticipants = function(pollId) {
-  const poll = this.polls[pollId];
-  console.log("participants requested for", pollId);
-  if (this.pollExists(pollId)) { 
-    return this.polls[pollId].participants
+Data.prototype.getParticipants = function(crawlId) {
+  const poll = this.polls[crawlId];
+  console.log("participants requested for", crawlId);
+  if (this.pollExists(crawlId)) { 
+    return this.polls[crawlId].participants
   }
   return [];
 }
 
-Data.prototype.addQuestion = function(pollId, q) {
-  if (this.pollExists(pollId)) {
-    this.polls[pollId].questions.push(q);
+Data.prototype.addQuestion = function(crawlId, q) {
+  if (this.pollExists(crawlId)) {
+    this.polls[crawlId].questions.push(q);
   }
 }
 
-Data.prototype.activateQuestion = function(pollId, qId = null) {
-  if (this.pollExists(pollId)) {
-    const poll = this.polls[pollId];
+Data.prototype.activateQuestion = function(crawlId, qId = null) {
+  if (this.pollExists(crawlId)) {
+    const poll = this.polls[crawlId];
     if (qId !== null) {
       poll.currentQuestion = qId;
     }
@@ -131,9 +131,9 @@ Data.prototype.activateQuestion = function(pollId, qId = null) {
   return {}
 }
 
-Data.prototype.getSubmittedAnswers = function(pollId) {
-  if (this.pollExists(pollId)) {
-    const poll = this.polls[pollId];
+Data.prototype.getSubmittedAnswers = function(crawlId) {
+  if (this.pollExists(crawlId)) {
+    const poll = this.polls[crawlId];
     const answers = poll.answers?.[poll.currentQuestion];
     if (typeof poll.questions?.[poll.currentQuestion] !== 'undefined') {
       return answers;
@@ -142,9 +142,9 @@ Data.prototype.getSubmittedAnswers = function(pollId) {
   return {}
 }
 
-Data.prototype.submitAnswer = function(pollId, answer) {
-  if (this.pollExists(pollId)) {
-    const poll = this.polls[pollId];
+Data.prototype.submitAnswer = function(crawlId, answer) {
+  if (this.pollExists(crawlId)) {
+    const poll = this.polls[crawlId];
     let answers = poll.answers?.[poll.currentQuestion];
     // create answers object if no answers have yet been submitted
     if (typeof answers !== 'object') {

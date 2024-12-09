@@ -26,15 +26,15 @@ export default {
     }
   },
   created: function () {
-    this.pollId = this.$route.params.id;
+    this.crawlId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
     chooseCity: function (city) {
       this.city=city;
-      socket.emit("setCity", {pollId: this.pollId, city:this.city })
-      this.$router.push(`/${this.pollId}/pubList/`);
+      socket.emit("setCity", {crawlId: this.crawlId, city:this.city })
+      this.$router.push(`/${this.crawlId}/pubList/`);
     }
   }
 }

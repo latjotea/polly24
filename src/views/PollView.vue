@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{pollId}}
+    {{crawlId}}
     <QuestionComponent v-bind:question="question"
               v-on:answer="submitAnswer($event)"/>
     <hr>
@@ -25,21 +25,21 @@ export default {
         q: "",
         a: []
       },
-      pollId: "inactive poll",
+      crawlId: "inactive poll",
       submittedAnswers: {}
     }
   },
   created: function () {
-    this.pollId = this.$route.params.id;
+    this.crawlId = this.$route.params.id;
     socket.on( "questionUpdate", q => this.question = q );
     socket.on( "submittedAnswersUpdate", answers => this.submittedAnswers = answers );
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit( "joinPoll", this.pollId );
+    socket.emit( "joinPoll", this.crawlId );
   },
   methods: {
     submitAnswer: function (answer) {
-      socket.emit("submitAnswer", {pollId: this.pollId, answer: answer})
+      socket.emit("submitAnswer", {crawlId: this.crawlId, answer: answer})
     }
   }
 }

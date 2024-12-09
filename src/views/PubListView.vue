@@ -39,10 +39,10 @@ export default {
     }
   },
   created: function () {
-    this.pollId = this.$route.params.id;
+    this.crawlId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit("getCity", {pollId: this.pollId });
+    socket.emit("getCity", {crawlId: this.crawlId });
     
     socket.on("selectedCityResponse", (city) => {
       console.log("Given city:", city);
@@ -72,7 +72,7 @@ export default {
     },
     submitSelection() {
         if (this.selectedPubs.length > 0) {
-            socket.emit("sendSelectedPubs", { selectedPubs: this.selectedPubs, pollId: this.pollId });
+            socket.emit("sendSelectedPubs", { selectedPubs: this.selectedPubs, crawlId: this.crawlId });
 
       console.log("Valda pubar:", this.selectedPubs);
     }
