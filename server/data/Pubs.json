@@ -22,7 +22,62 @@
     
     {"name": "Palermo",
     "city": "Uppsala",
-    "selected": false}
+    "selected": false},
 
+    {"name":"Atmosfär",
+    "city": "Malmö",
+    "selected": false},
+
+    {"name":"Victors",
+    "city": "Malmö",
+    "selected": false},
+
+    {"name":"Mikkeller",
+    "city": "Malmö",
+    "selected": false},
+
+    {"name":"Nyvhamn",
+    "city": "Malmö",
+    "selected": false},
+
+    {"name":"Far i hatten",
+    "city": "Malmö",
+    "selected": false},
+
+    {"name":"Escama",
+    "city": "Malmö",
+    "selected": false},
+
+    {"name":"Kontrast",
+    "city": "Malmö",
+    "selected": false},
+
+    {"name":"Omnipollos hatt",
+    "city": "Stockholm",
+    "selected": false},
+
+    {"name":"Karmen",
+    "city": "Stockholm",
+    "selected": false},
+
+    {"name":"Mose backe",
+    "city": "Stockholm",
+    "selected": false},
+
+    {"name":"Bananas",
+    "city": "Stockholm",
+    "selected": false},
+
+    {"name":"Kloster",
+    "city": "Stockholm",
+    "selected": false},
+
+    {"name":"Häktet",
+    "city": "Stockholm",
+    "selected": false},
+
+    {"name":"Tjoget",
+    "city": "Stockholm",
+    "selected": false}
 
 ]

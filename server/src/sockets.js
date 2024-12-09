@@ -70,6 +70,7 @@ function sockets(io, socket, data) {
     socket.emit("selectedCityResponse", data.getCity(d.pollId))
 
   });
+  
 }
 
 export { sockets };

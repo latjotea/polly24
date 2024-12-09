@@ -1,4 +1,4 @@
-/*/ TEA OCH EMMA ANSVARIG FÖR SENASTE VERSIONEN /*/
+
 <template>
   <div>
     {{this.uiLabels.choosePubs}} 
@@ -33,19 +33,32 @@ export default {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
       city:"",
-      pubList: pubs,
-      selectedPubs: []
+      allPubs: pubs,
+      selectedPubs: [],
+      pubList: [],
     }
   },
   created: function () {
     this.pollId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
+    socket.on("citySelectedResponse", (city) => {
+      console.log("Given city:", city);
+      this.city = city;
+      this.updatePubList(city); // Uppdatera publistan när en stad väljs
+    });
   },
   methods: {
     navigateToPubList() {
     this.$router.push('/pubList/');
     },
+
+    updatePubList(city) {
+      // Filtrera pubar baserat på vald stad
+      this.pubList = this.allPubs.filter(pub => pub.city === city);
+      console.log(pubList)
+    },
+
     updateSelectedPubs(pub) {
       if (pub.selected) {
         if (!this.selectedPubs.includes(pub.name)) {
