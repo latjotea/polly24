@@ -38,7 +38,7 @@ export default {
 
     handleCrawlIdButtom(){
       this.createCrawl();
-      this.$router.push(`/${this.crawlId}/mode/`);
+      this.$router.push(`/${this.crawlId}/CreateTeam/`);
     }
   }
 }

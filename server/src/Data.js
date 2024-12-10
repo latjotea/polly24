@@ -4,13 +4,21 @@ import path, { dirname } from "path";
 
 // Store data in an object to keep the global namespace clean. In an actual implementation this would be interfacing a database...
 function Data() {
-  this.polls = {};
+  this.polls = {
+    lang: "en",
+    participants: [],
+    selectedPubs: [],
+    mode:'',
+    city:'',
+    teamAmount: '',
+  };
   this.polls['test'] = {
     lang: "en",
     participants: [],
     selectedPubs: [],
     mode:'',
-    city:''
+    city:'',
+    teamAmount: '',
   }
 }
 
@@ -53,6 +61,7 @@ Data.prototype.getMode = function (crawlId) {
   return this.polls[crawlId].mode; 
 };
 
+
 Data.prototype.setCity = function (crawlId, city) {
   if (!this.pollExists(crawlId)) {
     return false;
@@ -66,6 +75,21 @@ Data.prototype.getCity = function (crawlId) {
     return null;
   }
   return this.polls[crawlId].city; 
+};
+
+Data.prototype.setTeamAmount = function (crawlId, teamAmount) {
+  if (!this.pollExists(crawlId)) {
+    return false;
+  }
+  this.polls[crawlId].teamAmount = teamAmount; 
+  return true;
+};
+
+Data.prototype.getTeamAmount = function (crawlId) {
+  if (!this.pollExists(crawlId)) {
+    return null;
+  }
+  return this.polls[crawlId].teamAmount; 
 };
 
 
@@ -84,6 +108,7 @@ Data.prototype.createCrawl = function(crawlId, lang="en") {
     poll.lang = lang;  
     poll.mode = '';
     poll.city = '';
+    poll.teamAmount = '';
     poll.participants = [];             
     this.polls[crawlId] = poll;
     console.log("poll created", crawlId, poll);

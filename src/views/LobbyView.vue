@@ -17,8 +17,10 @@
     </div>
     <div v-if="joined">
       <p>Waiting for host to start poll</p>
-      {{ participants }}
-  </div>
+      <div v-for="person in participants" :key="person.name">
+       {{ person.name }} 
+      </div>
+    </div>
   </div>
 </template>
 

@@ -71,6 +71,17 @@ function sockets(io, socket, data) {
 
   });
   
+
+  socket.on('setTeamAmount', function(d){
+    data.setTeamAmount(d.crawlId, d.mode)
+  });
+
+
+  socket.on('getTeamAmount', function(d){
+    socket.emit("selectedTeamAmountResponse", data.getTeamAmount(d.crawlId))
+
+  });
+
 }
 
 export { sockets };
