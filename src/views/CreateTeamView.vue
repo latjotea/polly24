@@ -3,7 +3,7 @@
         <h2>{{ this.uiLabels.pickAmountTeam }}</h2>
 
         <div>
-            <p>{{ amountTeams }}</p>
+            <p>{{ teamAmount }}</p>
             <div id="amount"> <!-- Lägg till id på containern -->
                 <button v-on:click="decreaseTeam">-</button>
                 <button v-on:click="increaseTeam">+</button>
@@ -11,7 +11,7 @@
         </div>
 
         <div>
-            <button v-on:click="submitSelection" v-bind:disabled="amountTeams === 0" id="done">
+            <button v-on:click="sendTeamAmount(teamAmount)" v-bind:disabled="teamAmount === 0" id="done">
                 {{ this.uiLabels.sendPubs }}
             </button> 
         </div>
@@ -29,7 +29,7 @@ export default{
 
 data: function () {
 return {
-    amountTeams: 0,
+    teamAmount: 0,
     uiLabels: {},
     lang: localStorage.getItem("lang") || "en",
     }
@@ -46,19 +46,27 @@ socket.emit( "getUILabels", this.lang );
 methods: {
     // Ökar antalet lag upp till max 5
     increaseTeam() {
-      if (this.amountTeams < 5) { // Kontroll för maxgräns
-        this.amountTeams += 1; // Ökar värdet med 1
-        this.$emit("teamUpdate", { amount: this.amountTeams }); // Skickar ändrat värde
+      if (this.teamAmount < 5) { // Kontroll för maxgräns
+        this.teamAmount += 1; // Ökar värdet med 1
+        this.$emit("teamUpdate", { amount: this.teamAmount }); // Skickar ändrat värde
       }
     },
 
     // Minskar antalet lag ner till minst 0
     decreaseTeam() {
-      if (this.amountTeams > 0) { // Kontroll för mingräns
-        this.amountTeams -= 1; // Minskar värdet med 1
-        this.$emit("teamUpdate", { amount: this.amountTeams }); // Skickar ändrat värde
+      if (this.teamAmount > 0) { // Kontroll för mingräns
+        this.teamAmount -= 1; // Minskar värdet med 1
+        this.$emit("teamUpdate", { amount: this.teamAmount }); // Skickar ändrat värde
       }
     },
+
+    sendTeamAmount(teamAmount){
+      this.amount=teamAmount;
+      socket.emit("setTeamAmount", {crawlId: this.crawlId, teamAmount:this.amount })
+      this.$router.push(`/${this.crawlId}/mode/`);
+      
+    }
+
   },
 
 }
