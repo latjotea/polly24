@@ -66,7 +66,14 @@ const router = createRouter({
       name: 'MapView',
       component: () => import('../views/MapView.vue')
 
-    }
+    },
+
+    {
+      path: '/:id/GetTeams/',
+      name: 'GetTeams',
+      component: () => import('../views/GetTeamsView.vue')
+
+    },
   ]
 })
 

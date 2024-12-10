@@ -73,7 +73,7 @@ function sockets(io, socket, data) {
   
 
   socket.on('setTeamAmount', function(d){
-    data.setTeamAmount(d.crawlId, d.mode)
+    data.setTeamAmount(d.crawlId, d.teamAmount)
   });
 
 
