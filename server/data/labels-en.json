@@ -27,5 +27,9 @@
 
 
 	"tasks-standard": ["Sing a song","Dance","Buy a beer"],
-	"tasks":"Tasks"
+	"tasks":"Tasks",
+	"shuffle":"Shuffle Teams",
+	"teamDivision": "Team Division:",
+	"team":"Team",
+	"start":"Start Pubcrawl"
 }
