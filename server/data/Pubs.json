@@ -3,28 +3,27 @@
     {"name": "Stocken", 
     "city": "Uppsala",
     "selected": false,
-    "coordinates": {"x": 940, "y": 740},
-    "address":"Drottninggatan"},
+    "coordinates": {"x": 750, "y": 1600}},
 
     {"name": "Snerikes",
     "city": "Uppsala",
     "selected": false,
-    "coordinates": {"x": 290, "y": 265}},
+    "coordinates": {"x": 300, "y": 450}},
 
     {"name": "Värmlands",
     "city": "Uppsala",
     "selected": false,
-    "coordinates": {"x": 810, "y": 560}},
+    "coordinates": {"x": 700, "y": 1360}},
 
     {"name": "Norrlands",
     "city": "Uppsala",
     "selected": false,
-    "coordinates": {"x": 1155, "y": 610}},
+    "coordinates": {"x": 1280, "y": 1100}},
 
     {"name": "Göteborg",
     "city": "Uppsala",
     "selected": false,
-    "coordinates": {"x": 185, "y": 160}},
+    "coordinates": {"x": 185, "y": 260}},
     
     {"name": "Palermo",
     "city": "Uppsala",

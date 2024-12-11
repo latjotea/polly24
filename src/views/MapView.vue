@@ -1,10 +1,10 @@
 
 
 <template>
+   <div class="overlay-text">
+        {{this.uiLabels.yourCrawl}} 
+    </div>
     <div class="map-container">
-        <div class="overlay-text">
-            {{this.uiLabels.yourCrawl}} 
-        </div>
         <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
         <div 
             v-for="pub in selectedPubs" 
@@ -12,16 +12,16 @@
             class="marker-container" 
             :style="{ top: pub.coordinates.y + 'px', left: pub.coordinates.x + 'px' }"
         >
-          <div class="marker" v-on:click="showAddress(pub)"></div>
+          <div class="marker"></div>
           <div class="pub-label">{{ pub.name }}</div>
-          <div v-if="clickedPub === pub" class="pub-address">{{ pub.address }}</div>
-      </div>
-      <div>
-        <button class="create-button">
-          SKAPA
-        </button>
       </div>
     </div>
+
+    <div>
+        <button class="create-button"> 
+          {{this.uiLabels.createCrawl}}
+        </button>
+      </div>
 
 </template>
 
@@ -45,7 +45,6 @@ export default {
       //pubList: [],
       allMaps: maps,
       selectedMap: null,
-      clickedPub: null
     }
   },
   created: function () {
@@ -61,7 +60,6 @@ export default {
       this.selectMapPicture(city);
     });
 
-    //CHAT 
     socket.on("selectedPubsResponse", (selectedPubNames) => {
         this.selectedPubs = this.allPubs.filter(pub =>
             selectedPubNames.includes(pub.name)
@@ -78,10 +76,6 @@ export default {
       console.log("Selected map:", map)
       this.selectedMap=map;
     },
-    showAddress(pub) {
-      // Om samma pub klickas igen, döljs adressen
-      this.clickedPub = this.clickedPub === pub ? null : pub;
-    }
 
 }
 }
@@ -90,29 +84,39 @@ export default {
 
 <style>
 body{
+  margin: 0; /* Ta bort standardmarginaler */
+  padding: 0;
+  display: flex; /* Använd flexbox för centrering */
+  justify-content: center; /* Centrera horisontellt */
+  align-items: center; /* Centrera vertikalt */
   background-color:rgb(255, 240, 245);
   font-family: 'Galindo';
   height: 100vh;
+  position:relative;
   }
 
   .map-container {
-    position:relative;
-    display: flex;
+    position:absolute;
     justify-content: center;
     align-items: center;
-    height: auto;
-    overflow: hidden; /* För att undvika att scrollbars visas om bilden är för stor */
-}
+    width:1000px;
+    height: 700px;
+    overflow: scroll;
+    border:5px solid hotpink;
+    transform: translate(-50%, -50%);
+    left:50%;
+    
+  }
 
 .city-map {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+  width: 1356px;
+  height: 1736px;
+  
 }
 
 .overlay-text{
     position: absolute;
-    top: 30px; 
+    top: 50px; 
     left: 50%; 
     transform: translate(-50%, -50%); /* Använde chat för att centrera exakt */
     color:rgb(255, 240, 245);
@@ -165,9 +169,7 @@ body{
   background-color: #ff6384; /* Färg vid hover */
 }
 
-.pub-address {
-  margin-top: 5px; 
-}
+
 
 
 
