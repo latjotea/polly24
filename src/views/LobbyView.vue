@@ -125,6 +125,8 @@ export default {
       this.teams = [...this.participants]
         .sort(() => Math.random() - 0.5) // Blanda med sort och en slumpmässig faktor
         .reduce((teams, participant, index) => {
+          // TÄNKER ATT VI KOMMER BEHÖVA NÅGOT LIKT DETTA//TEA teamIndex=index % this.teamAmount
+          //participant.team=teamIndex
           teams[index % this.teamAmount].push(participant); // Fördela deltagarna jämnt
           return teams;
         }, 
