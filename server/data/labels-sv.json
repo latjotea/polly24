@@ -35,5 +35,8 @@
 	"userNameTaken":"Användarnamn redan tagit, välj ett annat!",
 
 	"seeMap": "Visa karta",
-	"seeTasks": "Visa uppdrag"
+	"createTasks": "Skapa uppdrag",
+	"nextStop": "Gå till nästa ställe"
+
+
 }
