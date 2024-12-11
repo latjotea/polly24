@@ -1,10 +1,10 @@
 
 <template>
   <div>
-    <div v-if="!shuffle" id="crawlInfo">
+    <div v-if="!shuffle" id="crawlInfo" >
       <span>{{this.uiLabels.crawlID}}</span> {{ crawlId }}
     </div>
-    <div v-if="!joined">
+    <div v-if="!joined" >
       <label>
         {{this.uiLabels.writeName}}
       </label>
@@ -18,7 +18,7 @@
         <p>{{ this.uiLabels.userNameTaken }}</p>
       </div>
     </div>
-    <div v-if="joined && !shuffle">
+    <div v-if="joined && !shuffle" >
       <p>Waiting for host to start poll</p>
       <div v-for="person in participants" :key="person.name">
        {{ person.name }} 
@@ -66,6 +66,7 @@ export default {
       joined: false,
       lang: localStorage.getItem("lang") || "en",
       participants: [],
+      currentParticipant: null,
       teams: [],
       teamAmount: '',
       shuffle:false,
@@ -80,10 +81,14 @@ export default {
     socket.on( "startPoll", () => this.$router.push("/poll/" + this.crawlId) );
     socket.emit( "joinPoll", this.crawlId );
     socket.emit("getTeamAmount", {crawlId: this.crawlId });
-
     socket.on("selectedTeamAmountResponse", (teamAmount) => {
     this.teamAmount = teamAmount; 
-    console.log("Antalet lag är:", this.teamAmount); 
+    console.log("Antalet lag är:", this.teamAmount);
+
+    socket.emit("getCurrentParticipant", {crawlId: this.crawlId });
+    socket.on("getParticipantResponse"), (currentParticipant)  => {
+      this.currentParticipant = currentParticipant; }
+    console.log(this.currentParticipant)
 
   });
 
@@ -92,14 +97,13 @@ export default {
   methods: {
     participateInPoll: function () {
       for (let person of this.participants){
-        console.log("hallå")
         if (person.name === this.userName) {
           console.log("User is already participating in the poll.");
           this.userNameTaken = true;
           return;
       }
     }
-      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: this.userName} )
+      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: this.userName, admin: false} )
       this.joined = true;
       this.userNameTaken = false;
     },

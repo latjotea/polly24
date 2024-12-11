@@ -21,13 +21,19 @@ function sockets(io, socket, data) {
   });
 
   socket.on('participateInPoll', function(d) {
-    data.participateInPoll(d.crawlId, d.name);
+    data.participateInPoll(d.crawlId, d.name, d.admin, socket.id);
     io.to(d.crawlId).emit('participantsUpdate', data.getParticipants(d.crawlId));
+  });
+
+  socket.on('getCurrentParticipant', function(d){
+    socket.emit("getParticipantResponse", data.getCurrentParticipant(socket.id))
+
   });
 
   socket.on('startPoll', function(crawlId) {
     io.to(crawlId).emit('startPoll');
   })
+  
   socket.on('runQuestion', function(d) {
     let question = data.activateQuestion(d.crawlId, d.questionNumber);
     io.to(d.crawlId).emit('questionUpdate', question);
@@ -81,6 +87,11 @@ function sockets(io, socket, data) {
   socket.on('getTeamAmount', function(d){
     socket.emit("selectedTeamAmountResponse", data.getTeamAmount(d.crawlId));
     socket.emit('participantsUpdate', data.getParticipants(d.crawlId));
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`Klient med socket.id ${socket.id} frånkopplad.`);
+    // Lägg till logik för att ta bort deltagaren från data
   });
 
 }
