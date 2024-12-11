@@ -32,57 +32,71 @@
 
     {"name":"Atmosfär",
     "city": "Malmö",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 720, "y": 680}},
 
     {"name":"Victors",
     "city": "Malmö",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 800, "y": 220}},
 
     {"name":"Mikkeller",
     "city": "Malmö",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 1150, "y": 1080}},
 
     {"name":"Nyvhamn",
     "city": "Malmö",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 1000, "y": 1170}},
 
     {"name":"Far i hatten",
     "city": "Malmö",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 1150, "y":1160}},
 
     {"name":"Escama",
     "city": "Malmö",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 710, "y": 610}},
 
     {"name":"Kontrast",
     "city": "Malmö",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 760, "y": 290}},
 
     {"name":"Omnipollos hatt",
     "city": "Stockholm",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 1160, "y": 580}},
 
     {"name":"Carmen",
     "city": "Stockholm",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 1230, "y": 760}},
 
     {"name":"Mosebacke",
     "city": "Stockholm",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 1260, "y": 500}},
 
     {"name":"Bananas",
     "city": "Stockholm",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 1250, "y": 1050}},
 
     {"name":"Kloster",
     "city": "Stockholm",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 600, "y": 550}},
 
     {"name":"Häktet",
     "city": "Stockholm",
-    "selected": false},
+    "selected": false,
+    "coordinates": {"x": 800, "y": 500}},
 
     {"name":"Tjoget",
     "city": "Stockholm",
-    "selected": false}
+    "selected": false,
+    "coordinates": {"x": 150, "y": 630}}
 ]
