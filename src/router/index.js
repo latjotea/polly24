@@ -68,12 +68,6 @@ const router = createRouter({
 
     },
 
-    {
-      path: '/:id/GetTeams/',
-      name: 'GetTeams',
-      component: () => import('../views/GetTeamsView.vue')
-
-    },
   ]
 })
 
