@@ -12,8 +12,9 @@
             class="marker-container" 
             :style="{ top: pub.coordinates.y + 'px', left: pub.coordinates.x + 'px' }"
         >
-          <div class="marker"></div>
+          <div class="marker" v-on:click="showAddress(pub)"></div>
           <div class="pub-label">{{ pub.name }}</div>
+          <div v-if="clickedPub === pub" class="pub-address">{{ pub.address }}</div>
       </div>
       <div>
         <button class="create-button">
@@ -43,7 +44,8 @@ export default {
       selectedPubs: [],
       //pubList: [],
       allMaps: maps,
-      selectedMap: null
+      selectedMap: null,
+      clickedPub: null
     }
   },
   created: function () {
@@ -76,6 +78,10 @@ export default {
       console.log("Selected map:", map)
       this.selectedMap=map;
     },
+    showAddress(pub) {
+      // Om samma pub klickas igen, döljs adressen
+      this.clickedPub = this.clickedPub === pub ? null : pub;
+    }
 
 }
 }
@@ -157,6 +163,10 @@ body{
 
 .create-button:hover {
   background-color: #ff6384; /* Färg vid hover */
+}
+
+.pub-address {
+  margin-top: 5px; 
 }
 
 

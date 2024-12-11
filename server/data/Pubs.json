@@ -3,7 +3,8 @@
     {"name": "Stocken", 
     "city": "Uppsala",
     "selected": false,
-    "coordinates": {"x": 940, "y": 740}},
+    "coordinates": {"x": 940, "y": 740},
+    "address":"Drottninggatan"},
 
     {"name": "Snerikes",
     "city": "Uppsala",
