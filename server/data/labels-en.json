@@ -27,7 +27,7 @@
 
 
 
-	"tasks-standard": ["Sing a song","Dance","Buy a beer"],
+	"submitTasks":"Add task",
 	"tasks":"Tasks",
 	"shuffle":"Shuffle Teams",
 	"teamDivision": "Team Division:",
@@ -37,6 +37,8 @@
 
 	"seeMap": "View map",
 	"createTasks": "Create tasks",
-	"nextStop": "Go to next stop"
+	"nextStop": "Go to next stop",
+	"newTask": "New task",
+	"addTask": "Add task"
 
 }
