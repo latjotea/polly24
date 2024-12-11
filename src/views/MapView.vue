@@ -53,6 +53,7 @@ export default {
     socket.emit( "getUILabels", this.lang );
     socket.emit("getCity", {crawlId: this.crawlId });
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
+    socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", admin:true} );
     
     socket.on("selectedCityResponse", (city) => {
       console.log("Given city:", city);
@@ -64,7 +65,6 @@ export default {
         this.selectedPubs = this.allPubs.filter(pub =>
             selectedPubNames.includes(pub.name)
         );
-        console.log("Filtered selected pubs with coordinates:", this.selectedPubs);
     });
 
 
@@ -78,9 +78,9 @@ export default {
     },
 
     navigateToAdminTeamView(){
-      this.$router.push(`/lobby/${this.crawlId}/`);
+      this.$router.push(`/lobby/${this.crawlId}/admin_${socket.id}`);
 
-    //GÅ till shufflelag}
+
 
 }
 }

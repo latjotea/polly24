@@ -1,10 +1,10 @@
 
 <template>
   <div>
-    <div v-if="!shuffle" id="crawlInfo" >
+    <div v-if="!shuffleStarted" id="crawlInfo" >
       <span>{{this.uiLabels.crawlID}}</span> {{ crawlId }}
     </div>
-    <div v-if="!joined" >
+    <div v-if="!joined && !admin" >
       <label>
         {{this.uiLabels.writeName}}
       </label>
@@ -18,7 +18,7 @@
         <p>{{ this.uiLabels.userNameTaken }}</p>
       </div>
     </div>
-    <div v-if="joined && !shuffle" >
+    <div v-if="(joined || admin) && !shuffleStarted" >
       <p>Waiting for host to start poll</p>
       <div v-for="person in participants" :key="person.name">
        {{ person.name }} 
@@ -26,12 +26,12 @@
     </div>
 
     <div>
-      <button v-if="joined && !shuffle" v-on:click="shuffleTeam" id="shuffle">
+      <button v-if="admin && !shuffleStarted" v-on:click="shuffleTeam" id="shuffle">
         {{ this.uiLabels.shuffle }}
       </button>
     </div>
 
-    <div v-if="shuffle">
+    <div v-if="shuffleStarted">
       <h3>{{this.uiLabels.teamDivision}}</h3>
       <div v-for="(team, index) in teams" :key="index" class="team-container">
         <h4>{{ this.uiLabels.team }} {{ index + 1 }}</h4>
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div v-if="shuffle">
+    <div v-if="shuffleStarted && admin">
       <button id="start">
         {{ this.uiLabels.start }}
       </button>
@@ -62,19 +62,26 @@ export default {
     return {
       userName: "",
       crawlId: "inactive poll",
+      adminId: "not_admin",
       uiLabels: {},
-      joined: false,
       lang: localStorage.getItem("lang") || "en",
       participants: [],
-      currentParticipant: null,
       teams: [],
       teamAmount: '',
-      shuffle:false,
+      admin: false,
+      shuffleStarted:false,
+      joined: false,
       userNameTaken: false,
     }
   },
   created: function () {
     this.crawlId = this.$route.params.id;
+    this.adminId = this.$route.params.adminId;
+    this.isAdmin();
+    socket.on("receivedShuffleStarted", (data) => {
+      this.teams = data.teams; 
+      this.shuffleStarted = true;
+    });
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
     socket.on( "participantsUpdate", p => this.participants = p); 
@@ -84,17 +91,19 @@ export default {
     socket.on("selectedTeamAmountResponse", (teamAmount) => {
     this.teamAmount = teamAmount; 
     console.log("Antalet lag är:", this.teamAmount);
-
-    socket.emit("getCurrentParticipant", {crawlId: this.crawlId });
-    socket.on("getParticipantResponse"), (currentParticipant)  => {
-      this.currentParticipant = currentParticipant; }
-    console.log(this.currentParticipant)
-
   });
+  
 
     
   },
   methods: {
+    isAdmin: function() {
+      if (this.adminId && this.adminId.length > 10) {
+        this.admin = true
+      }
+      console.log(this.admin)
+    },
+
     participateInPoll: function () {
       for (let person of this.participants){
         if (person.name === this.userName) {
@@ -121,7 +130,8 @@ export default {
         }, 
       Array.from({ length: this.teamAmount }, () => [])); // Skapa tomma lag
 
-      this.shuffle = true; 
+      this.shuffleStarted = true;
+      socket.emit("shuffleStarted", { crawlId: this.crawlId, teams: this.teams});
     },
 
   }

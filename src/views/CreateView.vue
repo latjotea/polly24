@@ -34,7 +34,6 @@ export default {
     createCrawl: function () {
       socket.emit("createCrawl", {crawlId: this.crawlId, lang: this.lang })
       socket.emit("joinPoll", this.crawlId);
-      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", admin:true} );
     },
 
     handleCrawlIdButtom(){

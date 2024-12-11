@@ -21,13 +21,8 @@ function sockets(io, socket, data) {
   });
 
   socket.on('participateInPoll', function(d) {
-    data.participateInPoll(d.crawlId, d.name, d.admin, socket.id);
+    data.participateInPoll(d.crawlId, d.name, d.admin);
     io.to(d.crawlId).emit('participantsUpdate', data.getParticipants(d.crawlId));
-  });
-
-  socket.on('getCurrentParticipant', function(d){
-    socket.emit("getParticipantResponse", data.getCurrentParticipant(socket.id))
-
   });
 
   socket.on('startPoll', function(crawlId) {
@@ -94,6 +89,13 @@ function sockets(io, socket, data) {
     // Lägg till logik för att ta bort deltagaren från data
   });
 
+  socket.on("shuffleStarted", function(d){
+    socket.emit("selectedTeamResponse", data.setTeams(d.crawlId, d.teams));
+    io.to(d.crawlId).emit("receivedShuffleStarted", { crawlId: d.crawlId, teams: d.teams });
+  });
+    
+
 }
+
 
 export { sockets };
