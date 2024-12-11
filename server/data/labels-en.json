@@ -33,5 +33,9 @@
 	"teamDivision": "Team Division:",
 	"team":"Team",
 	"start":"Start Pubcrawl",
-	"userNameTaken":"Username already taken, pick another one!"
+	"userNameTaken":"Username already taken, pick another one!",
+
+	"seeMap": "View map",
+	"seeTasks": "View tasks"
+
 }

@@ -77,13 +77,15 @@ export default {
       this.selectedMap=map;
     },
 
-    //navigateToAdminTeamView(){
-      //this.$router.push(`/${this.crawlId}/.../`);
+    navigateToAdminTeamView(){
+      this.$router.push(`/${this.crawlId}/.../`);
 
     //GÅ till shufflelag}
 
 }
 }
+}
+
 
 </script>
 

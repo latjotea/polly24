@@ -32,5 +32,8 @@
 	"teamDivision": "Lagindelning:",
 	"team":"Lag",
 	"start": "Starta pubrunda",
-	"userNameTaken":"Användarnamn redan tagit, välj ett annat!"
+	"userNameTaken":"Användarnamn redan tagit, välj ett annat!",
+
+	"seeMap": "Visa karta",
+	"seeTasks": "Visa uppdrag"
 }

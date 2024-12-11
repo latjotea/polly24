@@ -68,6 +68,13 @@ const router = createRouter({
 
     },
 
+    {
+      path: '/controlview',
+      name: 'AdminControlView',
+      component: () => import('../views/AdminControlView.vue') 
+
+    }
+
   ]
 })
 
