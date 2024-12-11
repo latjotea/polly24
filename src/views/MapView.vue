@@ -18,7 +18,7 @@
     </div>
 
     <div>
-        <button class="create-button"> 
+        <button v-on:click="navigateToAdminTeamView" class="create-button"> 
           {{this.uiLabels.createCrawl}}
         </button>
       </div>
@@ -76,6 +76,11 @@ export default {
       console.log("Selected map:", map)
       this.selectedMap=map;
     },
+
+    //navigateToAdminTeamView(){
+      //this.$router.push(`/${this.crawlId}/.../`);
+
+    //GÅ till shufflelag}
 
 }
 }
