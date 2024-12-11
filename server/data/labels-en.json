@@ -36,6 +36,7 @@
 	"userNameTaken":"Username already taken, pick another one!",
 
 	"seeMap": "View map",
-	"seeTasks": "View tasks"
+	"createTasks": "Create tasks",
+	"nextStop": "Go to next stop"
 
 }
