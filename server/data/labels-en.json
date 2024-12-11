@@ -37,6 +37,8 @@
 
 	"seeMap": "View map",
 	"createTasks": "Create tasks",
-	"nextStop": "Go to next stop"
+	"nextStop": "Go to next stop",
+	"newTask": "New task",
+	"addTask": "Add task"
 
 }
