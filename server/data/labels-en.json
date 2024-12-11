@@ -32,5 +32,6 @@
 	"shuffle":"Shuffle Teams",
 	"teamDivision": "Team Division:",
 	"team":"Team",
-	"start":"Start Pubcrawl"
+	"start":"Start Pubcrawl",
+	"userNameTaken":"Username already taken, pick another one!"
 }

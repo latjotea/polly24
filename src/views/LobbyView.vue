@@ -14,6 +14,9 @@
           {{ this.uiLabels.participateInPoll }}
         </button>
       </div>
+      <div v-if="userNameTaken" id ="takenUserName">
+        <p>{{ this.uiLabels.userNameTaken }}</p>
+      </div>
     </div>
     <div v-if="joined && !shuffle">
       <p>Waiting for host to start poll</p>
@@ -50,6 +53,7 @@
 
 <script>
 import io from 'socket.io-client';
+import { errorMessages } from 'vue/compiler-sfc';
 const socket = io("localhost:3000");
 
 export default {
@@ -65,13 +69,14 @@ export default {
       teams: [],
       teamAmount: '',
       shuffle:false,
+      userNameTaken: false,
     }
   },
   created: function () {
     this.crawlId = this.$route.params.id;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.on( "participantsUpdate", p => this.participants = p );
+    socket.on( "participantsUpdate", p => this.participants = p); 
     socket.on( "startPoll", () => this.$router.push("/poll/" + this.crawlId) );
     socket.emit( "joinPoll", this.crawlId );
     socket.emit("getTeamAmount", {crawlId: this.crawlId });
@@ -86,14 +91,22 @@ export default {
   },
   methods: {
     participateInPoll: function () {
+      for (let person of this.participants){
+        console.log("hallå")
+        if (person.name === this.userName) {
+          console.log("User is already participating in the poll.");
+          this.userNameTaken = true;
+          return;
+      }
+    }
       socket.emit( "participateInPoll", {crawlId: this.crawlId, name: this.userName} )
       this.joined = true;
+      this.userNameTaken = false;
     },
 
     //OBS finns fel med metoden - ex. går det ej att slumpa lag om endast en person är med - men kanske ej gör något
 
     //Metod tagen från chatgpt - Använd Fisher-Yates-algoritmen för att slumpa ordningen på deltagarna
-    
     shuffleTeam: function () {
     // Blanda deltagarna och fördela i lag
       this.teams = [...this.participants]
@@ -162,6 +175,9 @@ body{
     background-color: rgb(141, 242, 141);
   }
   
+  #takenUserName {
+    color: red
+  }
   /* Kvar att fixa: Spara lagen som skapas och skicka på socket */
   
 </style>

@@ -24,6 +24,7 @@ function sockets(io, socket, data) {
     data.participateInPoll(d.crawlId, d.name);
     io.to(d.crawlId).emit('participantsUpdate', data.getParticipants(d.crawlId));
   });
+
   socket.on('startPoll', function(crawlId) {
     io.to(crawlId).emit('startPoll');
   })
@@ -78,8 +79,8 @@ function sockets(io, socket, data) {
 
 
   socket.on('getTeamAmount', function(d){
-    socket.emit("selectedTeamAmountResponse", data.getTeamAmount(d.crawlId))
-
+    socket.emit("selectedTeamAmountResponse", data.getTeamAmount(d.crawlId));
+    socket.emit('participantsUpdate', data.getParticipants(d.crawlId));
   });
 
 }

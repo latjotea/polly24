@@ -31,5 +31,6 @@
 	"shuffle":"Slumpa lag",
 	"teamDivision": "Lagindelning:",
 	"team":"Lag",
-	"start": "Starta pubrunda"
+	"start": "Starta pubrunda",
+	"userNameTaken":"Användarnamn redan tagit, välj ett annat!"
 }
