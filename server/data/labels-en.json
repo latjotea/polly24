@@ -27,7 +27,7 @@
 
 
 
-	"tasks-standard": ["Sing a song","Dance","Buy a beer"],
+	"submitTasks":"Add task",
 	"tasks":"Tasks",
 	"shuffle":"Shuffle Teams",
 	"teamDivision": "Team Division:",
