@@ -13,5 +13,7 @@
     Håll koll på vart lagen är (Karta)
 
     Poängställning för lagen
+
+    Använd din makt
 </div>
 </template>
