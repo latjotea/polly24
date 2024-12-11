@@ -78,7 +78,7 @@ export default {
     },
 
     navigateToAdminTeamView(){
-      this.$router.push(`/${this.crawlId}/.../`);
+      this.$router.push(`/lobby/${this.crawlId}/`);
 
     //GÅ till shufflelag}
 

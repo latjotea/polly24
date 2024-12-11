@@ -123,10 +123,10 @@ Data.prototype.getPoll = function(crawlId) {
   return {};
 }
 
-Data.prototype.participateInPoll = function(crawlId, name) {
+Data.prototype.participateInPoll = function(crawlId, name, socketId) {
   console.log("participant will be added to", crawlId, name);
   if (this.pollExists(crawlId)) {
-    this.polls[crawlId].participants.push({name: name, answers: []})
+    this.polls[crawlId].participants.push({name: name, team:'', arrived: false, admin: false, id: socketId})
   }
 }
 
@@ -138,6 +138,13 @@ Data.prototype.getParticipants = function(crawlId) {
   }
   return [];
 }
+
+Data.prototype.getCurrentParticipant = function(crawlId, socketId) {
+  if (this.pollExists(crawlId)) {
+    return this.polls[crawlId].participants.find(participant => participant.id === socketId) || null;
+  }
+  return null;
+};
 
 Data.prototype.addQuestion = function(crawlId, q) {
   if (this.pollExists(crawlId)) {
