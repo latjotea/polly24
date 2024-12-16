@@ -18,8 +18,9 @@
     
       <div id="colour">
       <ResponsiveNav v-bind:hideNav="hideNav" id="menubar">
-        <button v-on:click="switchLanguage" class="full-width">
-          {{ uiLabels.changeLanguage }}
+        <button v-on:click="switchLanguage" class="full-width language-button">
+          <img :src="uiLabels.flagPicture" alt="Change Language" class="button-icon" />
+          <span>{{ uiLabels.changeLanguage }}</span>
         </button>
         <button class="full-width" v-on:click="navigateToCreate">
           {{ uiLabels.createCrawl }}
@@ -198,5 +199,16 @@ button {
 
 button.join-button:hover a {
   color: inherit; /* Säkerställer att länken ärver den vita färgen vid hover */
+}
+
+.language-button {
+  display: flex; /* Använder flexbox för att hantera layouten */
+  align-items: center; /* Centrerar bild och text vertikalt */
+  gap: 8px; /* Skapar mellanrum mellan bild och text */
+}
+
+.button-icon {
+  width: 30px; /* Anpassar storlek på flaggan */
+  height: auto;
 }
 </style>

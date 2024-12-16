@@ -39,6 +39,7 @@
 	"createTasks": "Create tasks",
 	"nextStop": "Go to next stop",
 	"newTask": "New task",
-	"addTask": "Add task"
+	"addTask": "Add task",
+	"flagPicture":"/img/English_flag.png"
 
 }

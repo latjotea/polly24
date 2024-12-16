@@ -40,7 +40,8 @@
 	"createTasks": "Skapa uppdrag",
 	"nextStop": "Gå till nästa ställe",
 	"newTask": "Nytt uppdrag",
-	"addTask": "Lägg till uppdrag"
+	"addTask": "Lägg till uppdrag",
+	"flagPicture":"/img/Swedish_flag.png"
 
 
 }
