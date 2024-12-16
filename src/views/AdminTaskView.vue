@@ -53,7 +53,6 @@
       this.selectedMode = mode;
       console.log("Selected mode received:", this.selectedMode);
   });
-      //this.getCurrentMode(); 
     
     },
 
@@ -68,15 +67,6 @@
     console.log("Loaded tasks:", this.tasks);
     },  
 
-    //tror denna funktion kommer att fungera om man kan koplla denna sida till et  crawlID
-   // getCurrentMode() {
-   //   socket.emit("getMode", { crawlId: this.crawlId }); 
-    //  socket.on("selectedModeResponse", (mode) => {
-    //    console.log("Received mode:", mode); 
-     //   this.selectedMode = mode; });
- // },
-
-  
     submitTask(){
       if (this.newTask != ""){
         this.addedTasks.push(this.newTask);
@@ -84,13 +74,7 @@
         console.log(this.addedTasks);
         this.newTask = "";
       }
-      
-
-
-      
-
     },
-    
   }
 }
   
