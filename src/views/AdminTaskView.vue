@@ -3,7 +3,7 @@
     <div class="task-container">
         <div class="createTasks">
             <label>
-                <input type="text" :placeholder="uiLabels.newTask">
+                <input type="text" :placeholder="uiLabels.newTask" v-model="newTask">
             </label>
             <button class="submit-button" v-on:click="submitTask"> {{ uiLabels.addTask }} </button>
         </div>
@@ -13,6 +13,10 @@
               <li v-for="task in tasks.filter(task => task.mode === this.selectedMode)" :key="task.task">
                 {{ task.task }}
               </li>
+              <li v-for="task in addedTasks">
+                {{ task}}
+              </li>
+
             </ul>
         </div>
     </div>
@@ -35,7 +39,8 @@
         uiLabels: {},
         lang: localStorage.getItem("lang") || "en",
         selectedMode: "",
-        tasks: []
+        tasks: [],
+        addedTasks: []
       }
     },
     created: function () {
@@ -73,8 +78,16 @@
 
   
     submitTask(){
+      if (this.newTask != ""){
+        this.addedTasks.push(this.newTask);
+        console.log(this.newTask);
+        console.log(this.addedTasks);
+        this.newTask = "";
+      }
+      
 
-      //här ska en funktion för vad som sker då man skickar in ett nytt uppdrag vara//
+
+      
 
     },
     
