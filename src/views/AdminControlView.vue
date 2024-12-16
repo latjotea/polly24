@@ -86,7 +86,6 @@ body{
     border-radius: 15px; /* Gör hörnen rundade */
     border-color: white;
     box-shadow: 2px 2px 6px rgba(246, 53, 143, 0.5);
-
   }
   button:hover{
     color: white;
@@ -100,7 +99,6 @@ body{
   margin-top: 10rem;
   margin-left: 3rem;
   margin-right: 3rem;
-  transform: translateY(-7px);
 }
 
 
