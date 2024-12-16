@@ -41,7 +41,7 @@
         selectedMode: "",
         tasks: [],
         addedTasks: []
-      }
+      } 
     },
     created: function () {
       this.crawlId = this.$route.params.id;
