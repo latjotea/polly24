@@ -3,13 +3,22 @@
   <div>
     {{this.uiLabels.choosePubs}} 
     <div class="pub-grid">
-      <div v-for="pub in pubList" :key="pub.name" class="pub-section">
-        <label>{{ pub.name }}</label>
+      <div 
+        v-for="pub in pubList" 
+        :key="pub.name" 
+        class="pub-section" 
+        :class="{ 'selected-pub': pub.selected }"
+        @click="togglePubSelection(pub)"
+      >
+        <label :for="pub.name" class="pub-label" @click="togglePubSelection(pub)">
+          {{ pub.name }}
+        </label>
         <input 
           type="checkbox" 
           :id="pub.name" 
           v-model="pub.selected"
-          v-on:change="updateSelectedPubs(pub)" 
+          v-on:change="updateSelectedPubs(pub)"
+          class="hidden-checkbox" 
         />
       </div>
     </div>
@@ -56,6 +65,12 @@ export default {
       // Filtrera pubar baserat på vald stad
       this.pubList = this.allPubs.filter(pub => pub.city === city);
       console.log(this.pubList)
+    },
+
+    togglePubSelection(pub) {
+      // Växla pub.selected mellan true och false
+      pub.selected = !pub.selected;
+      this.updateSelectedPubs(pub);
     },
 
     updateSelectedPubs(pub) {
@@ -107,21 +122,41 @@ body{
     border-radius: 15px;
     width:80%;
     text-align: center;
+    cursor: pointer; 
 }
+
 input[type="checkbox"] {
     margin-left:2rem;
     transform: scale(2.5); /* Chat användes för att göra knappen större */
   
 }
+/* Detta kan vi ta bort om vi inte vill behålla checkboxarna */
 input[type="checkbox"]:checked {
-  accent-color:hotpink; /* Ändrar färgen när markerad */
+  accent-color:hotpink; 
 }
+
 button {
     margin-top:3rem;
     font-size: 2rem;
     font-family: 'Galindo';
     background-color: rgb(141, 242, 141);
     cursor:pointer;
-  }
+}
+
+.selected-pub {
+  background-color: rgb(135, 181, 250);
+  color: white; 
+  transition: background-color 0.3s; /* Mjuk övergång */
+}
+
+.pub-label {
+  cursor: pointer;
+}
+
+.hidden-checkbox {
+  display: none; /* Dölj checkboxen */
+}
+
+
   
 </style>
