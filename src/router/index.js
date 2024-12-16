@@ -75,14 +75,14 @@ const router = createRouter({
     },
 
     {
-      path: '/admincontrol',
+      path: '/admincontrol/:id',
       name: 'AdminControlView',
       component: () => import('../views/AdminControlView.vue') 
 
     },
 
     {
-      path: '/admintask',
+      path: '/admintask/:id',
       name: 'AdminTaskView',
       component: () => import('../views/AdminTaskView.vue') 
 

@@ -10,7 +10,7 @@
         <div class="modeTasks">
             <h2>{{ uiLabels.taskListTitle }}</h2>
             <ul>
-              <li v-for="task in tasks.filter(task => task.mode === selectedMode)" :key="task.task">
+              <li v-for="task in tasks.filter(task => task.mode === this.selectedMode)" :key="task.task">
                 {{ task.task }}
               </li>
             </ul>
@@ -34,7 +34,7 @@
       return {
         uiLabels: {},
         lang: localStorage.getItem("lang") || "en",
-        selectedMode: "standard",
+        selectedMode: "",
         tasks: []
       }
     },
@@ -43,6 +43,11 @@
       socket.on( "uiLabels", labels => this.uiLabels = labels );
       socket.emit( "getUILabels", this.lang );
       this.loadTasks();
+      socket.emit("getMode", { crawlId: this.crawlId });
+      socket.on("selectedModeResponse", (mode) => {
+      this.selectedMode = mode;
+      console.log("Selected mode received:", this.selectedMode);
+  });
       //this.getCurrentMode(); 
     
     },

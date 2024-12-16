@@ -11,7 +11,6 @@ function Data() {
     mode:'',
     city:'',
     teamAmount: '',
-    teams: [],
   };
   this.polls['test'] = {
     lang: "en",
@@ -93,13 +92,6 @@ Data.prototype.getTeamAmount = function (crawlId) {
   return this.polls[crawlId].teamAmount; 
 };
 
-Data.prototype.setTeams = function (crawlId, teams) {
-  if (!this.pollExists(crawlId)) {
-    return null;
-  }
-  this.polls[crawlId].teams = teams; 
-  return true
-};
 
 
 Data.prototype.getUILabels = function (lang) {
@@ -117,8 +109,7 @@ Data.prototype.createCrawl = function(crawlId, lang="en") {
     poll.mode = '';
     poll.city = '';
     poll.teamAmount = '';
-    poll.participants = [];
-    poll.teams = [];            
+    poll.participants = [];             
     this.polls[crawlId] = poll;
     console.log("poll created", crawlId, poll);
   }
@@ -132,10 +123,10 @@ Data.prototype.getPoll = function(crawlId) {
   return {};
 }
 
-Data.prototype.participateInPoll = function(crawlId, name) {
+Data.prototype.participateInPoll = function(crawlId, name, socketId) {
   console.log("participant will be added to", crawlId, name);
   if (this.pollExists(crawlId)) {
-    this.polls[crawlId].participants.push({name: name, team:'', arrived: false, admin: false})
+    this.polls[crawlId].participants.push({name: name, team:'', arrived: false, admin: false, id: socketId})
   }
 }
 
@@ -148,6 +139,12 @@ Data.prototype.getParticipants = function(crawlId) {
   return [];
 }
 
+Data.prototype.getCurrentParticipant = function(crawlId, socketId) {
+  if (this.pollExists(crawlId)) {
+    return this.polls[crawlId].participants.find(participant => participant.id === socketId) || null;
+  }
+  return null;
+};
 
 Data.prototype.addQuestion = function(crawlId, q) {
   if (this.pollExists(crawlId)) {

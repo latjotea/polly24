@@ -3,7 +3,7 @@
     <div>
     <div class="button-container">
       <button> {{this.uiLabels.nextStop}} </button>
-      <button>{{this.uiLabels.createTasks}} </button>
+      <button v-on:click="goToCreateTask">{{this.uiLabels.createTasks}} </button>
     </div>
 
     <div class="map-button">
@@ -49,6 +49,12 @@ created: function () {
 
 
   },
+
+  methods: {
+    goToCreateTask: function () {
+      this.$router.push(`/admintask/${this.crawlId}/`);
+    },
+  }
 }
 
 </script>
