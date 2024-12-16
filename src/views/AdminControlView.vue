@@ -100,6 +100,7 @@ body{
   margin-top: 10rem;
   margin-left: 3rem;
   margin-right: 3rem;
+  transform: translateY(-7px);
 }
 
 
