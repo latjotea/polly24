@@ -7,9 +7,9 @@
          v-on:click="toggleNav">
     </div>
     <div class="logo">
-      <img src="/img/olglas.png">
+      <img src="/img/ol.png">
       {{ uiLabels.headLabel }} 
-      <img src="/img/olglas.png">
+      <img src="/img/vin.png">
     </div>
   </header>
 
@@ -211,4 +211,5 @@ button.join-button:hover a {
   width: 30px; /* Anpassar storlek på flaggan */
   height: auto;
 }
+
 </style>
