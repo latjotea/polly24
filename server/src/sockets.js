@@ -25,10 +25,7 @@ function sockets(io, socket, data) {
     io.to(d.crawlId).emit('participantsUpdate', data.getParticipants(d.crawlId));
   });
 
-  socket.on('getCurrentParticipant', function(d){
-    socket.emit("getParticipantResponse", data.getCurrentParticipant(socket.id))
 
-  });
   
   socket.on('runQuestion', function(d) {
     let question = data.activateQuestion(d.crawlId, d.questionNumber);
@@ -95,10 +92,53 @@ function sockets(io, socket, data) {
     io.to(d.crawlId).emit("receivedShuffleStarted", { crawlId: d.crawlId, teams: d.teams, participants:d.participants});
   });
 
-  socket.on('goToNextPub', function(crawlId) {
-    io.to(crawlId).emit('goToNextPub');
+  socket.on('goToNextPub', function(d) {
+    io.to(d.crawlId).emit('goToNextPub');
   });
+
+  socket.on('getSubmittedTasks', function(d) {
+    socket.emit("selectedSubmittedTasks", data.getSubmittedTasks(d.crawlId))
+  });
+
+  socket.on('setSubmittedTasks', function(d) {
+    data.addSubmittedTask(d.crawlId, d.newTask);
+  });
+
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 }
 
