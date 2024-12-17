@@ -29,10 +29,6 @@ function sockets(io, socket, data) {
     socket.emit("getParticipantResponse", data.getCurrentParticipant(socket.id))
 
   });
-
-  socket.on('startPoll', function(crawlId) {
-    io.to(crawlId).emit('startPoll');
-  })
   
   socket.on('runQuestion', function(d) {
     let question = data.activateQuestion(d.crawlId, d.questionNumber);
@@ -96,7 +92,11 @@ function sockets(io, socket, data) {
 
   socket.on("shuffleStarted", function(d){
     socket.emit("selectedTeamResponse", data.setTeams(d.crawlId, d.teams));
-    io.to(d.crawlId).emit("receivedShuffleStarted", { crawlId: d.crawlId, teams: d.teams });
+    io.to(d.crawlId).emit("receivedShuffleStarted", { crawlId: d.crawlId, teams: d.teams, participants:d.participants});
+  });
+
+  socket.on('goToNextPub', function(crawlId) {
+    io.to(crawlId).emit('goToNextPub');
   });
     
 

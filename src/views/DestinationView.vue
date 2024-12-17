@@ -29,6 +29,7 @@ data: function () {
   },
   created: function () {
     this.crawlId = this.$route.params.id;
+    this.teamNumber = this.$route.params.team;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });

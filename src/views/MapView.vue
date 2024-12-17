@@ -53,7 +53,7 @@ export default {
     socket.emit( "getUILabels", this.lang );
     socket.emit("getCity", {crawlId: this.crawlId });
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
-    socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", admin:true} );
+    socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
     
     socket.on("selectedCityResponse", (city) => {
       console.log("Given city:", city);

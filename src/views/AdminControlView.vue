@@ -2,7 +2,7 @@
     
     <div>
     <div class="button-container">
-      <button> {{this.uiLabels.nextStop}} </button>
+      <button v-on:click="sendToNextPub"> {{this.uiLabels.nextStop}} </button> 
       <button v-on:click="goToCreateTask">{{this.uiLabels.createTasks}} </button>
     </div>
 
@@ -54,6 +54,9 @@ created: function () {
     goToCreateTask: function () {
       this.$router.push(`/admintask/${this.crawlId}/`);
     },
+    sendToNextPub: function() {
+      socket.emit("goTonewPub", {crawlId:this.crawlId})
+    }
   }
 }
 

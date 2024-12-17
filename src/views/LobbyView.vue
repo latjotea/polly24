@@ -60,27 +60,34 @@ export default {
   data: function () {
     return {
       userName: "",
+      userNameTaken: false,
       crawlId: "inactive poll",
       adminId: "not_admin",
+      admin: false,
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
       participants: [],
       teams: [],
       teamAmount: '',
-      admin: false,
+      teamNumber:'',
       shuffleStarted:false,
       joined: false,
-      userNameTaken: false,
     }
   },
   created: function () {
     this.crawlId = this.$route.params.id;
     this.adminId = this.$route.params.adminId;
     this.isAdmin();
+
     socket.on("receivedShuffleStarted", (data) => {
       this.teams = data.teams; 
       this.shuffleStarted = true;
+      this.participants=data.participants;
+      const currentParticipant = this.participants.find((participant) => participant.name === this.userName);
+      this.teamNumber = currentParticipant.team;
+      console.log("Jag är i lag:", this.teamNumber)
     });
+
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
     socket.on( "participantsUpdate", p => this.participants = p); 
@@ -88,9 +95,11 @@ export default {
     socket.emit( "joinPoll", this.crawlId );
     socket.emit("getTeamAmount", {crawlId: this.crawlId });
     socket.on("selectedTeamAmountResponse", (teamAmount) => {
-    this.teamAmount = teamAmount; 
-    console.log("Antalet lag är:", this.teamAmount);
-  });
+      this.teamAmount = teamAmount; 
+      console.log("Antalet lag är:", this.teamAmount);
+    });
+    socket.on('goToNextPub', () => { if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
+    
   
 
     
@@ -98,7 +107,7 @@ export default {
   methods: {
     isAdmin: function() {
       if (this.adminId && this.adminId.length > 10) {
-        this.admin = true
+        this.admin = true;
       }
       console.log(this.admin)
     },
@@ -111,34 +120,38 @@ export default {
           return;
       }
     }
-      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: this.userName, admin: false} )
+      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: this.userName, team:'', arrived: false, admin: false} )
       this.joined = true;
       this.userNameTaken = false;
     },
 
-    //OBS finns fel med metoden - ex. går det ej att slumpa lag om endast en person är med - men kanske ej gör något
-
-    //Metod tagen från chatgpt - Använd Fisher-Yates-algoritmen för att slumpa ordningen på deltagarna
     shuffleTeam: function () {
-    // Blanda deltagarna och fördela i lag
-      this.teams = [...this.participants]
-        .sort(() => Math.random() - 0.5) // Blanda med sort och en slumpmässig faktor
-        .reduce((teams, participant, index) => {
-          // TÄNKER ATT VI KOMMER BEHÖVA NÅGOT LIKT DETTA//TEA teamIndex=index % this.teamAmount
-          //participant.team=teamIndex
-          teams[index % this.teamAmount].push(participant); // Fördela deltagarna jämnt
-          return teams;
-        }, 
-      Array.from({ length: this.teamAmount }, () => [])); // Skapa tomma lag
-
+      //BLANDA DELTAGARNA MED FISHER YATES CHAT HJÄLPTE OSS MED DENNA RAD
+      const shuffledParticipants = [...this.participants].sort(() => Math.random() - 0.5);
+      //SKAPAR ARRAYS FÖR ANTAL LAG
+      this.teams = Array.from({ length: this.teamAmount }, () => []);
+      shuffledParticipants.forEach((participant, index) => {
+        const teamIndex = index % this.teamAmount; // Beräkna team-index
+        participant.team = teamIndex + 1; // Tilldela team (1-baserat)
+        this.teams[teamIndex].push(participant);
+        console.log(participant.name, "tilldelas lag", teamIndex + 1);
+      });
+      console.log("Lagen är färdiga:", this.teams);
       this.shuffleStarted = true;
-      socket.emit("shuffleStarted", { crawlId: this.crawlId, teams: this.teams});
+      // Uppdatera participants med team-index
+      this.participants = shuffledParticipants;
+      console.log("Uppdaterad participants med team:", this.participants);
+
+      socket.emit("shuffleStarted", { crawlId: this.crawlId, teams: this.teams, participants:this.participants});
+
+      console.log("Skickar lagen och deltagarlistan till servern.");
     },
 
     startButtonHandler: function(){
       if (this.admin === true)
     {
       this.$router.push(`/admincontrol/${this.crawlId}`);
+      socket.emit("goToNextPub", this.crawlId)
     }
 
 
@@ -202,6 +215,5 @@ body{
   #takenUserName {
     color: red
   }
-  /* Kvar att fixa: Spara lagen som skapas och skicka på socket */
   
 </style>
