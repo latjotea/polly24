@@ -11,7 +11,8 @@ function Data() {
     mode:'',
     city:'',
     teamAmount: '',
-    teams: []
+    teams: [],
+    submittedTasks:[]
   };
   this.polls['test'] = {
     lang: "en",
@@ -55,11 +56,23 @@ Data.prototype.setMode = function (crawlId, mode) {
   return true;
 };
 
+
 Data.prototype.getMode = function (crawlId) {
   if (!this.pollExists(crawlId)) {
     return null;
   }
   return this.polls[crawlId].mode; 
+};
+
+Data.prototype.addSubmittedTask = function(crawlId, tasks) {
+  if (!this.pollExists(crawlId)) return false;
+  this.polls[crawlId].submittedTasks.push(tasks);
+  return true;
+};
+
+Data.prototype.getSubmittedTasks = function(crawlId) {
+  if (!this.pollExists(crawlId)) return [];
+  return this.polls[crawlId].submittedTasks;
 };
 
 
@@ -118,7 +131,8 @@ Data.prototype.createCrawl = function(crawlId, lang="en") {
     poll.city = '';
     poll.teamAmount = '';
     poll.teams = [];
-    poll.participants = [];             
+    poll.participants = [];
+    poll.submittedTasks = [];             
     this.polls[crawlId] = poll;
     console.log("poll created", crawlId, poll);
   }
@@ -148,19 +162,7 @@ Data.prototype.getParticipants = function(crawlId) {
   return [];
 }
 
-Data.prototype.getCurrentParticipant = function(crawlId, socketId) {
-  if (this.pollExists(crawlId)) {
-    return this.polls[crawlId].participants.find(participant => participant.id === socketId) || null;
-  }
-  return null;
-};
 
-Data.prototype.getCurrentParticipant = function(crawlId, socketId) {
-  if (this.pollExists(crawlId)) {
-    return this.polls[crawlId].participants.find(participant => participant.id === socketId) || null;
-  }
-  return null;
-};
 
 Data.prototype.addQuestion = function(crawlId, q) {
   if (this.pollExists(crawlId)) {

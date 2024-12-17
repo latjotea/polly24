@@ -71,6 +71,11 @@
         this.addedTasks.push(this.newTask);
         console.log(this.newTask);
         console.log(this.addedTasks);
+
+        socket.emit("setSubmittedTasks", {
+          tasks: this.newTask,
+        })
+
         this.newTask = "";
         console.log("Carros funkar inte")
       }
