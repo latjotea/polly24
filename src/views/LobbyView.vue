@@ -41,7 +41,7 @@
     </div>
 
     <div v-if="shuffleStarted && admin">
-      <button id="start">
+      <button id="start" v-on:click="startButtonHandler">
         {{ this.uiLabels.start }}
       </button>
 
@@ -133,6 +133,15 @@ export default {
 
       this.shuffleStarted = true;
       socket.emit("shuffleStarted", { crawlId: this.crawlId, teams: this.teams});
+    },
+
+    startButtonHandler: function(){
+      if (this.admin === true)
+    {
+      this.$router.push(`/admincontrol/${this.crawlId}`);
+    }
+
+
     },
 
   }
