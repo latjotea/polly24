@@ -31,7 +31,6 @@
   
   const socket = io("localhost:3000");
   
-  
   export default {
     name: 'AdminTaskView',
     data: function () {
