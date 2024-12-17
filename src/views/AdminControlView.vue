@@ -55,7 +55,8 @@ created: function () {
       this.$router.push(`/admintask/${this.crawlId}/`);
     },
     sendToNextPub: function() {
-      socket.emit("goTonewPub", {crawlId:this.crawlId})
+      socket.emit("goToNextPub", {crawlId:this.crawlId});
+      socket.emit("updateRounds",  {crawlId:this.crawlId});
     }
   }
 }

@@ -3,7 +3,7 @@
       <h1 v-if="chosenPub">{{ uiLabels.goTo }} {{ chosenPub }}</h1>
 
       <div id="goto"> 
-        <button v-on:click="this.chooseRandomPub()"> 
+        <button v-on:click="teamIsHere"> 
           {{ uiLabels.imHere }}
         </button>
     </div>
@@ -22,9 +22,9 @@ export default{
 data: function () {
     return {
       uiLabels: {},
-      teamPubs: [],
       chosenPub: null,
-      selectedPubs: []
+      selectedPubs: [],
+      rounds:0
     }
   },
   created: function () {
@@ -37,8 +37,18 @@ data: function () {
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;
       console.log("Hämtade pubar från servern:", this.selectedPubs); 
-  
+      this.choosePub();
+      console.log("Antalet rundor",this.rounds)
+      console.log(this.selectedPubs.length)
 
+    });
+
+    socket.on("getRoundsUpdate", rounds => {
+      this.rounds = rounds;
+    });
+
+    socket.on("teamArrived", () => {
+      this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`)
     });
 
   },
@@ -46,18 +56,17 @@ data: function () {
   
 
   methods: {
-    chooseRandomPub() {
-      /*/if(this.selectedPubs.length === 0) {
-        this.$router.push("/result"); // Ersätt "/ny-sida" med den faktiska sidan Tagit från chatgpt
-        return;
+    choosePub(){
+      const totalPubs = this.selectedPubs.length;
+      const adjustedTeamNumber = this.teamNumber - 1;
+      const chosenPubIndex = (adjustedTeamNumber + this.rounds) % totalPubs;
+      this.chosenPub = this.selectedPubs[chosenPubIndex];
+   
 
-      }/*/
-    
+    },
 
-      const randomIndex = Math.floor(Math.random() * this.selectedPubs.length);
-      const selectedPub = this.selectedPubs.splice(randomIndex, 1)[0]; // Ta bort från `selectedPubs`
-      this.teamPubs.push(selectedPub);
-      this.chosenPub = selectedPub;
+    teamIsHere(){
+      socket.emit('teamArrived',{crawlId:this.crawlId, chosenPub:this.chosenPub, teamNumber:this.teamNumber})
     }
   }
 
