@@ -72,6 +72,7 @@
         console.log(this.newTask);
         console.log(this.addedTasks);
         this.newTask = "";
+        console.log("Carros funkar inte")
       }
     },
   }
