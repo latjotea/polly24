@@ -92,8 +92,8 @@ function sockets(io, socket, data) {
     io.to(d.crawlId).emit("receivedShuffleStarted", { crawlId: d.crawlId, teams: d.teams, participants:d.participants});
   });
 
-  socket.on('goToNextPub', function(d) {
-    io.to(d.crawlId).emit('goToNextPub');
+  socket.on('goToNextPub', function(crawlId) {
+    io.to(crawlId).emit('goToNextPub');
   });
 
   socket.on('getSubmittedTasks', function(d) {

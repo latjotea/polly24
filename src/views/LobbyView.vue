@@ -98,7 +98,8 @@ export default {
       this.teamAmount = teamAmount; 
       console.log("Antalet lag är:", this.teamAmount);
     });
-    socket.on('goToNextPub', () => { if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
+    socket.on('goToNextPub', () => {
+      if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
     
   
 

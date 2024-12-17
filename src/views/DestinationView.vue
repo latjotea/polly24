@@ -48,7 +48,7 @@ data: function () {
     });
 
     socket.on("teamArrived", () => {
-      this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`)
+      this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`) //Interaktiv karta finns inte än
     });
 
   },
