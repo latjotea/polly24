@@ -90,7 +90,7 @@ const router = createRouter({
 
 
     {
-      path: '/interactivemap/:id/',
+      path: '/interactivemap/:id/:adminOrTeamId',
       name: 'InteractiveMapView',
       component: () => import('../views/InteractiveMapView.vue') 
 

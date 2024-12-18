@@ -14,10 +14,10 @@
        </div>
      </div>
 
-     <button v-on:click="navigateToTaskView" id="taskButton">
+     <button v-if="!admin" v-on:click="navigateToTaskView" id="taskButton">
             {{ uiLabels.seeTasks }}
         </button>
-        <button v-on:click="navigateToAdminControlView" id="controlButton">
+        <button v-if="admin" v-on:click="navigateToAdminControlView" id="controlButton">
             {{ uiLabels.controlCrawl }}
         </button>
     </body>
@@ -43,9 +43,16 @@
        //pubList: [],
        allMaps: maps,
        selectedMap: null,
+       adminOrTeamId: "",
+       admin: false,
+       adminId: "",
+       teamNumber: ''
      }
    },
    created: function () {
+    this.crawlId = this.$route.params.id;
+    this.adminOrTeamId = this.$route.params.adminOrTeamId;
+    this.adminOrTeam();
      this.crawlId = this.$route.params.id;
      socket.on( "uiLabels", labels => this.uiLabels = labels );
      socket.emit( "getUILabels", this.lang );
@@ -68,6 +75,17 @@
  
    },
    methods: {
+    adminOrTeam() {
+    if (this.adminOrTeamId.length > 10) {
+        this.admin = true;
+        this.adminId = this.adminOrTeamId;
+      }
+    else {
+      this.teamNumber = this.adminOrTeamId;
+    }
+      console.log(this.admin)
+    },
+
      selectMapPicture(city) {
        // Välj kart bild baserat på stad
        const map = this.allMaps.find(map => map.city === city);
@@ -76,11 +94,11 @@
      },
 
      navigateToTaskView(){
-        this.$router.push(`/task/${this.crawlId}/admin_${socket.id}`);
+        this.$router.push(`/task/${this.crawlId}/${this.teamNumber}`);
  
     },
     navigateToAdminControlView(){
-        this.$router.push(`/admincontrol/${this.crawlId}/admin_${socket.id}`);
+        this.$router.push(`/admincontrol/${this.crawlId}/${this.adminId}`);
  
  }
  }
@@ -148,7 +166,7 @@
     position: fixed;
     font-size: 2rem;
     font-family: 'Galindo';
-    background-color: rgb(65, 105, 225);
+    background-color: hotpink;
     z-index: 3;
  }
 
