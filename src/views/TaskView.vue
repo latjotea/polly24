@@ -35,6 +35,7 @@ export default {
   data: function () {
     return {
       uiLabels: {},
+      crawlId: '',
       lang: localStorage.getItem("lang") || "en",
       selectedMode: "",
       taskList: [],
@@ -62,6 +63,7 @@ export default {
       this.selectedMode = mode;
       console.log("Selected mode received:", this.selectedMode);
       });
+    socket.emit("joinPoll", this.crawlId)
   },
 
   methods: {
@@ -89,8 +91,6 @@ export default {
       console.log(this.newTask);
       socket.emit("setSubmittedTasks", {crawlId: this.crawlId, newTask: this.newTask})
       this.newTask = "";
-      this.updateTasks();
-      socket.emit("getSubmittedTasks", {crawlId: this.crawlId });
     }
   },
 }

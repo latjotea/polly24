@@ -16,8 +16,7 @@ function sockets(io, socket, data) {
 
   socket.on('joinPoll', function(crawlId) {
     socket.join(crawlId);
-    socket.emit('questionUpdate', data.activateQuestion(crawlId))
-    socket.emit('submittedAnswersUpdate', data.getSubmittedAnswers(crawlId));
+    
   });
 
   socket.on('participateInPoll', function(d) {
@@ -102,7 +101,7 @@ function sockets(io, socket, data) {
 
   socket.on('setSubmittedTasks', function(d) {
     data.addSubmittedTask(d.crawlId, d.newTask);
-    socket.emit("selectedSubmittedTasks", data.getSubmittedTasks(d.crawlId))
+    io.to(d.crawlId).emit("selectedSubmittedTasks", data.getSubmittedTasks(d.crawlId));
   });
 
 
