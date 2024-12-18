@@ -53,7 +53,7 @@
     this.crawlId = this.$route.params.id;
     this.adminOrTeamId = this.$route.params.adminOrTeamId;
     this.adminOrTeam();
-     this.crawlId = this.$route.params.id;
+    socket.emit( "joinPoll", this.crawlId );
      socket.on( "uiLabels", labels => this.uiLabels = labels );
      socket.emit( "getUILabels", this.lang );
      socket.emit("getCity", {crawlId: this.crawlId });

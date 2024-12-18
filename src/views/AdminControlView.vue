@@ -43,6 +43,7 @@ export default {
 created: function () {
     this.crawlId = this.$route.params.id;
     this.adminId = this.$route.params.adminId;
+    socket.emit( "joinPoll", this.crawlId );
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
     socket.emit("getCity", {crawlId: this.crawlId });
@@ -58,7 +59,7 @@ created: function () {
       this.$router.push(`/task/${this.crawlId}/${this.adminId}/`);
     },
     sendToNextPub: function() {
-      socket.emit("goToNextPub", {crawlId:this.crawlId});
+      socket.emit("goToNextPub", this.crawlId)
       socket.emit("updateRounds",  {crawlId:this.crawlId});
     },
 
