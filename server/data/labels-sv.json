@@ -44,7 +44,7 @@
 	"flagPicture":"/img/Swedish_flag.png",
 
 	"seeTasks":"Se uppdrag",
-	"controlCrawl":"Styr pubrundan"
-
+	"controlCrawl":"Styr pubrundan",
+	"yourRound": "Pub"
 
 }

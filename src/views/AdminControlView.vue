@@ -29,7 +29,7 @@ import taskssv from '/server/data/tasksSv.json';
 const socket = io("localhost:3000");
 
 export default {
-  name: 'CityView',
+  name: 'AdminControlView',
   data: function () {
     return {
       uiLabels: {},
@@ -37,6 +37,7 @@ export default {
       city:"",
       adminId: "",
       crawlId:"",
+      round: ""
     }
 },
 
@@ -46,9 +47,11 @@ created: function () {
     socket.emit( "joinPoll", this.crawlId );
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit("getCity", {crawlId: this.crawlId });
-    socket.emit("getSelectedPubs", {crawlId: this.crawlId });
-    socket.emit("getMode", {crawlId: this.crawlId });
+    socket.on("currentRoundResponse", (round) => {
+      this.round = round; 
+      console.log("runda:", this.round);
+    });
+    socket.emit("getRound", { crawlId: this.crawlId });
     // vi vill hämta lagen här också//
 
 
@@ -59,8 +62,9 @@ created: function () {
       this.$router.push(`/task/${this.crawlId}/${this.adminId}/`);
     },
     sendToNextPub: function() {
-      socket.emit("goToNextPub", this.crawlId)
-      socket.emit("updateRounds",  {crawlId:this.crawlId});
+      socket.emit("goToNextPub", this.crawlId);
+      socket.emit("updateRound", { crawlId: this.crawlId });
+      socket.emit("getRound", { crawlId: this.crawlId })
     },
 
     navigateToInteractiveMap(){

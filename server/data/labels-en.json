@@ -44,6 +44,7 @@
 
 
 	"seeTasks":"See tasks",
-	"controlCrawl":"Control pubcrawl"
+	"controlCrawl":"Control pubcrawl",
+	"yourRound": "Pub:"
 
 }

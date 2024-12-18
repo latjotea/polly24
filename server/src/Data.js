@@ -13,7 +13,8 @@ function Data() {
     teamAmount: '',
     teams: [],
     submittedTasks:[],
-    taskList:[]
+    taskList:[],
+    round: '',
   };
   this.polls['test'] = {
     lang: "en",
@@ -22,7 +23,10 @@ function Data() {
     mode:'',
     city:'',
     teamAmount: '',
+    teams: [],
     submittedTasks:[],
+    taskList:[],
+    round: '',
   }
 }
 
@@ -136,6 +140,7 @@ Data.prototype.createCrawl = function(crawlId, lang="en") {
     poll.submittedTasks = [];             
     this.polls[crawlId] = poll;
     poll.taskList = [];
+    poll.round = 1;
     console.log("poll created", crawlId, poll);
   }
   return this.polls[crawlId];
@@ -164,7 +169,20 @@ Data.prototype.getParticipants = function(crawlId) {
   return [];
 }
 
+Data.prototype.updateRound = function (crawlId) {
+  if (!this.pollExists(crawlId)) {
+    return false;
+  }
+  this.polls[crawlId].round += 1; 
+  return true
+}
 
+Data.prototype.getRound = function (crawlId) {
+  if (!this.pollExists(crawlId)) {
+    return null;
+  }
+  return this.polls[crawlId].round; 
+};
 
 Data.prototype.addQuestion = function(crawlId, q) {
   if (this.pollExists(crawlId)) {

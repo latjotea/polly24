@@ -1,7 +1,7 @@
 
 
 <template>
-    <body>    
+    <body>   
      <div class="interactive-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
          <div 
@@ -40,7 +40,6 @@
        city:"",
        allPubs: pubs,
        selectedPubs: [],
-       //pubList: [],
        allMaps: maps,
        selectedMap: null,
        adminOrTeamId: "",

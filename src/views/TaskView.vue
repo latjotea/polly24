@@ -40,7 +40,7 @@ import tasksen from '/server/data/tasksEn.json';
 const socket = io("localhost:3000");
 
 export default {
-  name: 'AdminTaskView',
+  name: 'TaskView',
   data: function () {
     return {
       uiLabels: {},

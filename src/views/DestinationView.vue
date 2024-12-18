@@ -24,7 +24,7 @@ data: function () {
       uiLabels: {},
       chosenPub: null,
       selectedPubs: [],
-      rounds:0,
+      round: 0,
       teamNumber: ''
     }
   },
@@ -33,24 +33,31 @@ data: function () {
     this.teamNumber = this.$route.params.team;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit("getSelectedPubs", {crawlId: this.crawlId });
+
+
+    socket.on("currentRoundResponse", (round) => {
+    this.round = round; 
+    console.log("runda:", this.round);
+    });
+    socket.emit("getRound", { crawlId: this.crawlId });
+
+    socket.emit("joinPoll", this.crawlId);
 
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;
       console.log("Hämtade pubar från servern:", this.selectedPubs); 
-      this.choosePub();
-      console.log("Antalet rundor",this.rounds)
+      console.log("Antalet rundor",this.round)
       console.log(this.selectedPubs.length)
-
+      this.choosePub();
     });
-
-    socket.on("getRoundsUpdate", rounds => {
-      this.rounds = rounds;
-    });
+    socket.emit("getSelectedPubs", {crawlId: this.crawlId });
 
     socket.on("teamArrived", () => {
       this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`) //Interaktiv karta finns inte än
     });
+
+    socket.on('goToNextPub', () => {
+      choosePub()});
 
   },
 
@@ -60,7 +67,7 @@ data: function () {
     choosePub(){
       const totalPubs = this.selectedPubs.length;
       const adjustedTeamNumber = this.teamNumber - 1;
-      const chosenPubIndex = (adjustedTeamNumber + this.rounds) % totalPubs;
+      const chosenPubIndex = (adjustedTeamNumber + this.round) % totalPubs;
       this.chosenPub = this.selectedPubs[chosenPubIndex];
    
 

@@ -104,7 +104,14 @@ function sockets(io, socket, data) {
     io.to(d.crawlId).emit("selectedSubmittedTasks", data.getSubmittedTasks(d.crawlId));
   });
 
+  socket.on('updateRound', function(d){
+    console.log("hej")
+    data.updateRound(d.crawlId);
+  });
 
+  socket.on('getRound', function(d) {
+    socket.emit("currentRoundResponse", data.getRound(d.crawlId));
+  });
     
 
 
