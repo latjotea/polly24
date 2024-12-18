@@ -33,7 +33,22 @@
 "mode": "crazy"},
 
 {"task": "Beställ en öl utan att prata",
-"mode": "crazy"}
+"mode": "crazy"},
+
+{"task": "Drick en snaps och sjung en snapsvisa",
+"mode": "holiday"},
+
+{"task": "Ha ett luciatåg",
+"mode": "holiday"},
+
+{"task": "Köp en grogg med julmust",
+"mode": "holiday"},
+
+{"task": "Ge någon en julklapp",
+"mode": "holiday"},
+
+{"task": "Sätt på dig en tomteluva",
+"mode": "holiday"}
 
 
 ]
