@@ -64,6 +64,8 @@
              selectedPubNames.includes(pub.name)
          );
      });
+     socket.on('goToNextPub', () => {
+      if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
  
  
    },
