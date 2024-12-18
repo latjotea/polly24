@@ -33,5 +33,24 @@
      "mode": "crazy"},
 
     {"task": "Order a beer without speaking",
-     "mode": "crazy"}
+     "mode": "crazy"},
+
+    {"task": "Have a schnapps and sing a song",
+    "mode": "holiday"},
+
+    {"task": "Have a mini Lucia concert ",
+    "mode": "holiday"},
+
+    {"task": "Buy a drink with julmust",
+    "mode": "holiday"},
+
+    {"task": "Give someone a Christmas gift",
+    "mode": "holiday"},
+
+    {"task": "Put on a Santa hat",
+    "mode": "holiday"}
+
+
+
+
 ]

@@ -5,7 +5,7 @@
     <div class="button-container">
       <button v-on:click="chooseMode('standard')"> {{this.uiLabels.standardCrawl }} </button>
       <button v-on:click="chooseMode('love')">{{this.uiLabels.loveCrawl}}</button>
-      <button v-on:click="chooseMode('golf')">{{this.uiLabels.golfCrawl}}</button>
+      <button v-on:click="chooseMode('holiday')">{{this.uiLabels.holidayCrawl}}</button>
       <button v-on:click="chooseMode('crazy')">{{this.uiLabels.crazyCrawl}}</button>
     </div>  
   </div>
