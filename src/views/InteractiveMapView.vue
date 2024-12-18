@@ -1,28 +1,26 @@
 
 
 <template>
-    <div class="overlay-text">
-         {{this.uiLabels.yourCrawl}} 
-     </div>
-     <div class="map-container">
+    <body>    
+     <div class="interactive-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
          <div 
              v-for="pub in selectedPubs" 
              :key="pub.name" 
              class="marker-container" 
-             :style="{ top: pub.coordinates.y + 'px', left: pub.coordinates.x + 'px' }"
-         >
+             :style="{ top: pub.coordinates.y + 'px', left: pub.coordinates.x + 'px' }">
            <div class="marker"></div>
            <div class="pub-label">{{ pub.name }}</div>
        </div>
      </div>
- 
-     <div>
-         <button v-on:click="navigateToAdminTeamView" class="create-button"> 
-           {{this.uiLabels.createCrawl}}
-         </button>
-       </div>
- 
+
+     <button v-on:click="navigateToTaskView" id="taskButton">
+            {{ uiLabels.seeTasks }}
+        </button>
+        <button v-on:click="navigateToAdminControlView" id="controlButton">
+            {{ uiLabels.controlCrawl }}
+        </button>
+    </body>
  </template>
  
  <script>
@@ -76,42 +74,42 @@
        console.log("Selected map:", map)
        this.selectedMap=map;
      },
+
+     navigateToTaskView(){
+        this.$router.push(`/task/${this.crawlId}/admin_${socket.id}`);
  
-     navigateToAdminTeamView(){
-       this.$router.push(`/lobby/${this.crawlId}/admin_${socket.id}`);
- 
- 
+    },
+    navigateToAdminControlView(){
+        this.$router.push(`/admincontrol/${this.crawlId}/admin_${socket.id}`);
  
  }
  }
- }
+}
+
  
  
  </script>
  
  <style>
  body{
-   margin: 0; /* Ta bort standardmarginaler */
-   padding: 0;
-   display: flex; /* Använd flexbox för centrering */
-   justify-content: center; /* Centrera horisontellt */
-   align-items: center; /* Centrera vertikalt */
+   margin: 0; 
+   padding: 2rem;
+   justify-content: center; 
+   align-items: center;
    background-color:rgb(255, 240, 245);
    font-family: 'Galindo';
    height: 100vh;
    position:relative;
+   box-sizing: border-box;
    }
  
-   .map-container {
-     position:absolute;
-     justify-content: center;
-     align-items: center;
-     width:1000px;
-     height: 700px;
+   .interactive-container {
+     position: relative; 
+     top: 0;
+     left: 0;
+     height: calc(100% - 4rem);
      overflow: scroll;
-     border:5px solid hotpink;
-     transform: translate(-50%, -50%);
-     left:50%;
+     font-family: 'Galindo';
      
    }
  
@@ -121,18 +119,6 @@
    
  }
  
- .overlay-text{
-     position: absolute;
-     top: 50px; 
-     left: 50%; 
-     transform: translate(-50%, -50%); /* Använde chat för att centrera exakt */
-     color:rgb(255, 240, 245);
-     text-shadow: 4px 4px 10px rgb(245, 14, 202);
-     font-size: 2rem;
-     z-index:10;
- 
- 
- }
  /*CHAT FÖR ATT GÖRA EN PRICK*/
  .marker-container {
    position: absolute;
@@ -155,25 +141,22 @@
    color: white; /* Färgen för att synas på kartan */
    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Lägg till skugga för bättre läsbarhet */
  }
-   .create-button {
-   position: absolute;
-   bottom: 20px; /* Placera 20px ovanför botten */
-   left: 50%; /* Centrerar horisontellt */
-   transform: translateX(-50%); /* Flyttar knappen så att den är helt centrerad */
-   background-color: #ff416c; /* Knappens bakgrundsfärg */
-   color: white; /* Textfärg */
-   font-size: 1.5rem; /* Storlek på texten */
-   font-family: 'Galindo', sans-serif; /* Matcha textens stil med resten */
-   padding: 10px 20px; /* Utrymme runt texten */
-   border: none; /* Ta bort kantlinjen */
-   border-radius: 10px; /* Gör hörnen rundade */
-   cursor: pointer; /* Visar pekaren vid hover */
-   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Lätt skugga för att skapa djup */
-   z-index:5;
- }
  
- .create-button:hover {
-   background-color: #ff6384; /* Färg vid hover */
+ #taskButton, #controlButton {
+    top: 1rem;
+    position: fixed;
+    font-size: 2rem;
+    font-family: 'Galindo';
+    background-color: rgb(65, 105, 225);
+    z-index: 3; 
+ }
+
+ #controlButton {
+
+ }
+
+button:hover {
+    color: white;
  }
  
  </style>
