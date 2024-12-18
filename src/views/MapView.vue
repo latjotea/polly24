@@ -176,10 +176,5 @@ body{
   background-color: #ff6384; /* Färg vid hover */
 }
 
-
-
-
-
-  
 </style>
 
