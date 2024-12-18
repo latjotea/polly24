@@ -10,10 +10,16 @@
           <h2>{{ uiLabels.taskListTitle }}</h2>
           <ul>
             <li v-for="task in taskList.filter(task => task.mode === this.selectedMode)" :key="task.task">
-              {{ task.task }}
+              <div v-if="admin"> {{ task.task }} </div>
+              <div v-else>
+                <input type="checkbox" class="task-checkbox" /> {{ task.task }}
+              </div>
             </li>
             <li v-for="task in addedTasks">
-              {{ task}}
+              <div v-if="admin"> {{ task }} </div>
+              <div v-else>
+                <input type="checkbox" class="task-checkbox" /> {{ task }}
+              </div>
             </li>
 
           </ul>

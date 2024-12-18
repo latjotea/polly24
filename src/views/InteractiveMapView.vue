@@ -143,17 +143,16 @@
  }
  
  #taskButton, #controlButton {
-    top: 1rem;
+    top: 5rem;
+    right: 5rem;
     position: fixed;
     font-size: 2rem;
     font-family: 'Galindo';
     background-color: rgb(65, 105, 225);
-    z-index: 3; 
+    z-index: 3;
  }
 
- #controlButton {
 
- }
 
 button:hover {
     color: white;
