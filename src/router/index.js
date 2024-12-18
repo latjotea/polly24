@@ -93,7 +93,15 @@ const router = createRouter({
       name: 'UserTaskView',
       component: () => import('../views/UserTaskView.vue') 
 
-    }
+    },
+
+    {
+      path: '/interactivemap/:id',
+      name: 'InteractiveMapView',
+      component: () => import('../views/InteractiveMapView.vue') 
+
+    },
+
 
   ]
 })
