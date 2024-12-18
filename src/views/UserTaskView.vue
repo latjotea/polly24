@@ -40,7 +40,7 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       selectedMode: "",
       taskList: [],
-      newTasks: []
+      addedTasks: []
     } 
   },
   created: function () {
@@ -52,7 +52,7 @@ export default {
     socket.on("selectedModeResponse", (mode) => {
     this.selectedMode = mode;
     console.log("Selected mode received:", this.selectedMode);
-    this.fetchSubmittedTasks();
+    this.updateTasks();
     console.log("fetchade tasks", this.newTasks)
 
 
@@ -71,13 +71,13 @@ export default {
   console.log("Loaded tasks:", this.taskList);
   },
 
-  fetchSubmittedTasks() {
-  socket.emit("getSubmittedTasks", this.crawlId);
-  socket.on("selectedSubmittedTasks", (tasks) => {
-    this.newTasks = tasks; 
-    console.log("nya tasks:", this.newTasks);
-  });
-},
+  updateTasks() {
+    socket.emit("getSubmittedTasks", {crawlId: this.crawlId });
+    socket.on("selectedSubmittedTasks", (addedTasks) => {
+      this.addedTasks = addedTasks; 
+      console.log("Nya tasks:", this.addedTasks);
+    });
+  },
 }
 }
 

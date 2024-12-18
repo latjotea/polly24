@@ -66,9 +66,9 @@ Data.prototype.getMode = function (crawlId) {
   return this.polls[crawlId].mode; 
 };
 
-Data.prototype.addSubmittedTask = function(crawlId, tasks) {
+Data.prototype.addSubmittedTask = function(crawlId, task) {
   if (!this.pollExists(crawlId)) return false;
-  this.polls[crawlId].submittedTasks.push(tasks);
+  this.polls[crawlId].submittedTasks.push(task);
   return true;
 };
 

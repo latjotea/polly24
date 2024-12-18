@@ -151,7 +151,7 @@ export default {
     startButtonHandler: function(){
       if (this.admin === true)
     {
-      this.$router.push(`/admincontrol/${this.crawlId}`);
+      this.$router.push(`/admincontrol/${this.crawlId}/${this.adminId}/`);
       socket.emit("goToNextPub", this.crawlId)
     }
 

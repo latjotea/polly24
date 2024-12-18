@@ -24,7 +24,8 @@ data: function () {
       uiLabels: {},
       chosenPub: null,
       selectedPubs: [],
-      rounds:0
+      rounds:0,
+      teamNumber: ''
     }
   },
   created: function () {

@@ -34,12 +34,14 @@ export default {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      city:""
+      city:"",
+      adminId: "",
     }
 },
 
 created: function () {
     this.crawlId = this.$route.params.id;
+    this.adminId = this.$route.params.adminId;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
     socket.emit("getCity", {crawlId: this.crawlId });
@@ -52,7 +54,7 @@ created: function () {
 
   methods: {
     goToCreateTask: function () {
-      this.$router.push(`/admintask/${this.crawlId}/`);
+      this.$router.push(`/task/${this.crawlId}/${this.adminId}/`);
     },
     sendToNextPub: function() {
       socket.emit("goToNextPub", {crawlId:this.crawlId});

@@ -102,6 +102,7 @@ function sockets(io, socket, data) {
 
   socket.on('setSubmittedTasks', function(d) {
     data.addSubmittedTask(d.crawlId, d.newTask);
+    socket.emit("selectedSubmittedTasks", data.getSubmittedTasks(d.crawlId))
   });
 
 
