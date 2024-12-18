@@ -57,7 +57,8 @@ data: function () {
     });
 
     socket.on('goToNextPub', () => {
-      choosePub()});
+      window.location.reload()
+    });
 
   },
 
