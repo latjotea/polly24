@@ -88,15 +88,9 @@ const router = createRouter({
 
     },
 
-    {
-      path: '/usertask/:id',
-      name: 'UserTaskView',
-      component: () => import('../views/UserTaskView.vue') 
-
-    },
 
     {
-      path: '/interactivemap/:id/',
+      path: '/interactivemap/:id/:adminOrTeamId',
       name: 'InteractiveMapView',
       component: () => import('../views/InteractiveMapView.vue') 
 
