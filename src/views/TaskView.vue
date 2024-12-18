@@ -12,13 +12,16 @@
             <li v-for="task in taskList.filter(task => task.mode === this.selectedMode)" :key="task.task">
               <div v-if="admin"> {{ task.task }} </div>
               <div v-else>
-                <input type="checkbox" class="task-checkbox" /> {{ task.task }}
+                {{ task.task }}
+                <input type="checkbox" class="task-checkbox" /> 
               </div>
             </li>
             <li v-for="task in addedTasks">
-              <div v-if="admin"> {{ task }} </div>
+              {{ task }}
+              <div v-if="admin">  </div>
               <div v-else>
-                <input type="checkbox" class="task-checkbox" /> {{ task }}
+                {{ task }}
+                <input type="checkbox" class="task-checkbox" /> 
               </div>
             </li>
 
@@ -126,6 +129,13 @@ flex-direction: column;
 align-items: center;
 gap: 2rem;
 margin-top: 2rem;
+}
+
+
+
+.task-checkbox {
+  margin-left: 1rem; 
+  transform: scale(1.5); 
 }
 
 .createTasks {
