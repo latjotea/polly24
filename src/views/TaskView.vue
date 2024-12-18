@@ -72,7 +72,10 @@ export default {
       this.selectedMode = mode;
       console.log("Selected mode received:", this.selectedMode);
       });
-    socket.emit("joinPoll", this.crawlId)
+    socket.emit("joinPoll", this.crawlId);
+
+    socket.on('goToNextPub', () => {
+      if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
   },
 
   methods: {

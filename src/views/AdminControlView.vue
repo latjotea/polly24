@@ -36,6 +36,7 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       city:"",
       adminId: "",
+      crawlId:"",
     }
 },
 
@@ -62,7 +63,7 @@ created: function () {
     },
 
     navigateToInteractiveMap(){
-      this.$router.push(`/interactivemap/${this.crawlId}`);
+      this.$router.push(`/interactivemap/${this.crawlId}/${this.adminId}`);
   }
 }
 }
