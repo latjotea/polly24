@@ -7,7 +7,7 @@
     </div>
 
     <div class="map-button">
-        <button>
+        <button v-on:click="navigateToInteractiveMap">
             {{this.uiLabels.seeMap}}
         </button>
     </div>
@@ -59,8 +59,12 @@ created: function () {
     sendToNextPub: function() {
       socket.emit("goToNextPub", {crawlId:this.crawlId});
       socket.emit("updateRounds",  {crawlId:this.crawlId});
-    }
+    },
+
+    navigateToInteractiveMap(){
+      this.$router.push(`/interactivemap/${this.crawlId}`);
   }
+}
 }
 
 </script>

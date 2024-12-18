@@ -40,6 +40,10 @@
 	"nextStop": "Go to next stop",
 	"newTask": "New task",
 	"addTask": "Add task",
-	"flagPicture":"/img/English_flag.png"
+	"flagPicture":"/img/English_flag.png",
+
+
+	"seeTasks":"See tasks",
+	"controlCrawl":"Control pubcrawl"
 
 }
