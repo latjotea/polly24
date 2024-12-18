@@ -12,7 +12,8 @@ function Data() {
     city:'',
     teamAmount: '',
     teams: [],
-    submittedTasks:[]
+    submittedTasks:[],
+    taskList:[]
   };
   this.polls['test'] = {
     lang: "en",
@@ -21,6 +22,7 @@ function Data() {
     mode:'',
     city:'',
     teamAmount: '',
+    submittedTasks:[],
   }
 }
 
@@ -111,8 +113,7 @@ Data.prototype.setTeams = function (crawlId, teams) {
     return null;
   }
   this.polls[crawlId].teams = teams; 
-  return true
-};
+  return true};
 
 
 Data.prototype.getUILabels = function (lang) {
@@ -134,6 +135,7 @@ Data.prototype.createCrawl = function(crawlId, lang="en") {
     poll.participants = [];
     poll.submittedTasks = [];             
     this.polls[crawlId] = poll;
+    poll.taskList = [];
     console.log("poll created", crawlId, poll);
   }
   return this.polls[crawlId];
@@ -211,6 +213,7 @@ Data.prototype.submitAnswer = function(crawlId, answer) {
       answers[answer] += 1
     console.log("answers looks like ", answers, typeof answers);
   }
+
 }
 
 export { Data };
