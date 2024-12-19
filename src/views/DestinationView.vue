@@ -40,9 +40,8 @@ data: function () {
     console.log("runda:", this.round);
     });
     socket.emit("getRound", { crawlId: this.crawlId });
-
     socket.emit("joinPoll", this.crawlId);
-
+    socket.emit("joinPoll", this.teamNumber);
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;
       console.log("Hämtade pubar från servern:", this.selectedPubs); 
@@ -52,13 +51,14 @@ data: function () {
     });
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
 
-    socket.on("teamArrived", () => {
+    socket.on("goToMap", () => {
       this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`) //Interaktiv karta finns inte än
     });
 
     socket.on('goToNextPub', () => {
       window.location.reload()
     });
+
 
   },
 
@@ -70,12 +70,11 @@ data: function () {
       const adjustedTeamNumber = this.teamNumber - 1;
       const chosenPubIndex = (adjustedTeamNumber + this.round) % totalPubs;
       this.chosenPub = this.selectedPubs[chosenPubIndex];
-   
 
     },
 
     teamIsHere(){
-      socket.emit('teamArrived',{crawlId:this.crawlId, chosenPub:this.chosenPub, teamNumber:this.teamNumber})
+      socket.emit('teamArrived',{crawlId:this.crawlId, teamNumber:this.teamNumber, chosenPub: this.chosenPub})
     }
   }
 

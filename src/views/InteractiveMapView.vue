@@ -2,6 +2,7 @@
 
 <template>
     <body>   
+      <p> {{ uiLabels.yourRound }} {{ this.round }} : {{  }} </p>
      <div class="interactive-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
          <div 
@@ -45,7 +46,8 @@
        adminOrTeamId: "",
        admin: false,
        adminId: "",
-       teamNumber: ''
+       teamNumber: '',
+       round: 0,
      }
    },
    created: function () {
@@ -56,6 +58,11 @@
      socket.on( "uiLabels", labels => this.uiLabels = labels );
      socket.emit( "getUILabels", this.lang );
      socket.emit("getCity", {crawlId: this.crawlId });
+     socket.on("currentRoundResponse", (round) => {
+      this.round = round; 
+      console.log("runda:", this.round);
+    });
+    socket.emit("getRound", { crawlId: this.crawlId });
      socket.emit("getSelectedPubs", {crawlId: this.crawlId });
      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
      

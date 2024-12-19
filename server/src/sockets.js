@@ -14,8 +14,8 @@ function sockets(io, socket, data) {
     socket.emit('questionUpdate', data.activateQuestion(d.crawlId));
   });
 
-  socket.on('joinPoll', function(crawlId) {
-    socket.join(crawlId);
+  socket.on('joinPoll', function(id) {
+    socket.join(id);
     
   });
 
@@ -112,6 +112,10 @@ function sockets(io, socket, data) {
   socket.on('getRound', function(d) {
     socket.emit("currentRoundResponse", data.getRound(d.crawlId));
   });
+
+  socket.on('teamArrived', function(d) {
+    io.to(d.teamNumber).emit("goToMap");
+  })
     
 
 
