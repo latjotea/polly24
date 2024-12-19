@@ -15,6 +15,7 @@ function Data() {
     submittedTasks:[],
     taskList:[],
     round: '',
+    chosenPub: '',
   };
   this.polls['test'] = {
     lang: "en",
@@ -141,6 +142,7 @@ Data.prototype.createCrawl = function(crawlId, lang="en") {
     this.polls[crawlId] = poll;
     poll.taskList = [];
     poll.round = 1;
+    poll.chosenPub = '';
     console.log("poll created", crawlId, poll);
   }
   return this.polls[crawlId];
@@ -168,6 +170,22 @@ Data.prototype.getParticipants = function(crawlId) {
   }
   return [];
 }
+
+Data.prototype.setChosenPub = function(crawlId, chosenPub) {
+  if (!this.pollExists(crawlId)) {
+    return false;
+  }
+  this.polls[crawlId].chosenPub = chosenPub;
+  console.log("Chosen pub set to:", chosenPub, "for crawlId:", crawlId);
+  return true;
+};
+
+Data.prototype.getChosenPub = function(crawlId) {
+  if (!this.pollExists(crawlId)) {
+    return null;
+  }
+  return this.polls[crawlId].chosenPub;
+};
 
 Data.prototype.updateRound = function (crawlId) {
   if (!this.pollExists(crawlId)) {
