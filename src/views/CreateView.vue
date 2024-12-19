@@ -3,7 +3,7 @@
     <div>
     {{ uiLabels.createCrawlId }} 
     </div>
-    <input type="text" placeholder="Ex. 1234" v-model="crawlId">
+    <input type="text" placeholder="Ex. Bästa Rundan 123" v-model="crawlId">
     <button v-on:click="handleCrawlIdButtom">
       {{ uiLabels.sendPubs }}
     </button>

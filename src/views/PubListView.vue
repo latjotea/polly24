@@ -153,10 +153,6 @@ button {
   cursor: pointer;
 }
 
-.hidden-checkbox {
-  display: none; /* Dölj checkboxen */
-}
-
 
   
 </style>

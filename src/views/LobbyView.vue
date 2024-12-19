@@ -25,7 +25,7 @@
     </div>
 
     <div>
-      <button v-if="admin && !shuffleStarted" v-on:click="shuffleTeam" id="shuffle">
+      <button v-if="admin && !shuffleStarted" v-on:click="shuffleTeam" v-bind:disabled="unableToShuffle()" id="shuffle">
         {{ this.uiLabels.shuffle }}
       </button>
     </div>
@@ -113,6 +113,12 @@ export default {
       console.log(this.admin)
     },
 
+    unableToShuffle: function(){
+       const amountParticipants = this.participants.length-1 //Admin är inte med
+          return amountParticipants < this.teamAmount;
+  
+    },
+
     participateInPoll: function () {
       for (let person of this.participants){
         if (person.name === this.userName) {
@@ -127,25 +133,33 @@ export default {
     },
 
     shuffleTeam: function () {
+      const adminParticipant=this.participants.find(p => p.name === 'Admin');
+      const otherParticipants = this.participants.filter(p => p.name !== 'Admin');
       //BLANDA DELTAGARNA MED FISHER YATES CHAT HJÄLPTE OSS MED DENNA RAD
-      const shuffledParticipants = [...this.participants].sort(() => Math.random() - 0.5);
+      const shuffledParticipants = [...otherParticipants].sort(() => Math.random() - 0.5);
       //SKAPAR ARRAYS FÖR ANTAL LAG
       this.teams = Array.from({ length: this.teamAmount }, () => []);
+
+      if (adminParticipant){
+        adminParticipant.team=1;
+        this.teams[0].push(adminParticipant)
+
+      }
       shuffledParticipants.forEach((participant, index) => {
         const teamIndex = index % this.teamAmount; // Beräkna team-index
         participant.team = teamIndex + 1; // Tilldela team (1-baserat)
         this.teams[teamIndex].push(participant);
         console.log(participant.name, "tilldelas lag", teamIndex + 1);
       });
+      
       console.log("Lagen är färdiga:", this.teams);
       this.shuffleStarted = true;
+      
       // Uppdatera participants med team-index
       this.participants = shuffledParticipants;
       console.log("Uppdaterad participants med team:", this.participants);
 
       socket.emit("shuffleStarted", { crawlId: this.crawlId, teams: this.teams, participants:this.participants});
-
-      console.log("Skickar lagen och deltagarlistan till servern.");
     },
 
     startButtonHandler: function(){
