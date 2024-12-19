@@ -74,6 +74,7 @@ data: function () {
       const adjustedTeamNumber = this.teamNumber - 1;
       const chosenPubIndex = (adjustedTeamNumber + this.round) % totalPubs;
       this.chosenPub = this.selectedPubs[chosenPubIndex];
+      console.log(this.chosenPub)
 
     },
 

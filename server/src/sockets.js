@@ -115,7 +115,15 @@ function sockets(io, socket, data) {
 
   socket.on('teamArrived', function(d) {
     io.to(d.teamNumber).emit("goToMap");
-  })
+    data.setChosenPub(d.crawlId, d.chosenPub)
+  });
+
+  socket.on('getChosenPub', function(d) {
+    socket.emit("currentChosenPubResponse", data.getChosenPub(d.crawlId));
+  });
+
+
+
     
 
 

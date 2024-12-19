@@ -2,7 +2,7 @@
 
 <template>
     <body>   
-      <p> {{ uiLabels.yourRound }} {{ this.round }} : {{  }} </p>
+      <p> {{ uiLabels.yourRound }} {{ this.round }} : {{ chosenPub }} </p>
      <div class="interactive-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
          <div 
@@ -48,6 +48,7 @@
        adminId: "",
        teamNumber: '',
        round: 0,
+       chosenPub: '',
      }
    },
    created: function () {
@@ -79,7 +80,12 @@
      });
      socket.on('goToNextPub', () => {
       if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
- 
+    
+    socket.on("currentChosenPubResponse", (chosenPub) => {
+      this.chosenPub = chosenPub; 
+      console.log("Vald pub:", this.chosenPub);
+    });
+    socket.emit("getChosenPub", {crawlId: this.crawlId});
  
    },
    methods: {
