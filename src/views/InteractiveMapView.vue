@@ -1,7 +1,7 @@
 
 
 <template>
-    <body>   
+    <body>  
       <p> {{ uiLabels.yourRound }} {{ this.round }} : {{ chosenPub }} </p>
      <div class="interactive-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
@@ -10,8 +10,14 @@
              :key="pub.name" 
              class="marker-container" 
              :style="{ top: pub.coordinates.y + 'px', left: pub.coordinates.x + 'px' }">
-           <div class="marker"></div>
+           <div class="marker"
+                :class="{ chosen: pub.name === chosenPub }"></div>
+          <div class="chosenPub-label"
+                v-if="pub.name === chosenPub">
+                {{ uiLabels.yourPosition }}
+              </div>
            <div class="pub-label">{{ pub.name }}</div>
+           
        </div>
      </div>
 
@@ -21,6 +27,22 @@
         <button v-if="admin" v-on:click="navigateToAdminControlView" id="controlButton">
             {{ uiLabels.controlCrawl }}
         </button>
+   
+    <button @click="toggleScoreboard" id="scoreboardButton">
+      {{ uiLabels.seePoints }}
+    </button>
+
+ 
+    <div v-if="isScoreboardVisible" class="scoreboard">
+      <p>{{ uiLabels.points }}</p>
+      <ul>
+        <li v-for="team in scores" :key="team.name">
+          {{ team.name }}: {{ team.points }} {{ uiLabels.points }}
+        </li>
+      </ul>
+      <button @click="toggleScoreboard">{{ uiLabels.close }}</button>
+    </div>  
+        
     </body>
  </template>
  
@@ -49,6 +71,8 @@
        teamNumber: '',
        round: 0,
        chosenPub: '',
+       isScoreboardVisible: false,
+       scores: []
      }
    },
    created: function () {
@@ -89,6 +113,12 @@
  
    },
    methods: {
+  toggleScoreboard() {
+    this.isScoreboardVisible = !this.isScoreboardVisible;
+    if (this.isScoreboardVisible) {
+      socket.emit("getScores", { crawlId: this.crawlId }); // Begär poängställning från servern
+    }
+  },
     adminOrTeam() {
     if (this.adminOrTeamId.length > 10) {
         this.admin = true;
@@ -167,11 +197,27 @@
    border-radius: 50%;
   
  }
+
+ 
+  .marker.chosen {
+  background-color: rgb(76, 245, 76); 
+
+
+  }
+
+
  
  .pub-label{
    display: block; /* Se till att texten visas som en separat rad */
    color: white; /* Färgen för att synas på kartan */
    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Lägg till skugga för bättre läsbarhet */
+ }
+
+ .chosenPub-label{
+  color: rgb(76, 245, 76); ;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Lägg till skugga för bättre läsbarhet */
+  display: block; /* Se till att texten visas som en separat rad */
+
  }
  
  #taskButton, #controlButton {
@@ -189,6 +235,47 @@
 button:hover {
     color: white;
  }
+
+
+ #scoreboardButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 1.5rem;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.scoreboard {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.scoreboard h3 {
+  margin: 0 0 10px;
+}
+
+.scoreboard ul {
+  list-style: none;
+  padding: 0;
+}
+
+.scoreboard li {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
  
  </style>
  

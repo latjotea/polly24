@@ -45,6 +45,11 @@
 
 	"seeTasks":"Se uppdrag",
 	"controlCrawl":"Styr pubrundan",
-	"yourRound": "Pub"
+	"yourRound": "Pub",
+	"yourPosition": "Du är på:",
+	"seePoints": "Se poäng",
+	"close": "Stäng",
+	"points": "Poängställning"
+
 
 }

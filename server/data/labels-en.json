@@ -45,6 +45,10 @@
 
 	"seeTasks":"See tasks",
 	"controlCrawl":"Control pubcrawl",
-	"yourRound": "Pub"
+	"yourRound": "Pub",
+	"yourPosition": "You are at:",
+	"seePoints": "See points",
+	"close": "Close",
+	"points": "Scoreboard"
 
 }
