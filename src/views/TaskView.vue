@@ -17,8 +17,7 @@
               </div>
             </li>
             <li v-for="task in addedTasks">
-              {{ task }}
-              <div v-if="admin">  </div>
+              <div v-if="admin"> {{ task }} </div>
               <div v-else>
                 {{ task }}
                 <input type="checkbox" class="task-checkbox" /> 
