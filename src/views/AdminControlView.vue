@@ -37,7 +37,8 @@ export default {
       city:"",
       adminId: "",
       crawlId:"",
-      round: ""
+      round: "",
+      selectedPubs: ""
     }
 },
 
@@ -64,7 +65,7 @@ created: function () {
     sendToNextPub: function() {
       socket.emit("goToNextPub", this.crawlId);
       socket.emit("updateRound", { crawlId: this.crawlId });
-      socket.emit("getRound", { crawlId: this.crawlId })
+      socket.emit("getRound", { crawlId: this.crawlId });
     },
 
     navigateToInteractiveMap(){
