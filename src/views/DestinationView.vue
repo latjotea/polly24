@@ -56,7 +56,7 @@ data: function () {
     });
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
     socket.on("goToMap", () => {
-      this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`) 
+      this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`) //Interaktiv karta finns inte än
     });
 
     socket.on('goToNextPub', () => {
@@ -81,6 +81,7 @@ data: function () {
     teamIsHere(){
       socket.emit('teamArrived',{crawlId:this.crawlId, teamNumber:this.teamNumber, chosenPub: this.chosenPub})
     },
+
     isCrawlOver() {
       console.log(this.selectedPubs.length);
       console.log(this.round);
