@@ -1,54 +1,71 @@
 [
     {"task": "Chug a beer",
-     "mode": "standard"},
+     "mode": "standard",
+     "clicked": false},
 
     {"task": "Give a speech",
-     "mode": "standard"},
+     "mode": "standard",
+     "clicked": false},
 
     {"task": "Create a dance choreography",
-     "mode": "standard"},
+     "mode": "standard",
+     "clicked": false},
 
     {"task": "Give a pep talk to someone on your team",
-     "mode": "standard"},
+     "mode": "standard",
+     "clicked": false},
 
     {"task": "Give someone your number",
-     "mode": "love"},
+     "mode": "love",
+     "clicked": false},
 
     {"task": "Create a Tinder profile", 
-    "mode": "love"},
+    "mode": "love",
+    "clicked": false},
 
     {"task": "Superlike someone on Tinder",
-     "mode": "love"},
+     "mode": "love",
+     "clicked": false},
 
     {"task": "Give someone a compliment",
-     "mode": "love"},
+     "mode": "love",
+     "clicked": false},
 
     {"task": "Everyone on the team takes a shot",
-     "mode": "crazy"},
+     "mode": "crazy",
+     "clicked": false},
 
     {"task": "Perform a stand-up routine",
-     "mode": "crazy"},
+     "mode": "crazy",
+     "clicked": false},
 
     {"task": "Make a human pyramid",
-     "mode": "crazy"},
+     "mode": "crazy",
+     "clicked": false},
 
     {"task": "Order a beer without speaking",
-     "mode": "crazy"},
+     "mode": "crazy",
+     "clicked": false},
 
     {"task": "Have a schnapps and sing a song",
-    "mode": "holiday"},
+    "mode": "holiday",
+    "clicked": false},
 
     {"task": "Have a mini Lucia concert ",
-    "mode": "holiday"},
+    "mode": "holiday",
+    "clicked": false},
 
     {"task": "Buy a drink with julmust",
-    "mode": "holiday"},
+    "mode": "holiday",
+    "clicked": false},
 
     {"task": "Give someone a Christmas gift",
-    "mode": "holiday"},
+    "mode": "holiday",
+    "clicked": false},
 
     {"task": "Put on a Santa hat",
-    "mode": "holiday"}
+    "mode": "holiday",
+    "clicked": false}
 
 
 

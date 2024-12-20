@@ -9,7 +9,10 @@
       <div class="modeTasks">
           <h2>{{ uiLabels.taskListTitle }}</h2>
           <ul>
-            <li v-for="task in taskList.filter(task => task.mode === this.selectedMode)" :key="task.task">
+            <li v-for="task in taskList.filter(task => task.mode === this.selectedMode)"
+              :key="task.task"
+              :class="{ 'checkedTask': task.checked }"
+              @click="isChecked(task)">
               <div v-if="admin"> {{ task.task }} </div>
               <div v-else>
                 {{ task.task }}
@@ -20,8 +23,9 @@
               <div v-if="admin"> {{ task }} </div>
               <div v-else>
                 {{ task }}
-                <input type="checkbox" class="task-checkbox" /> 
+                <input type="checkbox" class="task-checkbox"/> 
               </div>
+              
             </li>
           </ul>
       </div>
@@ -53,7 +57,8 @@ export default {
       newTask:"",
       adminOrTeamId: "",
       admin: false,
-      teamNumber: ''
+      teamNumber: '',
+      checked: false
     } 
   },
   created: function () {
@@ -74,12 +79,11 @@ export default {
       console.log("Selected mode received:", this.selectedMode);
       });
     socket.on('goToNextPub', () => {
-      if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
+      if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`);}});
+      
 
     socket.emit("joinPoll", this.crawlId);
     },
-    
-
     
 
   methods: {
@@ -111,9 +115,13 @@ export default {
   },
 
   navigateToMapView(){
-        this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`);
+    this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`);
  
     },
+  isChecked(task) {
+    task.checked = !task.checked;
+    console.log(checked);
+  }  
 }
 }
 
@@ -223,6 +231,11 @@ transform: scale(2.5);
 
 input[type="checkbox"]:checked {
 accent-color: hotpink;
+}
+
+.checkedTask {
+  text-decoration: line-through;
+  color: gray;
 }
 
 
