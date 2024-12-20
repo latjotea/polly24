@@ -31,7 +31,8 @@
 	"tasks":"Tasks",
 	"shuffle":"Shuffle Teams",
 	"teamDivision": "Team Division:",
-	"team":"Team",
+	"team":"Team ",
+	"isAt":"is at:",
 	"start":"Start Pubcrawl",
 	"userNameTaken":"Username already taken, pick another one!",
 
@@ -50,5 +51,7 @@
 	"seePoints": "See points",
 	"close": "Close",
 	"points": "Scoreboard"
+
+
 
 }

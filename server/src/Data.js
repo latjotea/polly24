@@ -183,9 +183,15 @@ Data.prototype.setChosenPub = function(crawlId, chosenPub) {
 };
 
 Data.prototype.setChosenPubs = function(crawlId, teamNumber, chosenPub) {
-  console.log("team ", teamNumber, "have been assignes to ", chosenPub);
+  console.log("team ", teamNumber, "have been assigned to ", chosenPub);
   if (this.pollExists(crawlId)) {
-    this.polls[crawlId].chosenPubs.push({teamNumber:teamNumber, chosenPub:chosenPub})
+    const existingTeamIndex = this.polls[crawlId].chosenPubs.findIndex(
+      pub => pub.teamNumber === teamNumber
+    );
+    if (existingTeamIndex !== -1) {
+      this.polls[crawlId].chosenPubs[existingTeamIndex].chosenPub = chosenPub;} 
+    else {
+      this.polls[crawlId].chosenPubs.push({teamNumber: teamNumber, chosenPub: chosenPub});}
   }
 };
 

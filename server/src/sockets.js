@@ -115,11 +115,12 @@ function sockets(io, socket, data) {
 
   socket.on('teamArrived', function(d) {
     io.to(d.teamNumber).emit("goToMap");
-    data.setChosenPub(d.crawlId, d.chosenPub)
+    data.setChosenPubs(d.crawlId, d.teamNumber, d.chosenPub)
+    io.to(d.crawlId).emit("currentChosenPubsResponse", data.getChosenPubs(d.crawlId));
   });
 
-  socket.on('getChosenPub', function(d) {
-    socket.emit("currentChosenPubResponse", data.getChosenPub(d.crawlId));
+  socket.on('getChosenPubs', function(d) {
+    socket.emit("currentChosenPubsResponse", data.getChosenPubs(d.crawlId));
   });
 
 

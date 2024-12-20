@@ -2,7 +2,7 @@
 
 <template>
     <body>  
-      <p> {{ uiLabels.yourRound }} {{ this.round }} : {{ chosenPub }} </p>
+      <p> {{ uiLabels.yourRound }} {{ this.round }} : {{ getCurrentTeamPub()}}</p>
      <div class="interactive-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
          <div 
@@ -11,13 +11,20 @@
              class="marker-container" 
              :style="{ top: pub.coordinates.y + 'px', left: pub.coordinates.x + 'px' }">
            <div class="marker"
-                :class="{ chosen: pub.name === chosenPub }"></div>
-          <div class="chosenPub-label"
-                v-if="pub.name === chosenPub">
-                {{ uiLabels.yourPosition }}
+                :class="{chosen:isChosenPub(pub.name)}">
               </div>
-           <div class="pub-label">{{ pub.name }}</div>
-           
+                <div
+                  v-if="isCurrentTeamPub(pub.name)" 
+                  class="chosenPub-label your-position">
+                  {{ uiLabels.yourPosition }}
+                </div>
+                <div 
+                  v-for="chosen in getOtherTeamsAtPub(pub.name)" 
+                  :key="chosen.teamNumber"   
+                  class="chosenPub-label other-team">
+                  {{ uiLabels.team }}{{ chosen.teamNumber }} {{ uiLabels.isAt }}
+                </div>
+           <div class="pub-label">{{ pub.name }}</div>   
        </div>
      </div>
 
@@ -70,7 +77,8 @@
        adminId: "",
        teamNumber: '',
        round: 0,
-       chosenPub: '',
+       chosenPubs:[],
+       currentPub:'',
        isScoreboardVisible: false,
        scores: []
      }
@@ -105,15 +113,40 @@
      socket.on('goToNextPub', () => {
       if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
     
-    socket.on("currentChosenPubResponse", (chosenPub) => {
-      this.chosenPub = chosenPub; 
-      console.log("Vald pub:", this.chosenPub);
+    socket.on("currentChosenPubsResponse", (chosenPubs) => {
+      this.chosenPubs = chosenPubs; 
+      console.log("Valda pubar:", this.chosenPubs);
     });
-    socket.emit("getChosenPub", {crawlId: this.crawlId});
+    socket.emit("getChosenPubs", {crawlId: this.crawlId});
+
  
    },
    methods: {
-  toggleScoreboard() {
+    getCurrentTeamPub() {
+      const currentPub=this.chosenPubs.find(pub => pub.teamNumber === this.teamNumber);
+      return currentPub.chosenPub},
+
+    isChosenPub(pubName) {
+      return this.chosenPubs.some(chosen => chosen.chosenPub === pubName);
+    },
+
+    isCurrentTeamPub(pubName) {
+      return this.chosenPubs.some(chosen => 
+        chosen.teamNumber === this.teamNumber && 
+        chosen.chosenPub === pubName
+      );
+    },
+
+    getOtherTeamsAtPub(pubName) {
+      // Filter out current team and return only other teams at this pub
+      return this.chosenPubs.filter(chosen => 
+        chosen.chosenPub === pubName && 
+        chosen.teamNumber !== this.teamNumber
+      );
+    },
+
+
+    toggleScoreboard() {
     this.isScoreboardVisible = !this.isScoreboardVisible;
     if (this.isScoreboardVisible) {
       socket.emit("getScores", { crawlId: this.crawlId }); // Begär poängställning från servern
@@ -197,15 +230,6 @@
    border-radius: 50%;
   
  }
-
- 
-  .marker.chosen {
-  background-color: rgb(76, 245, 76); 
-
-
-  }
-
-
  
  .pub-label{
    display: block; /* Se till att texten visas som en separat rad */
@@ -275,6 +299,36 @@ button:hover {
   font-size: 1.2rem;
   margin: 5px 0;
 }
+
+.chosenPub-label {
+  display: block;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.your-position {
+  color: rgb(76, 245, 76);
+  order: 1;
+}
+
+.other-team {
+  color: rgb(255, 89, 0);
+  order: 2; 
+}
+
+.marker-container {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.pub-label {
+  order: 3; 
+}
+
+
 
  
  </style>
