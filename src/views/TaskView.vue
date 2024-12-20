@@ -23,9 +23,11 @@
                 <input type="checkbox" class="task-checkbox" /> 
               </div>
             </li>
-
           </ul>
       </div>
+      <button v-if="!admin" v-on:click="navigateToMapView" id="taskButton">
+            {{ uiLabels.seeMap }}
+        </button>
   </div>
   
 </template>
@@ -107,6 +109,11 @@ export default {
       this.newTask = "";
     }
   },
+
+  navigateToMapView(){
+        this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`);
+ 
+    },
 }
 }
 
