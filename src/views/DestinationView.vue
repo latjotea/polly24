@@ -56,7 +56,7 @@ data: function () {
     });
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
     socket.on("goToMap", () => {
-      this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`) //Interaktiv karta finns inte än
+      this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`) 
     });
 
     socket.on('goToNextPub', () => {

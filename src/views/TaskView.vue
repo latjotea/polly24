@@ -58,7 +58,8 @@ export default {
       adminOrTeamId: "",
       admin: false,
       teamNumber: '',
-      checked: false
+      checked: false,
+      checkedTask: null
     } 
   },
   created: function () {
@@ -120,8 +121,10 @@ export default {
  
     },
   isChecked(task) {
-    task.checked = !task.checked;
-    console.log(checked);
+    task.checked = true;
+    this.checkedTask = task;
+    console.log(task.checked);
+    socket.emit('taskChecked',{crawlId:this.crawlId, teamNumber:this.teamNumber, checkedTask: this.checkedTask})
   }  
 }
 }

@@ -122,6 +122,10 @@ function sockets(io, socket, data) {
     socket.emit("currentChosenPubResponse", data.getChosenPub(d.crawlId));
   });
 
+  socket.on('taskChecked', function(d) {
+    
+  })
+
 
 
     
