@@ -58,8 +58,7 @@ export default {
       adminOrTeamId: "",
       admin: false,
       teamNumber: '',
-      checked: false,
-      checkedTask: null
+      checked: false
     } 
   },
   created: function () {
@@ -80,12 +79,11 @@ export default {
       console.log("Selected mode received:", this.selectedMode);
       });
     socket.on('goToNextPub', () => {
-      if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
+      if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`);}});
+      
 
     socket.emit("joinPoll", this.crawlId);
     },
-    
-
     
 
   methods: {
@@ -117,14 +115,12 @@ export default {
   },
 
   navigateToMapView(){
-        this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`);
+    this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`);
  
     },
   isChecked(task) {
-    task.checked = true;
-    this.checkedTask = task;
-    console.log(task.checked);
-    socket.emit('taskChecked',{crawlId:this.crawlId, teamNumber:this.teamNumber, checkedTask: this.checkedTask})
+    task.checked = !task.checked;
+    console.log(checked);
   }  
 }
 }
