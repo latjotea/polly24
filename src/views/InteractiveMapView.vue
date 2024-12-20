@@ -1,8 +1,9 @@
 
 
 <template>
-    <body>  
-      <p>{{ uiLabels.yourRound }} {{ round }} : {{ currentTeamPub }}</p>
+    <body> 
+      <p v-if="admin">{{ uiLabels.yourRound }} {{ round }}</p> 
+      <p v-else>{{ uiLabels.yourRound }} {{ round }} : {{ getCurrentTeamPub() }}</p>
      <div class="interactive-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
          <div 
@@ -123,7 +124,9 @@
    },
    methods: {
     getCurrentTeamPub() {
-      return this.currentTeamPub;},
+      const currentPub=this.chosenPubs.find(pub => pub.teamNumber === this.teamNumber);
+      return currentPub.chosenPub;
+    },
 
     isChosenPub(pubName) {
       return this.chosenPubs.some(chosen => chosen.chosenPub === pubName);
