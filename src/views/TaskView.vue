@@ -29,9 +29,9 @@
             </li>
           </ul>
       </div>
-      <button v-if="!admin" v-on:click="navigateToMapView" id="taskButton">
+      <button v-on:click="navigateToMapView" id="taskButton">
             {{ uiLabels.seeMap }}
-        </button>
+    </button>
   </div>
   
 </template>
@@ -115,9 +115,14 @@ export default {
   },
 
   navigateToMapView(){
-    this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`);
- 
-    },
+    if (this.admin){
+      this.$router.push(`/interactivemap/${this.crawlId}/${this.adminOrTeamId}`)
+    }
+    else{this.$router.push(`/interactivemap/${this.crawlId}/${this.teamNumber}`);
+
+    }
+  },
+  
   isChecked(task) {
     task.checked = !task.checked;
     console.log(checked);

@@ -88,6 +88,7 @@
     this.crawlId = this.$route.params.id;
     this.adminOrTeamId = this.$route.params.adminOrTeamId;
     this.adminOrTeam();
+
     socket.emit( "joinPoll", this.crawlId );
      socket.on( "uiLabels", labels => this.uiLabels = labels );
      socket.emit( "getUILabels", this.lang );
@@ -98,7 +99,13 @@
     });
     socket.emit("getRound", { crawlId: this.crawlId });
      socket.emit("getSelectedPubs", {crawlId: this.crawlId });
-     socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
+     if (this.admin){
+      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
+     }
+     else{
+      socket.emit("participateInPoll", {crawlId:this.crawlId, name:'', team:this.teamNumber, arrived:false, admin:false});
+    }
+     
      
      socket.on("selectedCityResponse", (city) => {
        console.log("Given city:", city);
@@ -119,13 +126,11 @@
       console.log("Valda pubar:", this.chosenPubs);
     });
     socket.emit("getChosenPubs", {crawlId: this.crawlId});
-
- 
    },
    methods: {
     getCurrentTeamPub() {
       const currentPub=this.chosenPubs.find(pub => pub.teamNumber === this.teamNumber);
-      return currentPub.chosenPub;
+      return currentPub ? currentPub.chosenPub: '';
     },
 
     isChosenPub(pubName) {
@@ -140,7 +145,6 @@
     },
 
     getOtherTeamsAtPub(pubName) {
-      // Filter out current team and return only other teams at this pub
       return this.chosenPubs.filter(chosen => 
         chosen.chosenPub === pubName && 
         chosen.teamNumber !== this.teamNumber
