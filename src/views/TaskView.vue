@@ -47,7 +47,7 @@ export default {
       crawlId: '',
       lang: localStorage.getItem("lang") || "en",
       selectedMode: "",
-      tasks: [], //Lista med alla tasks, både standardiserade och nya
+      tasks: [], 
       newTask: "",
       adminOrTeamId: "",
       admin: false,
@@ -61,21 +61,39 @@ export default {
       return this.tasks.filter(task => task.mode === this.selectedMode);
     }
   },
+
   created: function () {
     this.crawlId = this.$route.params.id;
     this.adminOrTeamId = this.$route.params.adminOrTeamId;
     this.adminOrTeam();
 
     socket.on("uiLabels", labels => this.uiLabels = labels);
-    socket.on("taskListUpdated", this.updateTaskList);
+    socket.on("taskListUpdated", tasks => {
+      this.tasks = tasks;
+      // Save tasks whenever we get an update from server
+      localStorage.setItem(`tasks_${this.crawlId}`, JSON.stringify(tasks));
+    });
+    
     socket.on("selectedModeResponse", (mode) => {
       this.selectedMode = mode;
       console.log("Selected mode received:", this.selectedMode);
       
       if (!this.initialized) {
-        this.loadInitialTasks();
+        // First try to load saved tasks
+        const savedTasks = localStorage.getItem(`tasks_${this.crawlId}`);
+        if (savedTasks) {
+          socket.emit("initializeTasks", {
+            crawlId: this.crawlId,
+            tasks: JSON.parse(savedTasks)
+          });
+        } else {
+          // If no saved tasks, load initial tasks
+          this.loadInitialTasks();
+        }
+        this.initialized = true;
       }
     });
+
     socket.on('goToNextPub', () => {
       if (!this.admin) {
         this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`);
@@ -87,6 +105,7 @@ export default {
     socket.emit("joinPoll", this.crawlId);
     socket.emit("getTasks", { crawlId: this.crawlId });
   },
+
   methods: {
     adminOrTeam() {
       if (this.adminOrTeamId.length > 10) {
@@ -97,19 +116,16 @@ export default {
     },
 
     loadInitialTasks() {
-      // Först hämtas existerande uppdrag från servern
-      socket.emit("getTasks", { crawlId: this.crawlId }, (existingTasks) => {
-        if (!existingTasks || existingTasks.length === 0) {
-          // Sen hämtas uppdrag från jason-filerna och läggs till i tasks genom att ge samma standarder dvs. text, mode och checked
-          const predefinedTasks = this.lang === "sv" ? taskssv : tasksen;
-          const initialTasks = predefinedTasks.map(task => ({
-            text: task.task,
-            mode: task.mode,
-            checked: false
-          }));
-          socket.emit("initializeTasks", {crawlId: this.crawlId,tasks: initialTasks });
-        }
-        this.initialized = true;
+      const predefinedTasks = this.lang === "sv" ? taskssv : tasksen;
+      const initialTasks = predefinedTasks.map(task => ({
+        text: task.task,
+        mode: task.mode,
+        checked: false
+      }));
+      
+      socket.emit("initializeTasks", {
+        crawlId: this.crawlId,
+        tasks: initialTasks
       });
     },
 
@@ -120,31 +136,29 @@ export default {
           mode: this.selectedMode,
           checked: false
         };
-        socket.emit("addTask", {crawlId: this.crawlId, task: newTaskObj}, 
-          this.tasks.push(newTaskObj), //Lägger till nytt uppdrag i tasks
-          this.newTask = "",
-        );
+        socket.emit("addTask", {
+          crawlId: this.crawlId, 
+          task: newTaskObj
+        });
+        this.newTask = "";
       }
     },
 
     toggleTask(task) {
-      //Om admin försöker checka av ett uppdrag - så return
-      if (admin) {
-      return;
-    }
-      const updatedTask = { ...task, checked: !task.checked };
-      socket.emit("updateTaskStatus", {crawlId: this.crawlId, taskText: task.text, checked: updatedTask.checked}, );
-    },
-    
-    updateTaskList(tasks) {
-      this.tasks = tasks;
+      if (this.admin) {
+        return;
+      }
+      socket.emit("updateTaskStatus", {
+        crawlId: this.crawlId,
+        taskText: task.text,
+        checked: !task.checked
+      });
     },
 
     navigateToMapView() {
       const route = `/interactivemap/${this.crawlId}/${this.adminOrTeamId}`;
       this.$router.push(route);
     }
-
   }
 }
 </script>
