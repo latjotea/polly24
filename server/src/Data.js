@@ -265,6 +265,40 @@ Data.prototype.submitAnswer = function(crawlId, answer) {
 
 }
 
+Data.prototype.initializeTasks = function(crawlId, tasks) {
+  if (!this.pollExists(crawlId)) {
+    return false;
+  }
+  this.polls[crawlId].taskList = tasks;
+  return this.getTasks(crawlId);
+};
+
+Data.prototype.addTask = function(crawlId, task) {
+  if (!this.pollExists(crawlId)) {
+    return false;
+  }
+  this.polls[crawlId].taskList.push(task);
+  return this.getTasks(crawlId);
+};
+
+Data.prototype.updateTaskStatus = function(crawlId, taskText, checked) {
+  if (!this.pollExists(crawlId)) {
+    return false;
+  }
+  const task = this.polls[crawlId].taskList.find(t => t.text === taskText);
+  if (task) {
+    task.checked = checked;
+  }
+  return this.getTasks(crawlId);
+};
+
+Data.prototype.getTasks = function(crawlId) {
+  if (!this.pollExists(crawlId)) {
+    return [];
+  }
+  return this.polls[crawlId].taskList || [];
+};
+
 export { Data };
 
 

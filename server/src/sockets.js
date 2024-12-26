@@ -123,6 +123,31 @@ function sockets(io, socket, data) {
     socket.emit("currentChosenPubsResponse", data.getChosenPubs(d.crawlId));
   });
 
+  socket.on("initializeTasks", function(d) {
+    data.initializeTasks(d.crawlId, d.tasks);
+    io.to(d.crawlId).emit("taskListUpdated", data.getTasks(d.crawlId));
+  });
+
+  socket.on("addTask", function(d) {
+    // Add a new task
+    data.addTask(d.crawlId, d.task);
+    // Broadcast updated task list
+    io.to(d.crawlId).emit("taskListUpdated", data.getTasks(d.crawlId));
+  });
+
+  socket.on("updateTaskStatus", function(d) {
+    // Update task checked status
+    data.updateTaskStatus(d.crawlId, d.taskText, d.checked);
+    // Broadcast updated task list
+    io.to(d.crawlId).emit("taskListUpdated", data.getTasks(d.crawlId));
+  });
+
+  socket.on("getTasks", function(d) {
+    // Send current task list to requesting client
+    socket.emit("taskListUpdated", data.getTasks(d.crawlId));
+  });
+
+
 
 
     
