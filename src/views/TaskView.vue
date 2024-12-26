@@ -16,7 +16,7 @@
           <div class="task-item">
             <span>{{ task.text }}</span>
             <input 
-              v-if="!admin"
+              v-if="!admin && (!task.completedBy || task.completedBy === teamNumber)"
               type="checkbox" 
               class="task-checkbox"
               :checked="task.checked"
@@ -54,6 +54,7 @@ export default {
       admin: false,
       teamNumber: '',
       initialized: false,
+      lastToggledTask: null
     }
   },
   
@@ -66,14 +67,29 @@ export default {
   created: function () {
     this.crawlId = this.$route.params.id;
     this.adminOrTeamId = this.$route.params.adminOrTeamId;
-    this.adminOrTeam();
-    this.teamNumber = this.$route.params.team;
+    if (this.adminOrTeamId.length > 10) {
+      this.admin = true;
+      // If it's an admin, don't set teamNumber
+    } else {
+      this.admin = false;
+      this.teamNumber = this.adminOrTeamId; // Set teamNumber directly from adminOrTeamId
+    }
+    console.log("Team number initialized as:", this.teamNumber);
+    
 
     socket.on("uiLabels", labels => this.uiLabels = labels);
     socket.on("taskListUpdated", tasks => {
       this.tasks = tasks;
-      // Save tasks whenever we get an update from server
       localStorage.setItem(`tasks_${this.crawlId}`, JSON.stringify(tasks));
+      
+      // Only log if we have a lastToggledTask
+      if (this.lastToggledTask) {
+        const updatedTask = tasks.find(t => t.text === this.lastToggledTask.text);
+        if (updatedTask) {
+          console.log("Task completed by", updatedTask.completedBy);
+        }
+        this.lastToggledTask = null; // Reset after logging
+      }
     });
     
     socket.on("selectedModeResponse", (mode) => {
@@ -106,17 +122,11 @@ export default {
     socket.emit("getMode", { crawlId: this.crawlId });
     socket.emit("joinPoll", this.crawlId);
     socket.emit("joinPoll", this.teamNumber);
+    console.log("Team number initialized as:", this.teamNumber);
     socket.emit("getTasks", { crawlId: this.crawlId });
   },
 
   methods: {
-    adminOrTeam() {
-      if (this.adminOrTeamId.length > 10) {
-        this.admin = true;
-      } else {
-        this.teamNumber = this.adminOrTeamId;
-      }
-    },
 
     loadInitialTasks() {
       const predefinedTasks = this.lang === "sv" ? taskssv : tasksen;
@@ -124,6 +134,7 @@ export default {
         text: task.task,
         mode: task.mode,
         checked: false,
+        completedBy:null,
         
       }));
       
@@ -139,6 +150,7 @@ export default {
           text: this.newTask,
           mode: this.selectedMode,
           checked: false,
+          completedBy:null,
           
         };
         socket.emit("addTask", {
@@ -154,13 +166,13 @@ export default {
         return;
       }
       const newStatus = !task.checked;
+      this.lastToggledTask = task; // Store the task being toggled
       socket.emit("updateTaskStatus", {
         crawlId: this.crawlId,
         taskText: task.text,
         checked: newStatus,
         teamNumber: this.teamNumber
       });
-      console.log("Task completed by",task.completedBy)
     },
 
     navigateToMapView() {

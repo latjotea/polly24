@@ -36,6 +36,7 @@ data: function () {
   created: function () {
     this.crawlId = this.$route.params.id;
     this.teamNumber = this.$route.params.team;
+    console.log("jag är i lag:", this.teamNumber)
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
 
@@ -47,6 +48,7 @@ data: function () {
     socket.emit("getRound", { crawlId: this.crawlId });
     socket.emit("joinPoll", this.crawlId);
     socket.emit("joinPoll", this.teamNumber);
+    console.log("jag är i lag:", this.teamNumber)
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;
       //console.log("Hämtade pubar från servern:", this.selectedPubs); 

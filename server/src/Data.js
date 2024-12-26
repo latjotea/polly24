@@ -301,12 +301,13 @@ Data.prototype.updateTaskStatus = function(crawlId, taskText, checked, teamNumbe
   if (task) {
     task.checked = checked;
     // CHAT
-    if (checked && teamNumber) {
+    if (checked) {
       task.completedBy = teamNumber;
+      console.log(`Server: Task "${taskText}" completed by team: ${teamNumber}`);
     } else if (!checked) {
       task.completedBy = null;
+      console.log(`Server: Task "${taskText}" unchecked`);
     }
-    console.log(`Task "${taskText}" checked status updated to: ${checked} by team: ${teamNumber}`);
   }
   return this.getTasks(crawlId);
 };
