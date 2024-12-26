@@ -269,7 +269,13 @@ Data.prototype.initializeTasks = function(crawlId, tasks) {
   if (!this.pollExists(crawlId)) {
     return false;
   }
-  this.polls[crawlId].taskList = tasks;
+  // Chat
+  const tasksWithChecked = tasks.map(task => ({
+    ...task,
+    checked: task.checked || false,
+    completedBy: task.completedBy || null
+  }));
+  this.polls[crawlId].taskList = tasksWithChecked;
   return this.getTasks(crawlId);
 };
 
@@ -277,17 +283,30 @@ Data.prototype.addTask = function(crawlId, task) {
   if (!this.pollExists(crawlId)) {
     return false;
   }
-  this.polls[crawlId].taskList.push(task);
+  // Chat
+  const taskWithChecked = {
+    ...task,
+    checked: false,
+    completedBy: null
+  };
+  this.polls[crawlId].taskList.push(taskWithChecked);
   return this.getTasks(crawlId);
 };
 
-Data.prototype.updateTaskStatus = function(crawlId, taskText, checked) {
+Data.prototype.updateTaskStatus = function(crawlId, taskText, checked, teamNumber) { 
   if (!this.pollExists(crawlId)) {
     return false;
   }
   const task = this.polls[crawlId].taskList.find(t => t.text === taskText);
   if (task) {
     task.checked = checked;
+    // CHAT
+    if (checked && teamNumber) {
+      task.completedBy = teamNumber;
+    } else if (!checked) {
+      task.completedBy = null;
+    }
+    console.log(`Task "${taskText}" checked status updated to: ${checked} by team: ${teamNumber}`);
   }
   return this.getTasks(crawlId);
 };

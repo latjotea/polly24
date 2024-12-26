@@ -137,7 +137,7 @@ function sockets(io, socket, data) {
 
   socket.on("updateTaskStatus", function(d) {
     // Update task checked status
-    data.updateTaskStatus(d.crawlId, d.taskText, d.checked);
+    data.updateTaskStatus(d.crawlId, d.taskText, d.checked, d.teamNumber);
     // Broadcast updated task list
     io.to(d.crawlId).emit("taskListUpdated", data.getTasks(d.crawlId));
   });
@@ -147,44 +147,6 @@ function sockets(io, socket, data) {
     socket.emit("taskListUpdated", data.getTasks(d.crawlId));
   });
 
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 
 }
 

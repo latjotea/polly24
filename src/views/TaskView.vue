@@ -13,14 +13,15 @@
           :key="task.text"
           :class="{ 'checkedTask': task.checked }"
           @click="toggleTask(task)">
-          <div>
-            {{ task.text }}
+          <div class="task-item">
+            <span>{{ task.text }}</span>
             <input 
               v-if="!admin"
               type="checkbox" 
               class="task-checkbox"
-              v-model="task.checked"
+              :checked="task.checked"
               @click.stop
+              @change="toggleTask(task)"
             />
           </div>
         </li>
@@ -52,7 +53,7 @@ export default {
       adminOrTeamId: "",
       admin: false,
       teamNumber: '',
-      initialized: false
+      initialized: false,
     }
   },
   
@@ -66,6 +67,7 @@ export default {
     this.crawlId = this.$route.params.id;
     this.adminOrTeamId = this.$route.params.adminOrTeamId;
     this.adminOrTeam();
+    this.teamNumber = this.$route.params.team;
 
     socket.on("uiLabels", labels => this.uiLabels = labels);
     socket.on("taskListUpdated", tasks => {
@@ -103,6 +105,7 @@ export default {
     socket.emit("getUILabels", this.lang);
     socket.emit("getMode", { crawlId: this.crawlId });
     socket.emit("joinPoll", this.crawlId);
+    socket.emit("joinPoll", this.teamNumber);
     socket.emit("getTasks", { crawlId: this.crawlId });
   },
 
@@ -120,7 +123,8 @@ export default {
       const initialTasks = predefinedTasks.map(task => ({
         text: task.task,
         mode: task.mode,
-        checked: false
+        checked: false,
+        
       }));
       
       socket.emit("initializeTasks", {
@@ -134,7 +138,8 @@ export default {
         const newTaskObj = {
           text: this.newTask,
           mode: this.selectedMode,
-          checked: false
+          checked: false,
+          
         };
         socket.emit("addTask", {
           crawlId: this.crawlId, 
@@ -148,19 +153,27 @@ export default {
       if (this.admin) {
         return;
       }
+      const newStatus = !task.checked;
       socket.emit("updateTaskStatus", {
         crawlId: this.crawlId,
         taskText: task.text,
-        checked: !task.checked
+        checked: newStatus,
+        teamNumber: this.teamNumber
       });
+      console.log("Task completed by",task.completedBy)
     },
 
     navigateToMapView() {
       const route = `/interactivemap/${this.crawlId}/${this.adminOrTeamId}`;
       this.$router.push(route);
+    },
+
+
+
+
     }
   }
-}
+
 </script>
 
 <style>
@@ -266,6 +279,13 @@ transform: scale(2.5);
 
 input[type="checkbox"]:checked {
 accent-color: hotpink;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
 }
 
 .checkedTask {
