@@ -31,7 +31,7 @@
   
   <div id="scoreboard">
     <p>{{ uiLabels.points }}</p>
-    <div v-for="(score, index) in scores" 
+    <div v-for="(score, index) in scores.slice(0,teamAmount)" 
          :key="index" >
       <div>{{uiLabels.team}} {{ index + 1 }} : {{ score }}</div>
     </div>
@@ -68,7 +68,8 @@ export default {
       teamNumber: '',
       initialized: false,
       lastToggledTask: null,
-      scores: [0,0,0,0,0]
+      scores: [0,0,0,0,0],
+      teamAmount:''
     }
   },
   
@@ -140,12 +141,18 @@ export default {
       }
     });
 
+    socket.on("selectedTeamAmountResponse", (teamAmount) => {
+      this.teamAmount = teamAmount; 
+      console.log("Antalet lag är:", this.teamAmount);
+    });
+
     socket.emit("getUILabels", this.lang);
     socket.emit("getMode", { crawlId: this.crawlId });
     socket.emit("joinPoll", this.crawlId);
     socket.emit("joinPoll", this.teamNumber);
     console.log("Team number initialized as:", this.teamNumber);
     socket.emit("getTasks", { crawlId: this.crawlId });
+    socket.emit("getTeamAmount", {crawlId: this.crawlId });
   },
 
   methods: {
