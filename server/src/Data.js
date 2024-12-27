@@ -323,6 +323,7 @@ Data.prototype.initializeScores = function(crawlId) {
   if (!this.pollExists(crawlId)) {
     return false;
   }
+  //Chat
   if (!this.polls[crawlId].scores) {
     this.polls[crawlId].scores = [0, 0, 0, 0, 0]; // Initialize scores for 5 teams
   }

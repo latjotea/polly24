@@ -6,33 +6,44 @@
       </label>
       <button class="submit-button" v-on:click="submitTask">{{ uiLabels.addTask }}</button>
     </div>
-    <div class="modeTasks">
-      <h2>{{ uiLabels.taskListTitle }}</h2>
-      <ul>
-        <li v-for="task in filteredTasks"
-          :key="task.text"
-          :class="{ 'checkedTask': task.checked }"
-          @click="toggleTask(task)">
-          <div class="task-item">
-            <span>{{ task.text }}</span>
-            <input 
-              v-if="!admin && (!task.completedBy || task.completedBy === teamNumber)"
-              type="checkbox" 
-              class="task-checkbox"
-              :checked="task.checked"
-              @click.stop
-              @change="toggleTask(task)"/>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <button v-on:click="navigateToMapView" id="taskButton">
-      {{ uiLabels.seeMap }}
-    </button>
-    <div class = "scoreboard">
-      <p>{{ uiLabels.points }}</p>
+
+    <div class="task-grid">
+  <div class="modeTasks">
+    <h2>{{ uiLabels.taskListTitle }}</h2>
+    <ul>
+      <li v-for="task in filteredTasks"
+        :key="task.text"
+        :class="{ 'checkedTask': task.checked }"
+        @click="toggleTask(task)">
+        <div class="task-item">
+          <span>{{ task.text }}</span>
+          <input 
+            v-if="!admin && (!task.completedBy || task.completedBy === teamNumber)"
+            type="checkbox" 
+            class="task-checkbox"
+            :checked="task.checked"
+            @click.stop
+            @change="toggleTask(task)"/>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+  <div id="scoreboard">
+    <p>{{ uiLabels.points }}</p>
+    <div v-for="(score, index) in scores" 
+         :key="index" >
+      <div>{{uiLabels.team}} {{ index + 1 }} : {{ score }}</div>
     </div>
   </div>
+
+    </div>
+    <button v-on:click="navigateToMapView" id="mapButton">
+      {{ uiLabels.seeMap }}
+    </button>
+  </div>
+
+  
 </template>
 
 <script>
@@ -222,15 +233,13 @@ font-family: 'Galindo';
 
 }
 
-.task-container {
+.task-container{
 display: flex;
 flex-direction: column;
 align-items: center;
 gap: 2rem;
 margin-top: 2rem;
 }
-
-
 
 .task-checkbox {
   margin-left: 1rem; 
@@ -253,8 +262,6 @@ width: 40rem;
 height: 5rem;
 font-family: 'Galindo';
 box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-
-
 }
 
 .createTasks button {
@@ -277,15 +284,27 @@ background-color: rgb(141, 242, 141);
 }
 
 .modeTasks {
-background-color: rgb(65, 105, 225);
-color: white;
-padding: 1rem;
-border-radius: 15px;
-width: 40rem;
-text-align: center;
-box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  background-color: rgb(65, 105, 225);
+  color: white;
+  padding: 1rem;
+  border-radius: 15px;
+  width: 40rem;
+  text-align: center;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  flex: 2;
+}
 
-
+#scoreboard {
+  background-color: hotpink;
+  color: white;
+  padding: 1rem;
+  border-radius: 15px;
+  width: 15rem;
+  text-align: center;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  height: fit-content;
+  align-self: flex-start;
+  flex: 1;
 }
 
 .modeTasks h2 {
@@ -324,6 +343,29 @@ accent-color: hotpink;
   color: gray;
   pointer-events: none; /* Förhindrar klick */
   cursor: not-allowed;
+}
+
+.task-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+#mapButton {
+margin-top: 1rem;
+font-size: 1.7rem;
+font-family: 'Galindo';
+background-color: rgb(65, 105, 225);
+border: none;
+padding: 0.5rem 1rem;
+border-radius: 10px;
+cursor: pointer;
+transition: background-color 0.3s;
+box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+
 }
 
 

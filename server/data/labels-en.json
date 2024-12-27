@@ -24,9 +24,6 @@
 	"sendPubs": "Done",
 	"pickAmountTeam": "Choose number of teams:",
 	"yourCrawl":"This is your chosen pubs",
-
-
-
 	"submitTasks":"Add task",
 	"tasks":"Tasks",
 	"shuffle":"Shuffle Teams",
@@ -35,26 +32,17 @@
 	"isAt":"is at:",
 	"start":"Start Pubcrawl",
 	"userNameTaken":"Username already taken, pick another one!",
-
 	"seeMap": "View map",
 	"createTasks": "Create tasks",
 	"nextStop": "Go to next stop",
 	"newTask": "New task",
 	"addTask": "Add task",
 	"flagPicture":"/img/Swedish_flag.png",
-
-
 	"seeTasks":"See tasks",
 	"controlCrawl":"Control pubcrawl",
 	"yourRound": "Pub",
 	"yourPosition": "You are at:",
-	
-	
 	"seePoints": "See points",
 	"close": "Close",
 	"points": "Scoreboard"
-	
-
-
-
 }
