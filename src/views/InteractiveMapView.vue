@@ -44,8 +44,8 @@
     <div v-if="isScoreboardVisible" class="scoreboard">
     <p>{{ uiLabels.points }}</p>
     <ul>
-      <li v-for="team in scores" :key="team.name">
-        {{ team.name }}: {{ team.points }}
+      <li v-for="(score, index) in scores" :key="index">
+        {{ uiLabels.team }} {{ index + 1 }}: {{ score }}
       </li>
     </ul>
     <button @click="toggleScoreboard" class="close-button">
@@ -83,7 +83,8 @@
        chosenPubs:[],
        currentPub:'',
        isScoreboardVisible: false,
-       scores: []
+       scores: [],
+       teamAmount:""
      }
    },
    created: function () {
@@ -114,17 +115,20 @@
     });
 
     socket.on("scoresUpdated", (scores) => {
-      this.scores = scores.map((points, index) => ({
-        name: `Team ${index + 1}`,
-        points: points
-      }));
+      this.scores=scores.slice(0,this.teamAmount);
     });
+
+    socket.on("selectedTeamAmountResponse", (teamAmount) => {
+      this.teamAmount = teamAmount;
+    });
+
 
     socket.emit( "getUILabels", this.lang );
     socket.emit( "joinPoll", this.crawlId );
     socket.emit("getCity", {crawlId: this.crawlId });
     socket.emit("getRound", { crawlId: this.crawlId });
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
+    socket.emit("getTeamAmount", { crawlId: this.crawlId });
     if (this.admin){
       socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
      }
