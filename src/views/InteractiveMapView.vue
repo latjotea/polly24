@@ -42,14 +42,16 @@
 
  
     <div v-if="isScoreboardVisible" class="scoreboard">
-      <p>{{ uiLabels.points }}</p>
-      <ul>
-        <li v-for="team in scores" :key="team.name">
-          {{ team.name }}: {{ team.points }} {{ uiLabels.points }}
-        </li>
-      </ul>
-      <button @click="toggleScoreboard">{{ uiLabels.close }}</button>
-    </div>  
+    <p>{{ uiLabels.points }}</p>
+    <ul>
+      <li v-for="team in scores" :key="team.name">
+        {{ team.name }}: {{ team.points }}
+      </li>
+    </ul>
+    <button @click="toggleScoreboard" class="close-button">
+      {{ uiLabels.close }}
+    </button>
+  </div>
         
     </body>
  </template>
@@ -88,45 +90,50 @@
     this.crawlId = this.$route.params.id;
     this.adminOrTeamId = this.$route.params.adminOrTeamId;
     this.adminOrTeam();
-
-    socket.emit( "joinPoll", this.crawlId );
-     socket.on( "uiLabels", labels => this.uiLabels = labels );
-     socket.emit( "getUILabels", this.lang );
-     socket.emit("getCity", {crawlId: this.crawlId });
-     socket.on("currentRoundResponse", (round) => {
+    socket.on( "uiLabels", labels => this.uiLabels = labels );
+    socket.on("currentRoundResponse", (round) => {
       this.round = round; 
       console.log("runda:", this.round);
     });
-    socket.emit("getRound", { crawlId: this.crawlId });
-     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
-     if (this.admin){
-      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
-     }
-     else{
-      socket.emit("participateInPoll", {crawlId:this.crawlId, name:'', team:this.teamNumber, arrived:false, admin:false});
-    }
-     
-     
-     socket.on("selectedCityResponse", (city) => {
+    socket.on("selectedCityResponse", (city) => {
        console.log("Given city:", city);
        this.city = city;
        this.selectMapPicture(city);
      });
- 
      socket.on("selectedPubsResponse", (selectedPubNames) => {
          this.selectedPubs = this.allPubs.filter(pub =>
              selectedPubNames.includes(pub.name)
          );
      });
-     socket.on('goToNextPub', () => {
+    socket.on('goToNextPub', () => {
       if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
     
     socket.on("currentChosenPubsResponse", (chosenPubs) => {
       this.chosenPubs = chosenPubs; 
       console.log("Valda pubar:", this.chosenPubs);
     });
+
+    socket.on("scoresUpdated", (scores) => {
+      this.scores = scores.map((points, index) => ({
+        name: `Team ${index + 1}`,
+        points: points
+      }));
+    });
+
+    socket.emit( "getUILabels", this.lang );
+    socket.emit( "joinPoll", this.crawlId );
+    socket.emit("getCity", {crawlId: this.crawlId });
+    socket.emit("getRound", { crawlId: this.crawlId });
+    socket.emit("getSelectedPubs", {crawlId: this.crawlId });
+    if (this.admin){
+      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
+     }
+    else{
+      socket.emit("participateInPoll", {crawlId:this.crawlId, name:'', team:this.teamNumber, arrived:false, admin:false});
+    }
     socket.emit("getChosenPubs", {crawlId: this.crawlId});
    },
+
    methods: {
     getCurrentTeamPub() {
       const currentPub=this.chosenPubs.find(pub => pub.teamNumber === this.teamNumber);
@@ -155,9 +162,10 @@
     toggleScoreboard() {
     this.isScoreboardVisible = !this.isScoreboardVisible;
     if (this.isScoreboardVisible) {
-      socket.emit("getScores", { crawlId: this.crawlId }); // Begär poängställning från servern
+      socket.emit("getScores", { crawlId: this.crawlId });
     }
   },
+
     adminOrTeam() {
     if (this.adminOrTeamId.length > 10) {
         this.admin = true;
@@ -284,26 +292,33 @@ button:hover {
   position: fixed;
   top: 50%;
   left: 50%;
-  background-color: white;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%);
+  background-color: hotpink;
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
   z-index: 10;
-}
-
-.scoreboard h3 {
-  margin: 0 0 10px;
-}
-
-.scoreboard ul {
-  list-style: none;
-  padding: 0;
+  font-family: 'Galindo';
+  min-width: 200px;
 }
 
 .scoreboard li {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.close-button {
+  display: block;
+  margin: 1.5rem auto 0;
+  padding: 0.5rem 1rem;
+  font-family: 'Galindo';
+  background-color: rgb(65, 105, 225);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   font-size: 1.2rem;
-  margin: 5px 0;
 }
 
 .chosenPub-label {
