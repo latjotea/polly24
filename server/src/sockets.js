@@ -129,25 +129,26 @@ function sockets(io, socket, data) {
   });
 
   socket.on("addTask", function(d) {
-    // Add a new task
     data.addTask(d.crawlId, d.task);
-    // Broadcast updated task list
     io.to(d.crawlId).emit("taskListUpdated", data.getTasks(d.crawlId));
   });
 
   socket.on("updateTaskStatus", function(d) {
-    // Update task checked status
     data.updateTaskStatus(d.crawlId, d.taskText, d.checked, d.teamNumber);
-    // Broadcast updated task list
     io.to(d.crawlId).emit("taskListUpdated", data.getTasks(d.crawlId));
   });
 
   socket.on("getTasks", function(d) {
-    // Send current task list to requesting client
     socket.emit("taskListUpdated", data.getTasks(d.crawlId));
   });
 
+  socket.on("updateScores", function(d) {
+      io.to(d.crawlId).emit("scoresUpdated", data.updateScores(d.crawlId, d.scores));
+    });
 
+  socket.on("getScores", function(d) {
+      socket.emit("scoresUpdated", data.getScores(d.crawlId));
+    });
 }
 
 export { sockets };

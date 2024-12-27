@@ -21,8 +21,7 @@
               class="task-checkbox"
               :checked="task.checked"
               @click.stop
-              @change="toggleTask(task)"
-            />
+              @change="toggleTask(task)"/>
           </div>
         </li>
       </ul>
@@ -30,6 +29,9 @@
     <button v-on:click="navigateToMapView" id="taskButton">
       {{ uiLabels.seeMap }}
     </button>
+    <div class = "scoreboard">
+      <p>{{ uiLabels.points }}</p>
+    </div>
   </div>
 </template>
 
@@ -54,7 +56,8 @@ export default {
       admin: false,
       teamNumber: '',
       initialized: false,
-      lastToggledTask: null
+      lastToggledTask: null,
+      scores: [0,0,0,0,0]
     }
   },
   
@@ -69,10 +72,9 @@ export default {
     this.adminOrTeamId = this.$route.params.adminOrTeamId;
     if (this.adminOrTeamId.length > 10) {
       this.admin = true;
-      // If it's an admin, don't set teamNumber
     } else {
       this.admin = false;
-      this.teamNumber = this.adminOrTeamId; // Set teamNumber directly from adminOrTeamId
+      this.teamNumber = this.adminOrTeamId; 
     }
     console.log("Team number initialized as:", this.teamNumber);
     
@@ -82,13 +84,12 @@ export default {
       this.tasks = tasks;
       localStorage.setItem(`tasks_${this.crawlId}`, JSON.stringify(tasks));
       
-      // Only log if we have a lastToggledTask
       if (this.lastToggledTask) {
         const updatedTask = tasks.find(t => t.text === this.lastToggledTask.text);
         if (updatedTask) {
           console.log("Task completed by", updatedTask.completedBy);
         }
-        this.lastToggledTask = null; // Reset after logging
+        this.lastToggledTask = null; 
       }
     });
     
@@ -97,7 +98,6 @@ export default {
       console.log("Selected mode received:", this.selectedMode);
       
       if (!this.initialized) {
-        // First try to load saved tasks
         const savedTasks = localStorage.getItem(`tasks_${this.crawlId}`);
         if (savedTasks) {
           socket.emit("initializeTasks", {
@@ -105,12 +105,23 @@ export default {
             tasks: JSON.parse(savedTasks)
           });
         } else {
-          // If no saved tasks, load initial tasks
           this.loadInitialTasks();
         }
         this.initialized = true;
       }
     });
+    
+    socket.on("scoresUpdated", (newScores) => {
+      this.scores = newScores;
+      localStorage.setItem(`scores_${this.crawlId}`, JSON.stringify(newScores));
+    });
+
+    const savedScores = localStorage.getItem(`scores_${this.crawlId}`);
+    if (savedScores) {
+      this.scores = JSON.parse(savedScores);
+    } else {
+      socket.emit("getScores", { crawlId: this.crawlId });
+    }
 
     socket.on('goToNextPub', () => {
       if (!this.admin) {
@@ -167,6 +178,10 @@ export default {
       }
       const newStatus = !task.checked;
       this.lastToggledTask = task; // Store the task being toggled
+      if (newStatus) {
+        this.updateScore(this.teamNumber);
+      }
+      
       socket.emit("updateTaskStatus", {
         crawlId: this.crawlId,
         taskText: task.text,
@@ -180,8 +195,12 @@ export default {
       this.$router.push(route);
     },
 
-
-
+    updateScore() {
+      const adjustedTeamNumber = this.teamNumber - 1;
+      this.scores[adjustedTeamNumber]++;
+      socket.emit("updateScores", {crawlId: this.crawlId,scores: this.scores});
+      console.log(`Team ${this.teamNumber} score updated to ${this.scores[adjustedTeamNumber]}`);
+    }
 
     }
   }

@@ -319,6 +319,35 @@ Data.prototype.getTasks = function(crawlId) {
   return this.polls[crawlId].taskList || [];
 };
 
+Data.prototype.initializeScores = function(crawlId) {
+  if (!this.pollExists(crawlId)) {
+    return false;
+  }
+  if (!this.polls[crawlId].scores) {
+    this.polls[crawlId].scores = [0, 0, 0, 0, 0]; // Initialize scores for 5 teams
+  }
+  return this.polls[crawlId].scores;
+};
+
+Data.prototype.updateScores = function(crawlId, scores) {
+  if (!this.pollExists(crawlId)) {
+    return false;
+  }
+  this.polls[crawlId].scores = scores;
+  return this.polls[crawlId].scores;
+};
+
+Data.prototype.getScores = function(crawlId) {
+  if (!this.pollExists(crawlId)) {
+    return null;
+  }
+  if (!this.polls[crawlId].scores) {
+    return this.initializeScores(crawlId);
+  }
+  return this.polls[crawlId].scores;
+};
+
+
 export { Data };
 
 
