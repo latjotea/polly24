@@ -1,39 +1,188 @@
 <template>
-  <div>
-    lang: {{ lang }}
-    {{ question.q }}
-  </div>
-  <BarsComponent v-bind:labels="question.a" v-bind:data="submittedAnswers"/>
+  <body>
+    <div class="final-container">
+      <h1>{{ uiLabels.crawlEnd }}</h1>
+      
+      <div class="podium-container">
+        <!-- Silver - Second Place -->
+        <div class="podium-item silver" v-if="sortedTeams.length > 1 && teamAmount > 1">
+          <div class="team-info">
+            <div class="medal">🥈</div>
+            <div class="team-name">{{uiLabels.team}} {{ sortedTeams[1].teamNumber }}</div>
+            <div class="team-score">{{ sortedTeams[1].score }} {{uiLabels.teamPoints}}</div>
+          </div>
+          <div class="podium-block second"></div>
+        </div>
 
-  <span>{{ submittedAnswers }}</span>
+        <div class="podium-item gold" v-if="sortedTeams.length > 0 && teamAmount > 0">
+          <div class="team-info">
+            <div class="medal">🥇</div>
+            <div class="team-name">{{uiLabels.team}} {{ sortedTeams[0].teamNumber }}</div>
+            <div class="team-score">{{ sortedTeams[0].score }} {{uiLabels.teamPoints}}</div>
+          </div>
+          <div class="podium-block first"></div>
+        </div>
+        
+        <div class="podium-item bronze" v-if="sortedTeams.length > 2 && teamAmount > 2">
+          <div class="team-info">
+            <div class="medal">🥉</div>
+            <div class="team-name">{{uiLabels.team}} {{ sortedTeams[2].teamNumber }}</div>
+            <div class="team-score">{{ sortedTeams[2].score }} {{uiLabels.teamPoints}}</div>
+          </div>
+          <div class="podium-block third"></div>
+        </div>
+      </div>
+      
+
+      <div class="other-teams" v-if="sortedTeams.length > 3 && teamAmount > 3">
+        <h3>{{ uiLabels.loserTeams }}</h3>
+        <div v-for="(team, index) in sortedTeams.slice(3)" :key="index" class="other-team">
+          <span class="place">{{ index + 4 }}.</span>
+          <span>{{uiLabels.team}} {{ team.teamNumber }} - {{ team.score }} {{ uiLabels.teamPoints }}</span>
+        </div>
+      </div>
+    </div>
+  </body>
 </template>
 
 <script>
-// @ is an alias to /src
-import BarsComponent from '@/components/BarsComponent.vue';
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 export default {
   name: 'ResultView',
-  components: {
-    BarsComponent
-  },
-  data: function () {
+  data() {
     return {
+      uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      crawlId: "",
-      question: "",
-      submittedAnswers: {}
+      crawlId: '',
+      scores: [],
+      teamAmount:""
     }
   },
-  created: function () {
-    this.crawlId = this.$route.params.id
-    socket.on( "uiLabels", labels => this.uiLabels = labels );
-    socket.on("submittedAnswersUpdate", update => this.submittedAnswers = update);
-    socket.on("questionUpdate", update => this.question = update );
+  
+  computed: {
+    sortedTeams() {
+      const teamsWithScores = this.scores.map((score, index) => ({teamNumber: index + 1, score: score})
+    );
+      
+      // Sortera lagen efter poäng (högst först)
+      return teamsWithScores.sort((a, b) => b.score - a.score).slice(0,this.teamAmount);
+    }
+  },
+
+  created() {
+    this.crawlId = this.$route.params.id;
+    socket.on("uiLabels", labels => this.uiLabels = labels);
     socket.emit( "getUILabels", this.lang );
-    socket.emit( "joinPoll", this.crawlId );
+
+    socket.on("selectedTeamAmountResponse", (teamAmount) => {
+      this.teamAmount = teamAmount; 
+      console.log("Antalet lag är:", this.teamAmount);
+    });
+
+    socket.emit("getTeamAmount", {crawlId: this.crawlId });
+    
+    socket.emit('getScores', { crawlId: this.crawlId });
+    
+    socket.on('scoresUpdated', (scores) => {
+      this.scores = scores.slice(0,this.teamAmount);
+    });
   }
 }
 </script>
+
+<style scoped>
+body {
+  margin-top: 1rem;
+  background-color: rgb(255, 240, 245);
+  font-family: 'Galindo';
+  height: 100vh;
+}
+
+.final-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.podium-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin: 4rem auto;
+  gap: 1rem;
+  height: 400px;
+}
+
+.podium-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+
+.team-info {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.medal {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.team-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.team-score {
+  font-size: 1.2rem;
+}
+
+.podium-block {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+}
+
+.first {
+  height: 200px;
+  background-color: #FFD700;
+}
+
+.second {
+  height: 150px;
+  background-color: #C0C0C0;
+}
+
+.third {
+  height: 100px;
+  background-color: #CD7F32;
+}
+
+.other-teams {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.other-team {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.place {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+h1 {
+  color: rgb(65, 105, 225);
+  margin-bottom: 2rem;
+}
+
+h3 {
+  color: rgb(65, 105, 225);
+  margin-bottom: 1rem;
+}
+</style>

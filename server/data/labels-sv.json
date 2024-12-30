@@ -50,7 +50,11 @@
 	"yourPosition": "Du är på:",
 	"seePoints": "Se poäng",
 	"close": "Stäng",
-	"points": "Poängställning"
+	"points": "Poängställning",
+	"crawlEnd": "Pubrundan är slut",
+	"loserTeams": "Övriga placeringar",
+	"teamPoints": "poäng"
+	
 
 
 }

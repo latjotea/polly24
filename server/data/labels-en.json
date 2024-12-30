@@ -44,5 +44,8 @@
 	"yourPosition": "You are at:",
 	"seePoints": "See points",
 	"close": "Close",
-	"points": "Scoreboard"
+	"points": "Scoreboard",
+	"crawlEnd": "The pubcrawl is finished",
+	"loserTeams": "Other teams",
+	"teamPoints": "points"
 }
