@@ -1,12 +1,13 @@
 <template>
+  <body>
     
     <div>
-    <div class="button-container">
+    <div v-if="!crawlOver" class="button-container">
       <button v-on:click="sendToNextPub"> {{this.uiLabels.nextStop}} </button> 
       <button v-on:click="goToCreateTask">{{this.uiLabels.createTasks}} </button>
     </div>
 
-    <div class="map-button">
+    <div v-if="!crawlOver" class="map-button">
         <button v-on:click="navigateToInteractiveMap">
             {{this.uiLabels.seeMap}}
         </button>
@@ -15,7 +16,13 @@
 
     </div>  
 
+    <div v-if="crawlOver" >
+        <h1>Pubrundan är slut!</h1>
+        <h2>Vinnande laget är:</h2>
+      </div>
 
+
+    </body>
 
 </template>
 
@@ -37,23 +44,39 @@ export default {
       city:"",
       adminId: "",
       crawlId:"",
-      round: "",
-      selectedPubs: ""
+      round: 1,
+      selectedPubs: [],
+      crawlOver: false,
+      pubsLoaded: false
     }
 },
 
 created: function () {
     this.crawlId = this.$route.params.id;
     this.adminId = this.$route.params.adminId;
-    socket.emit( "joinPoll", this.crawlId );
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
     socket.on("currentRoundResponse", (round) => {
       this.round = round; 
       console.log("runda:", this.round);
+      if (this.pubsLoaded){
+        this.isCrawlOver();
+      }
     });
     socket.emit("getRound", { crawlId: this.crawlId });
-    // vi vill hämta lagen här också//
+    socket.emit( "joinPoll", this.crawlId );
+    socket.emit("joinPoll", this.teamNumber);
+
+    socket.on("selectedPubsResponse", (selectedPubs) => {
+      this.selectedPubs = selectedPubs;
+      this.pubsLoaded = true;
+      console.log("Hämtade pubar från servern:", this.selectedPubs); 
+      console.log("Antal valda pubar", this.selectedPubs.length)
+      this.isCrawlOver
+    });
+
+    socket.emit("getSelectedPubs", {crawlId: this.crawlId });
+
 
 
   },
@@ -70,7 +93,20 @@ created: function () {
 
     navigateToInteractiveMap(){
       this.$router.push(`/interactivemap/${this.crawlId}/${this.adminId}`);
-  }
+  },
+
+  isCrawlOver() {
+    if (!this.pubsLoaded || this.selectedPubs.length === 0){
+      return;
+    }
+      console.log(this.selectedPubs.length);
+      console.log(this.round);
+      if (this.round > this.selectedPubs.length) {
+        this.crawlOver = true
+    
+      }
+
+    }
 }
 }
 
