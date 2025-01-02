@@ -66,7 +66,7 @@ export default {
       const teamsWithScores = this.scores.map((score, index) => ({teamNumber: index + 1, score: score})
     );
       
-      // Sortera lagen efter poäng (högst först)
+      //AI
       return teamsWithScores.sort((a, b) => b.score - a.score).slice(0,this.teamAmount);
     }
   },
