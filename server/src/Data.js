@@ -29,6 +29,7 @@ function Data() {
     taskList:[],
     round: '',
   }
+  this.activeCrawls = ['test'];
 }
 
 /***********************************************
@@ -129,6 +130,28 @@ Data.prototype.getUILabels = function (lang) {
   return JSON.parse(labels);
 }
 
+Data.prototype.isActiveCrawl = function(crawlId) {
+  return this.activeCrawls.includes(crawlId);
+}
+
+Data.prototype.addActiveCrawl = function(crawlId) {
+  if (!this.isActiveCrawl(crawlId)) {
+    this.activeCrawls.push(crawlId);
+    return true;
+  }
+  return false;
+}
+
+//CHAT har skrivit denna:
+Data.prototype.removeActiveCrawl = function(crawlId) {
+  const index = this.activeCrawls.indexOf(crawlId);
+  if (index > -1) {
+    this.activeCrawls.splice(index, 1);
+    return true;
+  }
+  return false;
+}
+
 Data.prototype.createCrawl = function(crawlId, lang="en") {
   if (!this.pollExists(crawlId)) {
     let poll = {};
@@ -143,9 +166,20 @@ Data.prototype.createCrawl = function(crawlId, lang="en") {
     poll.taskList = [];
     poll.round = 1;
     poll.chosenPubs = [];
+    this.addActiveCrawl(crawlId);
     console.log("poll created", crawlId, poll);
+    console.log("aktiva crawls:", this.activeCrawls )
   }
   return this.polls[crawlId];
+}
+
+Data.prototype.endCrawl = function(crawlId) {
+  if (this.pollExists(crawlId)) {
+    delete this.polls[crawlId];
+    this.removeActiveCrawl(crawlId);
+    return true;
+  }
+  return false;
 }
 
 Data.prototype.getPoll = function(crawlId) {

@@ -47,5 +47,8 @@
 	"points": "Scoreboard",
 	"crawlEnd": "The pubcrawl is finished",
 	"loserTeams": "Other teams",
-	"teamPoints": "points"
+	"teamPoints": "points",
+	"unableToShuffle": "Waiting for more players...",
+	"takenCrawlId": "Crawl ID already taken"
+
 }

@@ -149,6 +149,18 @@ function sockets(io, socket, data) {
   socket.on("getScores", function(d) {
       socket.emit("scoresUpdated", data.getScores(d.crawlId));
     });
+
+  socket.on('checkActiveCrawl', function(d) { 
+    const isActive = data.isActiveCrawl(d.crawlId);
+    socket.emit('activeCrawlResponse', isActive);
+  });
+  
+  socket.on('endCrawl', function(d) {
+    const success = data.endCrawl(d.crawlId);
+    if (success) {
+      io.emit('crawlEnded', d.crawlId);
+    }
+  });
 }
 
 export { sockets };
