@@ -53,7 +53,10 @@
 	"points": "Poängställning",
 	"crawlEnd": "Pubrundan är slut",
 	"loserTeams": "Övriga placeringar",
-	"teamPoints": "poäng"
+	"teamPoints": "poäng",
+	"unableToShuffle": "Väntar på fler deltagare...",
+	"takenCrawlId": "Rundans ID är upptaget"
+
 	
 
 

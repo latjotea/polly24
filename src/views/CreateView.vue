@@ -4,9 +4,12 @@
     {{ uiLabels.createCrawlId }} 
     </div>
     <input type="text" placeholder="Ex. Bästa Rundan 123" v-model="crawlId">
-    <button v-on:click="handleCrawlIdButtom">
+    <button v-on:click="handleCrawlIdButton">
       {{ uiLabels.sendPubs }}
     </button>
+    <div v-if="takenCrawlId" id ="takenCrawlId">
+        <p>{{ this.uiLabels.takenCrawlId }}</p>
+      </div>
   </div>
 </template>
 
@@ -22,10 +25,14 @@ export default {
       crawlId: "",
       pollData: {},
       uiLabels: {},
+      takenCrawlId: false,
     }
   },
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
+    socket.on("activeCrawlResponse", (isActive) => {
+      console.log("Finns redan", isActive)
+      this.takenCrawlId = isActive });
     socket.on( "pollData", data => this.pollData = data );
     socket.on( "participantsUpdate", p => this.pollData.participants = p );
     socket.emit( "getUILabels", this.lang );
@@ -36,10 +43,19 @@ export default {
       socket.emit("joinPoll", this.crawlId);
     },
 
-    handleCrawlIdButtom(){
-      this.createCrawl();
-      this.$router.push(`/${this.crawlId}/CreateTeam/`);
-    }
+    handleCrawlIdButton(){
+    socket.emit("checkActiveCrawl", { crawlId: this.crawlId });
+    socket.once("activeCrawlResponse", (isActive) => {
+      if (isActive) {
+        this.takenCrawlId = true;
+      } else {
+        this.takenCrawlId = false;
+        socket.emit("createCrawl", { crawlId: this.crawlId, lang: this.lang });
+        socket.emit("joinPoll", this.crawlId);
+        this.$router.push(`/${this.crawlId}/CreateTeam/`);
+       }
+      }
+    )}
   }
 }
 </script>
@@ -68,6 +84,10 @@ body{
   input{
     font-size:2rem;
     font-family: 'Galindo';
+  }
+
+  #takenCrawlId {
+    color: red;
   }
   
 </style>

@@ -25,10 +25,14 @@
     </div>
 
     <div>
-      <button v-if="admin && !shuffleStarted" v-on:click="shuffleTeam" v-bind:disabled="unableToShuffle()" id="shuffle">
+      <button v-if="admin && !shuffleStarted" v-on:click="shuffleTeam()" v-bind:disabled="checkParticipantAmount()" id="shuffle">
         {{ this.uiLabels.shuffle }}
       </button>
+      <div v-if="unableToShuffle" id ="unableToShuffle">
+        <p>{{ this.uiLabels.unableToShuffle }}</p>
     </div>
+    </div>
+
 
     <div v-if="shuffleStarted">
       <h3>{{this.uiLabels.teamDivision}}</h3>
@@ -72,6 +76,7 @@ export default {
       teamNumber:'',
       shuffleStarted:false,
       joined: false,
+      unableToShuffle: false,
     }
   },
   created: function () {
@@ -113,9 +118,10 @@ export default {
       console.log(this.admin)
     },
 
-    unableToShuffle: function(){
+    checkParticipantAmount: function(){
        const amountParticipants = this.participants.length-1 //Admin är inte med
-          return amountParticipants < this.teamAmount;
+       this.unableToShuffle = amountParticipants < this.teamAmount;
+          return this.unableToShuffle
   
     },
 
@@ -160,6 +166,8 @@ export default {
       console.log("Uppdaterad participants med team:", this.participants);
 
       socket.emit("shuffleStarted", { crawlId: this.crawlId, teams: this.teams, participants:this.participants});
+
+
     },
 
     startButtonHandler: function(){
@@ -227,8 +235,9 @@ body{
     background-color: rgb(141, 242, 141);
   }
   
-  #takenUserName {
+  #takenUserName, #unableToShuffle  {
     color: red
   }
+
   
 </style>
