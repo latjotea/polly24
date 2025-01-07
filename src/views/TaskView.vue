@@ -148,8 +148,8 @@ export default {
 
     socket.emit("getUILabels", this.lang);
     socket.emit("getMode", { crawlId: this.crawlId });
-    socket.emit("joinPoll", this.crawlId);
-    socket.emit("joinPoll", this.teamNumber);
+    socket.emit("joinCrawl", this.crawlId);
+    socket.emit("joinCrawl", this.teamNumber);
     console.log("Team number initialized as:", this.teamNumber);
     socket.emit("getTasks", { crawlId: this.crawlId });
     socket.emit("getTeamAmount", {crawlId: this.crawlId });

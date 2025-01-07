@@ -4,12 +4,10 @@
     {{this.uiLabels.chooseCity}}
     <div class="button-container">
       <button v-on:click="chooseCity('Uppsala')" > Uppsala </button>
-      <button v-on:click="chooseCity('Stockholm')" >Stockholm</button>
-      <button v-on:click="chooseCity('Malmö')" >Malmö</button>
+      <button v-on:click="chooseCity('Stockholm')" > Stockholm </button>
+      <button v-on:click="chooseCity('Malmö')" > Malmö </button>
     </div>  
   </div>
-
-
 </template>
 
 <script>

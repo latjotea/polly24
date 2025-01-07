@@ -1,10 +1,9 @@
 <template>
     <body>
         <h2>{{ this.uiLabels.pickAmountTeam }}</h2>
-
         <div>
             <p>{{ teamAmount }}</p>
-            <div id="amount"> <!-- Lägg till id på containern -->
+            <div id="amount"> 
                 <button v-on:click="decreaseTeam">-</button>
                 <button v-on:click="increaseTeam">+</button>
             </div>
@@ -15,8 +14,6 @@
                 {{ this.uiLabels.sendPubs }}
             </button> 
         </div>
-
-
     </body>
 </template>
 
@@ -63,12 +60,10 @@ methods: {
     sendTeamAmount(teamAmount){
       this.amount=teamAmount;
       socket.emit("setTeamAmount", {crawlId: this.crawlId, teamAmount:this.amount })
-      this.$router.push(`/${this.crawlId}/mode/`);
-      
+      this.$router.push(`/${this.crawlId}/mode/`);  
     }
 
   },
-
 }
 
 </script>

@@ -46,8 +46,8 @@ data: function () {
     //console.log("runda:", this.round);
     });
     socket.emit("getRound", { crawlId: this.crawlId });
-    socket.emit("joinPoll", this.crawlId);
-    socket.emit("joinPoll", this.teamNumber);
+    socket.emit("joinCrawl", this.crawlId);
+    socket.emit("joinCrawl", this.teamNumber);
     console.log("jag är i lag:", this.teamNumber)
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;

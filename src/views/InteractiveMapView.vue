@@ -12,46 +12,46 @@
              class="marker-container" 
              :style="{ top: pub.coordinates.y + 'px', left: pub.coordinates.x + 'px' }">
            <div class="marker"
-                :class="{chosen:isChosenPub(pub.name)}">
-              </div>
-                <div
-                  v-if="isCurrentTeamPub(pub.name)" 
-                  class="chosenPub-label your-position">
-                  {{ uiLabels.yourPosition }}
-                </div>
-                <div 
-                  v-for="chosen in getOtherTeamsAtPub(pub.name)" 
-                  :key="chosen.teamNumber"   
-                  class="chosenPub-label other-team">
-                  {{ uiLabels.team }}{{ chosen.teamNumber }} {{ uiLabels.isAt }}
-                </div>
+              :class="{chosen:isChosenPub(pub.name)}">
+            </div>
+            <div
+              v-if="isCurrentTeamPub(pub.name)" 
+              class="chosenPub-label your-position">
+                {{ uiLabels.yourPosition }}
+            </div>
+            <div 
+              v-for="chosen in getOtherTeamsAtPub(pub.name)" 
+              :key="chosen.teamNumber"   
+              class="chosenPub-label other-team">
+                {{ uiLabels.team }}{{ chosen.teamNumber }} {{ uiLabels.isAt }}
+            </div>
            <div class="pub-label">{{ pub.name }}</div>   
        </div>
      </div>
 
      <button v-if="!admin" v-on:click="navigateToTaskView" id="taskButton">
             {{ uiLabels.seeTasks }}
-        </button>
-        <button v-if="admin" v-on:click="navigateToAdminControlView" id="controlButton">
+      </button>
+      <button v-if="admin" v-on:click="navigateToAdminControlView" id="controlButton">
             {{ uiLabels.controlCrawl }}
-        </button>
+      </button>
    
-    <button @click="toggleScoreboard" id="scoreboardButton">
-      {{ uiLabels.seePoints }}
-    </button>
+      <button @click="toggleScoreboard" id="scoreboardButton">
+        {{ uiLabels.seePoints }}
+      </button>
 
  
-    <div v-if="isScoreboardVisible" class="scoreboard">
-    <p>{{ uiLabels.points }}</p>
-    <ul>
-      <li v-for="(score, index) in scores" :key="index">
-        {{ uiLabels.team }} {{ index + 1 }}: {{ score }}
-      </li>
-    </ul>
-    <button @click="toggleScoreboard" class="close-button">
-      {{ uiLabels.close }}
-    </button>
-  </div>
+      <div v-if="isScoreboardVisible" class="scoreboard">
+      <p>{{ uiLabels.points }}</p>
+      <ul>
+        <li v-for="(score, index) in scores" :key="index">
+          {{ uiLabels.team }} {{ index + 1 }}: {{ score }}
+        </li>
+      </ul>
+      <button @click="toggleScoreboard" class="close-button">
+        {{ uiLabels.close }}
+      </button>
+    </div>
         
     </body>
  </template>
@@ -124,16 +124,17 @@
 
 
     socket.emit( "getUILabels", this.lang );
-    socket.emit( "joinPoll", this.crawlId );
+    socket.emit( "joinCrawl", this.crawlId );
     socket.emit("getCity", {crawlId: this.crawlId });
     socket.emit("getRound", { crawlId: this.crawlId });
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
     socket.emit("getTeamAmount", { crawlId: this.crawlId });
+    
     if (this.admin){
-      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
-     }
+      socket.emit( "participateInCrawl", {crawlId: this.crawlId, name: "Admin", team:'', arrived: false, admin:true} );
+    }
     else{
-      socket.emit("participateInPoll", {crawlId:this.crawlId, name:'', team:this.teamNumber, arrived:false, admin:false});
+      socket.emit("participateInCrawl", {crawlId:this.crawlId, name:'', team:this.teamNumber, arrived:false, admin:false});
     }
     socket.emit("getChosenPubs", {crawlId: this.crawlId});
    },
@@ -168,7 +169,7 @@
     if (this.isScoreboardVisible) {
       socket.emit("getScores", { crawlId: this.crawlId });
     }
-  },
+    },
 
     adminOrTeam() {
     if (this.adminOrTeamId.length > 10) {
@@ -194,9 +195,8 @@
     },
     navigateToAdminControlView(){
         this.$router.push(`/admincontrol/${this.crawlId}/${this.adminId}`);
- 
- }
- }
+    }
+  }
 }
 
  

@@ -9,7 +9,7 @@
     </button>
     <div v-if="takenCrawlId" id ="takenCrawlId">
         <p>{{ this.uiLabels.takenCrawlId }}</p>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -30,17 +30,20 @@ export default {
   },
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
+    socket.emit( "getUILabels", this.lang );
+
     socket.on("activeCrawlResponse", (isActive) => {
       console.log("Finns redan", isActive)
       this.takenCrawlId = isActive });
     socket.on( "pollData", data => this.pollData = data );
     socket.on( "participantsUpdate", p => this.pollData.participants = p );
-    socket.emit( "getUILabels", this.lang );
+    
   },
+  
   methods: {
     createCrawl: function () {
       socket.emit("createCrawl", {crawlId: this.crawlId, lang: this.lang })
-      socket.emit("joinPoll", this.crawlId);
+      socket.emit("joinCrawl", this.crawlId);
     },
 
     handleCrawlIdButton(){
@@ -48,12 +51,13 @@ export default {
     socket.once("activeCrawlResponse", (isActive) => {
       if (isActive) {
         this.takenCrawlId = true;
-      } else {
+      } 
+      else {
         this.takenCrawlId = false;
         socket.emit("createCrawl", { crawlId: this.crawlId, lang: this.lang });
-        socket.emit("joinPoll", this.crawlId);
+        socket.emit("joinCrawl", this.crawlId);
         this.$router.push(`/${this.crawlId}/CreateTeam/`);
-       }
+      }
       }
     )}
   }

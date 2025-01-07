@@ -36,7 +36,7 @@
 
       <button class="join-button">
       <router-link v-bind:to="'/lobby/' + newcrawlId">
-        {{ uiLabels.participateCrawl }}
+        {{ uiLabels.participateInCrawl }}
       </router-link>
       </button>
     </section>

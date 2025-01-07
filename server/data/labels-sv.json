@@ -2,62 +2,60 @@
 	"headLabel":"Din pubrunda",
 	"sales-pitch": "Gå med i en pubrunda!",
 	"subHeading": "Fyll i pinkod:",
-	"invite": "Bjud in deltagare med den här länken:",
 	"createCrawl": "Skapa pubrunda",
-	"createCrawlId":"Välj rundans ID",
-	"participateCrawl": "Gå med!",
-	"question": "Fråga",
 	"changeLanguage": "Change to English",
-	"about": "Om oss",
-	"participateInPoll": "Gå med!",
-	"writeName": "Skriv in ditt namn: ",
+	"flagPicture":"/img/English_flag.png",
+
+
 	"crawlID": "Rundans ID: ",
+	"createCrawlId":"Välj rundans ID",
+	"takenCrawlId": "Rundans ID är upptaget",
+	"participateInCrawl": "Gå med!",
+	"writeName": "Skriv in ditt namn: ",
+	"userNameTaken":"Användarnamn redan tagit, välj ett annat!",
+
+
 	"chooseMode": "Välj vilken typ av runda du vill skapa",
 	"standardCrawl": "Standard",
 	"loveCrawl":"Haff-runda",
 	"holidayCrawl":"Julrunda",
 	"crazyCrawl":"Galen",
 	"chooseCity":"Välj stad för din runda",
-	"goTo": "Gå till:",
-	"imHere":"Jag är här!",
 	"choosePubs":"Välj barer att gå till under rundan",
+	"yourCrawl":"Detta är din valda pubar",
 	"sendPubs": "Klar",
 	"pickAmountTeam": "Välj antal lag:",
+	"shuffle":"Slumpa lag",
+	"unableToShuffle": "Väntar på fler deltagare...",
+	"teamDivision": "Lagindelning:",
+	
+	
+	"goTo": "Gå till:",
+	"imHere":"Jag är här!",
+	"team":"Lag ",
+	"isAt":"är på:",
+	"seeMap": "Visa karta",
+	"nextStop": "Gå till nästa ställe",
+	"yourPosition": "Du är på:",
+	"yourRound": "Pub",
+	
 	
 	"tasks":"Uppdrag",
 	"submitTasks":"Lägg till uppdrag",
-	
-	"yourCrawl":"Detta är din valda pubar",
-
-
-	"shuffle":"Slumpa lag",
-	"teamDivision": "Lagindelning:",
-	"team":"Lag ",
-	"isAt":"är på:",
-	"start": "Starta pubrunda",
-	"userNameTaken":"Användarnamn redan tagit, välj ett annat!",
-
-	"seeMap": "Visa karta",
 	"createTasks": "Skapa uppdrag",
-	"nextStop": "Gå till nästa ställe",
 	"newTask": "Nytt uppdrag",
 	"addTask": "Lägg till uppdrag",
-	"flagPicture":"/img/English_flag.png",
-
 	"seeTasks":"Se uppdrag",
-	"controlCrawl":"Styr pubrundan",
-	"yourRound": "Pub",
-	"yourPosition": "Du är på:",
-	"seePoints": "Se poäng",
+
+
+	"start": "Starta pubrunda",
 	"close": "Stäng",
-	"points": "Poängställning",
 	"crawlEnd": "Pubrundan är slut",
+	"controlCrawl":"Styr pubrundan",
+
+
+	"seePoints": "Se poäng",
+	"points": "Poängställning",
 	"loserTeams": "Övriga placeringar",
-	"teamPoints": "poäng",
-	"unableToShuffle": "Väntar på fler deltagare...",
-	"takenCrawlId": "Rundans ID är upptaget"
-
-	
-
-
+	"teamPoints": "poäng"
 }

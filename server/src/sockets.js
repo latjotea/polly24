@@ -14,13 +14,13 @@ function sockets(io, socket, data) {
     socket.emit('questionUpdate', data.activateQuestion(d.crawlId));
   });
 
-  socket.on('joinPoll', function(id) {
+  socket.on('joinCrawl', function(id) {
     socket.join(id);
     
   });
 
-  socket.on('participateInPoll', function(d) {
-    data.participateInPoll(d.crawlId, d.name, d.admin);
+  socket.on('participateInCrawl', function(d) {
+    data.participateInCrawl(d.crawlId, d.name, d.admin);
     io.to(d.crawlId).emit('participantsUpdate', data.getParticipants(d.crawlId));
   });
 
@@ -40,7 +40,6 @@ function sockets(io, socket, data) {
 
   socket.on('sendSelectedPubs', function(d) {
     console.log("sendselectedpubs");
-    console.log(d);
     data.setSelectedPubs(d.crawlId, d.selectedPubs);
     console.log('Valda pubar mottagna:', d.selectedPubs);
   });
@@ -105,7 +104,6 @@ function sockets(io, socket, data) {
   });
 
   socket.on('updateRound', function(d){
-    console.log("hej")
     data.updateRound(d.crawlId);
   });
 

@@ -189,7 +189,7 @@ Data.prototype.getPoll = function(crawlId) {
   return {};
 }
 
-Data.prototype.participateInPoll = function(crawlId, name) {
+Data.prototype.participateInCrawl = function(crawlId, name) {
   console.log("participant will be added to", crawlId, name);
   if (this.pollExists(crawlId)) {
     this.polls[crawlId].participants.push({name: name, team:'', arrived: false, admin: false})

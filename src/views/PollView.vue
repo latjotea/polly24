@@ -35,7 +35,7 @@ export default {
     socket.on( "submittedAnswersUpdate", answers => this.submittedAnswers = answers );
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
-    socket.emit( "joinPoll", this.crawlId );
+    socket.emit( "joinCrawl", this.crawlId );
   },
   methods: {
     submitAnswer: function (answer) {

@@ -1,24 +1,18 @@
 <template>
   <body>
-    
     <div>
-    <div v-if="!crawlOver" class="button-container">
-      <button v-on:click="sendToNextPub"> {{this.uiLabels.nextStop}} </button> 
-      <button v-on:click="goToCreateTask">{{this.uiLabels.createTasks}} </button>
-    </div>
+      <div v-if="!crawlOver" class="button-container">
+        <button v-on:click="sendToNextPub"> {{this.uiLabels.nextStop}} </button> 
+        <button v-on:click="goToCreateTask">{{this.uiLabels.createTasks}} </button>
+      </div>
 
-    <div v-if="!crawlOver" class="map-button">
-        <button v-on:click="navigateToInteractiveMap">
-            {{this.uiLabels.seeMap}}
-        </button>
-    </div>
-
-
+      <div v-if="!crawlOver" class="map-button">
+          <button v-on:click="navigateToInteractiveMap">
+              {{this.uiLabels.seeMap}}
+          </button>
+      </div>
     </div>  
-
-
-    </body>
-
+  </body>
 </template>
 
 
@@ -51,6 +45,7 @@ created: function () {
     this.adminId = this.$route.params.adminId;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
+    
     socket.on("currentRoundResponse", (round) => {
       this.round = round; 
       console.log("runda:", this.round);
@@ -58,9 +53,10 @@ created: function () {
         this.isCrawlOver();
       }
     });
-    socket.emit("getRound", { crawlId: this.crawlId });
-    socket.emit( "joinPoll", this.crawlId );
-    socket.emit("joinPoll", this.teamNumber);
+    socket.emit("getRound", {crawlId: this.crawlId});
+    
+    socket.emit("joinCrawl", this.crawlId);
+    socket.emit("joinCrawl", this.teamNumber);
 
     socket.on("selectedPubsResponse", (selectedPubs) => {
       this.selectedPubs = selectedPubs;
@@ -69,17 +65,14 @@ created: function () {
       console.log("Antal valda pubar", this.selectedPubs.length)
       this.isCrawlOver
     });
-
     socket.emit("getSelectedPubs", {crawlId: this.crawlId });
-
-
-
   },
 
   methods: {
     goToCreateTask: function () {
       this.$router.push(`/task/${this.crawlId}/${this.adminId}/`);
     },
+
     sendToNextPub: function() {
       socket.emit("goToNextPub", this.crawlId);
       socket.emit("updateRound", { crawlId: this.crawlId });
@@ -88,22 +81,20 @@ created: function () {
 
     navigateToInteractiveMap(){
       this.$router.push(`/interactivemap/${this.crawlId}/${this.adminId}`);
-  },
+    },
 
-  isCrawlOver() {
-    if (!this.pubsLoaded || this.selectedPubs.length === 0){
-      return;
-    }
+    isCrawlOver() {
+      if (!this.pubsLoaded || this.selectedPubs.length === 0){
+        return;
+      }
       console.log(this.selectedPubs.length);
       console.log(this.round);
       if (this.round > this.selectedPubs.length) {
         this.crawlOver = true
         this.$router.push(`/result/${this.crawlId}`);
-    
       }
-
     }
-}
+  }
 }
 
 </script>

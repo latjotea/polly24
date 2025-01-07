@@ -9,8 +9,8 @@
       </label>
       <div id="addName">
         <input type="text" v-model="userName">
-        <button v-on:click="participateInPoll">
-          {{ this.uiLabels.participateInPoll }}
+        <button v-on:click="participateInCrawl">
+          {{ this.uiLabels.participateInCrawl }}
         </button>
       </div>
       <div v-if="userNameTaken" id ="takenUserName">
@@ -97,7 +97,7 @@ export default {
     socket.emit( "getUILabels", this.lang );
     socket.on( "participantsUpdate", p => this.participants = p); 
     socket.on( "startPoll", () => this.$router.push("/poll/" + this.crawlId) );
-    socket.emit( "joinPoll", this.crawlId );
+    socket.emit( "joinCrawl", this.crawlId );
     socket.emit("getTeamAmount", {crawlId: this.crawlId });
     socket.on("selectedTeamAmountResponse", (teamAmount) => {
       this.teamAmount = teamAmount; 
@@ -125,7 +125,7 @@ export default {
   
     },
 
-    participateInPoll: function () {
+    participateInCrawl: function () {
       for (let person of this.participants){
         if (person.name === this.userName) {
           console.log("User is already participating in the poll.");
@@ -133,7 +133,7 @@ export default {
           return;
       }
     }
-      socket.emit( "participateInPoll", {crawlId: this.crawlId, name: this.userName, team:'', arrived: false, admin: false} )
+      socket.emit( "participateInCrawl", {crawlId: this.crawlId, name: this.userName, team:'', arrived: false, admin: false} )
       this.joined = true;
       this.userNameTaken = false;
     },
