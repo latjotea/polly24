@@ -166,6 +166,7 @@ Data.prototype.createCrawl = function(crawlId, lang="en") {
     poll.taskList = [];
     poll.round = 1;
     poll.chosenPubs = [];
+    poll.scores=[0,0,0,0,0]
     this.addActiveCrawl(crawlId);
     console.log("poll created", crawlId, poll);
     console.log("aktiva crawls:", this.activeCrawls )

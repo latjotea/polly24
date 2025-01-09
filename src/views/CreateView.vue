@@ -41,6 +41,12 @@ export default {
   },
   
   methods: {
+    cleanUpLocalStorage(crawlId){
+      localStorage.removeItem(`tasks_${crawlId}`)
+      localStorage.removeItem(`scores_${crawlId}`);
+
+    },
+
     createCrawl: function () {
       socket.emit("createCrawl", {crawlId: this.crawlId, lang: this.lang })
       socket.emit("joinCrawl", this.crawlId);
@@ -53,6 +59,7 @@ export default {
         this.takenCrawlId = true;
       } 
       else {
+        this.cleanUpLocalStorage(this.crawlId);
         this.takenCrawlId = false;
         socket.emit("createCrawl", { crawlId: this.crawlId, lang: this.lang });
         socket.emit("joinCrawl", this.crawlId);
