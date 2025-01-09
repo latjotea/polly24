@@ -62,7 +62,8 @@ data: function () {
     });
 
     socket.on('goToNextPub', () => {
-      window.location.reload()
+      socket.emit("getRound", {crawlId: this.crawlId});
+      socket.emit("getSelectedPubs", {crawlId: this.crawlId});
     });
 
 
