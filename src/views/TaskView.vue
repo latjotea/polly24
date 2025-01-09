@@ -375,5 +375,23 @@ box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 
 }
 
+@media (max-width: 1070px) {
+  .task-grid {
+    flex-direction: column; 
+    align-items: center;
+
+
+    #scoreboard {
+    align-self: center; 
+    width: 100%; 
+    margin-bottom: 1rem;
+  }
+
+  .modeTasks {
+    width: 100%; 
+  }
+}
+}
+
 
 </style>
