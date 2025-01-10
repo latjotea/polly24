@@ -101,7 +101,7 @@ data: function () {
 </script>
 
 
-<style>
+<style scoped>
 body{
   margin-top: 12rem;
   background-color:rgb(255, 240, 245);

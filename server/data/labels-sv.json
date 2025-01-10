@@ -43,7 +43,7 @@
 	
 	"tasks":"Uppdrag",
 	"submitTasks":"Lägg till uppdrag",
-	"createTasks": "Skapa uppdrag",
+	"handleTasks": "Hantera uppdrag",
 	"newTask": "Nytt uppdrag",
 	"addTask": "Lägg till uppdrag",
 	"seeTasks":"Se uppdrag",

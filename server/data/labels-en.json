@@ -43,7 +43,7 @@
 
 	"submitTasks":"Add task",
 	"tasks":"Tasks",
-	"createTasks": "Create tasks",
+	"handleTasks": "Handle tasks",
 	"newTask": "New task",
 	"addTask": "Add task",
 	"seeTasks":"See tasks",

@@ -126,8 +126,7 @@ body{
     top: 50px; 
     left: 50%; 
     transform: translate(-50%, -50%); /* Använde chat för att centrera exakt */
-    color:rgb(255, 240, 245);
-    text-shadow: 4px 4px 10px rgb(245, 14, 202);
+    color:black;
     font-size: 2rem;
     z-index:10;
 

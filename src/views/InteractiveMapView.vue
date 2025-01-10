@@ -2,9 +2,18 @@
 
 <template>
     <body> 
-      <p v-if="admin">{{ uiLabels.yourRound }} {{ round }}</p> 
-      <p v-else>{{ uiLabels.yourRound }} {{ round }} : {{ getCurrentTeamPub() }}</p>
-     <div class="interactive-container">
+      <div class="header-text">
+        <div v-if="admin && !crawlOver" class="admin-header">
+          <button v-on:click="goToCreateTask" class="admin-button">{{this.uiLabels.handleTasks}} </button>
+          <span> {{uiLabels.yourRound}} {{ round }} </span>
+          <button v-on:click="sendToNextPub" class="admin-button"> {{this.uiLabels.nextStop}} </button> 
+        </div>
+        <div v-else>
+          <span>{{ uiLabels.yourRound }} {{ round }} : {{ getCurrentTeamPub() }}</span>
+        </div>
+      </div>
+     
+      <div class="map-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
          <div 
              v-for="pub in selectedPubs" 
@@ -31,9 +40,6 @@
 
      <button v-if="!admin" v-on:click="navigateToTaskView" id="taskButton">
             {{ uiLabels.seeTasks }}
-      </button>
-      <button v-if="admin" v-on:click="navigateToAdminControlView" id="controlButton">
-            {{ uiLabels.controlCrawl }}
       </button>
    
       <button @click="toggleScoreboard" id="scoreboardButton">
@@ -84,30 +90,43 @@
        currentPub:'',
        isScoreboardVisible: false,
        scores: [],
-       teamAmount:""
+       teamAmount:"",
+       crawlOver:false,
+       pubsLoaded:false
      }
    },
    created: function () {
     this.crawlId = this.$route.params.id;
     this.adminOrTeamId = this.$route.params.adminOrTeamId;
     this.adminOrTeam();
+
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on("currentRoundResponse", (round) => {
       this.round = round; 
+      if (this.pubsLoaded){
+        this.isCrawlOver();
+      }
       console.log("runda:", this.round);
     });
+
     socket.on("selectedCityResponse", (city) => {
        console.log("Given city:", city);
        this.city = city;
        this.selectMapPicture(city);
      });
+
      socket.on("selectedPubsResponse", (selectedPubNames) => {
          this.selectedPubs = this.allPubs.filter(pub =>
              selectedPubNames.includes(pub.name)
          );
+         this.pubsLoaded= true;
+         if (this.admin){
+          this.isCrawlOver();
+         }
      });
     socket.on('goToNextPub', () => {
-      if (!this.admin){this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
+      if (!this.admin){
+        this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
     
     socket.on("currentChosenPubsResponse", (chosenPubs) => {
       this.chosenPubs = chosenPubs; 
@@ -193,8 +212,26 @@
         this.$router.push(`/task/${this.crawlId}/${this.teamNumber}`);
  
     },
-    navigateToAdminControlView(){
-        this.$router.push(`/admincontrol/${this.crawlId}/${this.adminId}`);
+    goToCreateTask: function () {
+      this.$router.push(`/task/${this.crawlId}/${this.adminId}/`);
+    },
+
+    sendToNextPub: function() {
+      socket.emit("goToNextPub", this.crawlId);
+      socket.emit("updateRound", { crawlId: this.crawlId });
+      socket.emit("getRound", { crawlId: this.crawlId });
+    },
+
+    isCrawlOver() {
+      if (!this.pubsLoaded || this.selectedPubs.length === 0){
+        return;
+      }
+      console.log(this.selectedPubs.length);
+      console.log(this.round);
+      if (this.round > this.selectedPubs.length) {
+        this.crawlOver = true
+        this.$router.push(`/result/${this.crawlId}/${this.adminId}/`);
+      }
     }
   }
 }
@@ -207,32 +244,54 @@
  body{
    margin: 0; 
    padding: 2rem;
+   display: flex;
    justify-content: center; 
    align-items: center;
    background-color:rgb(255, 240, 245);
    font-family: 'Galindo';
    height: 100vh;
    position:relative;
-   box-sizing: border-box;
    }
- 
-   .interactive-container {
-     position: relative; 
-     top: 0;
-     left: 0;
-     height: calc(100% - 4rem);
-     overflow: scroll;
-     font-family: 'Galindo';
-     
+
+   .header-text{
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 2rem;
+    z-index: 10;
+    width: 100%;
+    text-align: center;
    }
+  .admin-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  
  
- .city-map {
+  .map-container {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 1000px;
+    height: 700px;
+    overflow: scroll;
+    border: 5px solid hotpink;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+   }
+
+   .city-map {
    width: 1356px;
-   height: 1736px;
-   
+   height: 1736px; 
  }
- 
- /*CHAT FÖR ATT GÖRA EN PRICK*/
+
+  /*CHAT FÖR ATT GÖRA EN PRICK*/
  .marker-container {
    position: absolute;
    transform: translate(-50%, -50%); /* Centrerar markeringen runt koordinaten */
@@ -255,6 +314,42 @@
    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Lägg till skugga för bättre läsbarhet */
  }
 
+  
+
+  .admin-button{
+    font-size: 1.2rem;
+    font-family: 'Galindo';
+    background-color: hotpink;
+    color:black;
+    cursor: pointer;
+    border-radius: 15px;
+    border-color: white;
+    box-shadow: 2px 2px 6px rgba(246, 53, 143, 0.5);
+    padding: 0.5rem 1rem;
+   }
+
+  .admin-button:hover {
+      color: white;
+    }
+
+  .chosenPub-label {
+    display: block;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+  .your-position {
+    color: rgb(76, 245, 76);
+    order: 1;
+}
+
+  .other-team {
+    color: rgb(255, 89, 0);
+    order: 2; 
+}
+ 
+ 
+ 
+
  .chosenPub-label{
   color: rgb(76, 245, 76); ;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Lägg till skugga för bättre läsbarhet */
@@ -262,7 +357,7 @@
 
  }
  
- #taskButton, #controlButton {
+ #taskButton {
     top: 5rem;
     right: 5rem;
     position: fixed;
@@ -270,6 +365,7 @@
     font-family: 'Galindo';
     background-color: hotpink;
     z-index: 3;
+    cursor: pointer;
  }
 
 
@@ -285,12 +381,17 @@ button:hover {
   right: 2rem;
   font-size: 1.5rem;
   background-color: #4caf50;
-  color: white;
+  color:black;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
+#scoreboardButton:hover{
+  color: white;
+
+}
+
 
 .scoreboard {
   position: fixed;
@@ -325,29 +426,6 @@ button:hover {
   font-size: 1.2rem;
 }
 
-.chosenPub-label {
-  display: block;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-.your-position {
-  color: rgb(76, 245, 76);
-  order: 1;
-}
-
-.other-team {
-  color: rgb(255, 89, 0);
-  order: 2; 
-}
-
-.marker-container {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-}
 
 .pub-label {
   order: 3; 
