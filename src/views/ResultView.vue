@@ -42,6 +42,9 @@
         </div>
       </div>
     </div>
+    <button v-if="admin" v-on:click="handleEndButton()">
+      {{ uiLabels.endCrawl }}
+    </button>
   </body>
 </template>
 
@@ -56,8 +59,11 @@ export default {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
       crawlId: '',
+      adminId: "",
       scores: [],
-      teamAmount:""
+      teamAmount:"",
+      teamNumber:'',
+      admin:false,
     }
   },
   
@@ -73,8 +79,11 @@ export default {
 
   created() {
     this.crawlId = this.$route.params.id;
+    this.adminOrTeamId = this.$route.params.adminOrTeamId;
+    this.adminOrTeam();
     socket.on("uiLabels", labels => this.uiLabels = labels);
     socket.emit( "getUILabels", this.lang );
+    socket.emit( "joinCrawl", this.crawlId );
 
     socket.on("selectedTeamAmountResponse", (teamAmount) => {
       this.teamAmount = teamAmount; 
@@ -88,6 +97,27 @@ export default {
     socket.on('scoresUpdated', (scores) => {
       this.scores = scores.slice(0,this.teamAmount);
     });
+
+    socket.on('crawlEnded', () => {
+      this.$router.push(`/`)});
+    
+  },
+  methods: {
+    adminOrTeam() {
+    if (this.adminOrTeamId.length > 10) {
+        this.admin = true;
+        this.adminId = this.adminOrTeamId;
+      }
+    else {
+      this.teamNumber = this.adminOrTeamId;
+    }
+      console.log(this.admin)
+    },
+    handleEndButton(){
+      socket.emit("endCrawl", {crawlId: this.crawlId });
+      this.$router.push(`/`)
+    }
+
   }
 }
 </script>

@@ -32,11 +32,12 @@
         <input type="text" placeholder="Ex. 1234" v-model="newcrawlId">
       </label>
 
-      <button class="join-button">
-      <router-link v-bind:to="'/lobby/' + newcrawlId">
+      <button class="join-button" v-on:click="handleJoinButton">
         {{ uiLabels.participateInCrawl }}
-      </router-link>
       </button>
+      <div v-if="invalidCrawlId" id="invalidCrawlId">
+        {{ uiLabels.invalid }}
+      </div>
     </section>
       </div>
     
@@ -58,6 +59,7 @@ export default {
       uiLabels: {},
       newcrawlId: "",
       lang: localStorage.getItem( "lang") || "en",
+      invalidCrawlId: false,
     }
   },
   created: function () {
@@ -79,9 +81,22 @@ export default {
 
     navigateToCreate() {
     this.$router.push('/create/');
-    } 
+    },
+
+    handleJoinButton() {
+      socket.emit("checkActiveCrawl", { crawlId: this.newcrawlId });
+      socket.once("activeCrawlResponse", (isActive) => {
+        if (!isActive) {
+        this.invalidCrawlId = true;
+        }
+        else {
+          this.$router.push(`/lobby/${this.newcrawlId}`);
+        }
+    });
   }
 }
+}
+
 </script>
 
 <style scoped>
@@ -193,6 +208,11 @@ button.join-button:hover a {
   width: 30px; /* Anpassar storlek på flaggan */
   height: auto;
 }
+
+#invalidCrawlId {
+    color: red;
+    margin-top: 1rem;
+  }
 
 
 @media screen and (max-width: 50em) {

@@ -91,7 +91,7 @@ created: function () {
       console.log(this.round);
       if (this.round > this.selectedPubs.length) {
         this.crawlOver = true
-        this.$router.push(`/result/${this.crawlId}`);
+        this.$router.push(`/result/${this.crawlId}/${this.adminId}/`);
       }
     }
   }

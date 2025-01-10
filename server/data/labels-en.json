@@ -8,9 +8,10 @@
 
 
 	"crawlID": "Crawl ID: ",
-	"createCrawlId":"Create crawl-ID",
+	"createCrawlId":"Create crawl ID",
 	"takenCrawlId": "Crawl ID already taken",
 	"participateInCrawl": "Join!",
+	"invalid": "Invalid crawl ID",
 	"writeName": "Type your name: ",
 	"userNameTaken":"Username already taken, pick another one!",
 
@@ -52,6 +53,7 @@
 	"close": "Close",
 	"crawlEnd": "The pubcrawl is finished",
 	"controlCrawl":"Control pubcrawl",
+	"endCrawl":"End the crawl",
 
 
 	"seePoints": "See points",

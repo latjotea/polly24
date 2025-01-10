@@ -154,10 +154,10 @@ function sockets(io, socket, data) {
   });
   
   socket.on('endCrawl', function(d) {
-    const success = data.endCrawl(d.crawlId);
-    if (success) {
-      io.emit('crawlEnded', d.crawlId);
-    }
+    io.to(d.crawlId).emit("crawlEnded")
+    data.endCrawl(d.crawlId);
+    
+    console.log(d.activeCrawls)
   });
 }
 

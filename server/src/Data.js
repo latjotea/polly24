@@ -142,7 +142,7 @@ Data.prototype.addActiveCrawl = function(crawlId) {
   return false;
 }
 
-//CHAT har skrivit denna:
+//AI har skrivit denna:
 Data.prototype.removeActiveCrawl = function(crawlId) {
   const index = this.activeCrawls.indexOf(crawlId);
   if (index > -1) {

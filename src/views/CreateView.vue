@@ -32,9 +32,6 @@ export default {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
 
-    socket.on("activeCrawlResponse", (isActive) => {
-      console.log("Finns redan", isActive)
-      this.takenCrawlId = isActive });
     socket.on( "pollData", data => this.pollData = data );
     socket.on( "participantsUpdate", p => this.pollData.participants = p );
     

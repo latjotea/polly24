@@ -11,6 +11,7 @@
 	"createCrawlId":"Välj rundans ID",
 	"takenCrawlId": "Rundans ID är upptaget",
 	"participateInCrawl": "Gå med!",
+	"invalid": "Rundans ID är ogiltigt",
 	"writeName": "Skriv in ditt namn: ",
 	"userNameTaken":"Användarnamn redan tagit, välj ett annat!",
 
@@ -52,6 +53,7 @@
 	"close": "Stäng",
 	"crawlEnd": "Pubrundan är slut",
 	"controlCrawl":"Styr pubrundan",
+	"endCrawl":"Avsluta rundan",
 
 
 	"seePoints": "Se poäng",
