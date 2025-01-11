@@ -15,10 +15,10 @@
         </label>
         <input 
           type="checkbox" 
+          class="pub-checkbox"
           :id="pub.name" 
           v-model="pub.selected"
-          v-on:change="updateSelectedPubs(pub)"
-          class="hidden-checkbox" 
+          v-on:change="updateSelectedPubs(pub)" 
         />
       </div>
     </div>
@@ -123,6 +123,10 @@ body{
     width:80%;
     text-align: center;
     cursor: pointer; 
+    display: flex; /* Lägg till detta */
+    justify-content: space-between; /* Lägg till detta */
+    align-items: center; /* Lägg till detta */
+    padding: 0.5rem 1.5rem;
 }
 
 input[type="checkbox"] {
@@ -151,7 +155,20 @@ button {
 
 .pub-label {
   cursor: pointer;
+  flex-grow: 1; /* Lägg till detta */
 }
+
+.pub-checkbox {
+  margin-left: 1rem; 
+  transform: scale(1.5);
+  flex-shrink: 0;  
+}
+
+.pub-gird ul li {
+  font-size: 1.7rem;
+  margin: 0.5rem 0;
+}
+
 
 
   
