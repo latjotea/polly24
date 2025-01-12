@@ -49,7 +49,7 @@
 
 <script>
 import io from 'socket.io-client';
-sessionStorage.setItem("dataServer","172.20.10.3:3000")
+sessionStorage.setItem("dataServer","172.20.10.3:3000") //Ändra varje gång beroende på vilket nätverk vi ansluter till
 const socket = io(sessionStorage.getItem("dataServer"));
 
 export default {
