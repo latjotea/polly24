@@ -1,16 +1,16 @@
 <template>
     <body>
-        <h2>{{ this.uiLabels.pickAmountTeam }}</h2>
+        <h2 id="teamAmount">{{ this.uiLabels.pickAmountTeam }}</h2>
         <div>
-            <p>{{ teamAmount }}</p>
+            <p id="teamAmount">{{ teamAmount }}</p>
             <div id="amount"> 
-                <button v-on:click="decreaseTeam">-</button>
-                <button v-on:click="increaseTeam">+</button>
+                <button class="blue-button" v-on:click="decreaseTeam">-</button>
+                <button class="blue-button" v-on:click="increaseTeam">+</button>
             </div>
         </div>
 
         <div>
-            <button v-on:click="sendTeamAmount(teamAmount)" v-bind:disabled="teamAmount === 0" id="done">
+            <button v-on:click="sendTeamAmount(teamAmount)" v-bind:disabled="teamAmount === 0" class="green-button" id="done">
                 {{ this.uiLabels.sendPubs }}
             </button> 
         </div>
@@ -71,37 +71,24 @@ methods: {
 <style>
 body{
   margin-top: 12rem;
-  background-color:rgb(255, 240, 245);
-  font-family: 'Galindo';
-  height: 100vh;
-  font-size: 2rem;
   }
 
 #amount button{
     font-size: 3rem;
-    align-items: center;
-    padding-bottom: 1rem;
     margin: 1rem;
-    font-family: 'Galindo';
-    background-color: rgb(65, 105, 225);
-    cursor:pointer;
-    max-height: 4rem;
-    width: 4rem; 
-    justify-content: center; 
-    align-items: center;
+    padding:2rem
   }
 
- #amount button:hover{
-    color:white;
-  }
+#done{
+  margin-top: 2rem;
+  font-size:2.5rem;
+}
 
- #done {
-    margin-top:3rem;
-    font-size: 2rem;
-    font-family: 'Galindo';
-    background-color: rgb(141, 242, 141);
-    cursor:pointer;
-    
-  }
+#teamAmount{
+  font-size: 2.5rem;
+
+}
+
+
 
 </style>

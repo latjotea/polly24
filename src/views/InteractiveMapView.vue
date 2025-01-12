@@ -217,7 +217,7 @@
     },
 
     sendToNextPub: function() {
-      if (confirm(this.uiLabels.confirmNextMessage)){
+      if (confirm(this.uiLabels.confirmSendToNext)){
         socket.emit("goToNextPub", this.crawlId);
         socket.emit("updateRound", { crawlId: this.crawlId });
         socket.emit("getRound", { crawlId: this.crawlId });

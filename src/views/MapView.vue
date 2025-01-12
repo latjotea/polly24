@@ -1,7 +1,7 @@
 
 
 <template>
-   <div class="overlay-text">
+   <div class="selectedPubs-text">
         {{this.uiLabels.yourCrawl}} 
     </div>
     <div class="map-container">
@@ -18,7 +18,7 @@
     </div>
 
     <div>
-        <button v-on:click="navigateToAdminTeamView" class="create-button"> 
+        <button v-on:click="navigateToAdminTeamView" class="green-button"> 
           {{this.uiLabels.createCrawl}}
         </button>
       </div>
@@ -90,90 +90,73 @@ export default {
 </script>
 
 <style>
-body{
-  margin: 0; /* Ta bort standardmarginaler */
+body {
+  margin: 0;
   padding: 0;
-  display: flex; /* Använd flexbox för centrering */
-  justify-content: center; /* Centrera horisontellt */
-  align-items: center; /* Centrera vertikalt */
-  background-color:rgb(255, 240, 245);
-  font-family: 'Galindo';
-  height: 100vh;
-  position:relative;
-  }
+}
 
-  .map-container {
-    position:absolute;
-    justify-content: center;
-    align-items: center;
-    width:1000px;
-    height: 700px;
-    overflow: scroll;
-    border:5px solid hotpink;
-    transform: translate(-50%, -50%);
-    left:50%;
-    
-  }
+.selectedPubs-text {
+  text-align: center;
+  color: black;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  padding-top: 2rem;
+  position: relative;
+}
+
+.map-container {
+  position: relative;
+  margin: 0 auto;
+  width: 1000px;
+  height: 700px;
+  overflow: scroll;
+  border: 5px solid hotpink;
+  margin-bottom: 4rem;
+}
 
 .city-map {
   width: 1356px;
   height: 1736px;
-  
 }
 
-.overlay-text{
-    position: absolute;
-    top: 50px; 
-    left: 50%; 
-    transform: translate(-50%, -50%); /* Använde chat för att centrera exakt */
-    color:black;
-    font-size: 2rem;
-    z-index:10;
-
-
-}
-/*CHAT FÖR ATT GÖRA EN PRICK*/
+/*/AI FÖR ATT GÖRA EN PRICK /*/
 .marker-container {
   position: absolute;
-  transform: translate(-50%, -50%); /* Centrerar markeringen runt koordinaten */
+  transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 2; /* Placera ovanpå kartan */
+  z-index: 2;
 }
 
 .marker {
   width: 15px;
   height: 15px;
   background-color: white;
-  border: 2px solid black;
+  border: 2px solid rgb(49, 187, 49);
   border-radius: 50%;
- 
 }
 
-.pub-label{
-  display: block; /* Se till att texten visas som en separat rad */
-  color: white; /* Färgen för att synas på kartan */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Lägg till skugga för bättre läsbarhet */
-}
-  .create-button {
-  position: absolute;
-  bottom: 20px; /* Placera 20px ovanför botten */
-  left: 50%; /* Centrerar horisontellt */
-  transform: translateX(-50%); /* Flyttar knappen så att den är helt centrerad */
-  background-color: #ff416c; /* Knappens bakgrundsfärg */
-  color: white; /* Textfärg */
-  font-size: 1.5rem; /* Storlek på texten */
-  font-family: 'Galindo', sans-serif; /* Matcha textens stil med resten */
-  padding: 10px 20px; /* Utrymme runt texten */
-  border: none; /* Ta bort kantlinjen */
-  border-radius: 10px; /* Gör hörnen rundade */
-  cursor: pointer; /* Visar pekaren vid hover */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Lätt skugga för att skapa djup */
-  z-index:5;
+.pub-label {
+  display: block;
+  color: white;
 }
 
-.create-button:hover {
-  background-color: #ff6384; /* Färg vid hover */
-}
+@media screen and (max-width: 600px) {
+  .map-container {
+    width: 90%;
+    height: 500px;
+    margin: 1rem;
+  }
 
+  .city-map {
+    width: 1356px;
+    height: 1736px;
+  }
+
+  .selectedPubs-text {
+    font-size: 1.7rem;
+  }
+
+
+}
 </style>
 

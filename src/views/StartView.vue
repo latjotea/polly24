@@ -3,7 +3,6 @@
 
 <template>
   <header>
-    
     <div class="logo">
       <img src="/img/olglasspegel.png" class="wobble">
       {{ uiLabels.headLabel }} 
@@ -16,11 +15,11 @@
     
       <div id="colour">
       <nav id="menubar">
-        <button v-on:click="switchLanguage" class="language-button">
+        <button v-on:click="switchLanguage" class="blue-button">
           <img :src="uiLabels.flagPicture" alt="Change Language" class="button-icon" />
           <span>{{ uiLabels.changeLanguage }}</span>
         </button>
-        <button v-on:click="navigateToCreate">
+        <button v-on:click="navigateToCreate" class="blue-button">
           {{ uiLabels.createCrawl }}
         </button>
       </Nav>
@@ -31,11 +30,13 @@
       <label>
         <input type="text" placeholder="Ex. 1234" v-model="newcrawlId">
       </label>
-
-      <button class="join-button" v-on:click="handleJoinButton">
+      <div>
+        <button class="green-button" v-on:click="handleJoinButton">
         {{ uiLabels.participateInCrawl }}
       </button>
-      <div v-if="invalidCrawlId" id="invalidCrawlId">
+      </div>
+   
+      <div v-if="invalidCrawlId" class="invalid">
         {{ uiLabels.invalid }}
       </div>
     </section>
@@ -101,7 +102,7 @@ export default {
 </script>
 
 <style scoped>
-  #colour{background-color: rgb(255, 240, 245);}
+
 
   header {
     background-color: rgb(65, 105, 225);
@@ -121,70 +122,31 @@ export default {
     vertical-align: bottom;
     margin-right: 0.5rem; 
   }
-  
 
-body {
-    font-family: 'Galindo';
-    background-color: rgb(255, 240, 245); 
-    margin: 0; 
-    min-height: 100vh; 
+
+  #menubar {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
 }
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-#menubar {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: rgb(255, 240, 245); 
-}
-
-
 
 #menubar button {
   flex: 1; 
-  padding: 22px; 
-  font-size: 16px;
-  background-color: rgb(65, 105, 225); 
-  border: 1px rgb(65, 105, 225); 
-  cursor: pointer;
-  border-radius: 15px;
-  margin: 0; /* Remove any margin */
-  white-space: nowrap; /* Prevents text wrapping */
-}
-
-
-.language-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  padding: 0.8rem; 
+  font-size: 16px; 
+  margin: 0;
+  height:3rem;
 }
 
 .button-icon {
   width: 30px;
   height: auto;
+  margin-right: 10px;
 }
 
-input{
-    font-size:2rem;
-    font-family: 'Galindo';   
-}
 
-button {
-  font-size: 2rem;
-  font-family: 'Galindo';
-  background-color: rgb(65, 105, 225)
-}
-
-#menubar button:hover{
-  color: white;
-}
 
 #start-section{
   padding-top: 5rem;
@@ -195,43 +157,79 @@ button {
 
 
 
-.join-button:hover {
-  color: white; 
-}
-
-button.join-button:hover a {
-  color: inherit;
-}
-
-
-
 .button-icon {
   width: 30px; /* Anpassar storlek på flaggan */
   height: auto;
 }
 
-#invalidCrawlId {
-    color: red;
-    margin-top: 1rem;
-  }
 
-
-@media screen and (max-width: 50em) {
-  .logo {
-    font-size: 5vw;
-  }
-  
-  /* ADDED: Ensure horizontal layout */
-  #menubar {
-    flex-direction: row;
-  }
-  
-}
 
 .wobble {
   display: inline-block; 
   animation: wobble 1s infinite; 
+
 }
+
+
+
+  @media screen and (max-width: 600px) {
+  header {
+    padding: 0.5rem;
+  }
+
+  .logo {
+    font-size: 1.2rem; /* Mindre text */
+    letter-spacing: 0.1em; /* Mindre mellanrum */
+    gap: 0.25rem; /* Mindre mellanrum mellan elementen */
+  }
+
+  .logo img {
+    height: 2.5rem; /* Mindre bilder */
+  }
+
+  #menubar {
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  #menubar button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    display:flex
+  }
+
+  #menubar {
+    flex-direction: row;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  #menubar button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  #start-section {
+    padding-top: 6rem;
+    font-size: 1.3rem;
+  }
+
+  #start-section h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  #start-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+
+}
+
 
 /* W#SCHOOL och Geeks for geeks  */
 @keyframes wobble {

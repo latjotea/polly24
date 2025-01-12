@@ -1,16 +1,16 @@
-/*/ TEA OCH EMMA ANSVARIG FÖR SENASTE VERSIONEN /*/
+
 <template>
-  <div>
-    {{this.uiLabels.chooseMode}}
-    <div class="button-container">
-      <button v-on:click="chooseMode('standard')"> {{this.uiLabels.standardCrawl }} </button>
-      <button v-on:click="chooseMode('love')">{{this.uiLabels.loveCrawl}}</button>
-      <button v-on:click="chooseMode('holiday')">{{this.uiLabels.holidayCrawl}}</button>
-      <button v-on:click="chooseMode('crazy')">{{this.uiLabels.crazyCrawl}}</button>
-    </div>  
-  </div>
-
-
+  <body>
+    <div>
+      {{this.uiLabels.chooseMode}}
+      <div class="button-container">
+        <button class="blue-button" v-on:click="chooseMode('standard')"> {{this.uiLabels.standardCrawl }} </button>
+        <button class="blue-button" v-on:click="chooseMode('love')">{{this.uiLabels.loveCrawl}}</button>
+        <button class="blue-button" v-on:click="chooseMode('holiday')">{{this.uiLabels.holidayCrawl}}</button>
+        <button class="blue-button" v-on:click="chooseMode('crazy')">{{this.uiLabels.crazyCrawl}}</button>
+      </div>  
+    </div>
+  </body>
 </template>
 
 <script>
@@ -42,33 +42,27 @@ export default {
 </script>
 
 <style>
-body{
-  margin-top: 1rem;
-  background-color:rgb(255, 240, 245);
-  font-family: 'Galindo';
-  height: 100vh;
-  }
   div {
   font-size: 1.7rem;
-  font-family: 'Galindo';
   }
-  button {
-    font-size: 2rem;
-    font-family: 'Galindo';
-    background-color: rgb(65, 105, 225);
-    cursor:pointer;
-  }
-  button:hover{
-    color: white;
-  }
+ 
   .button-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Två kolumner */
-  grid-template-rows: 1fr 1fr; /* Två rader */
-  gap: 0.5rem; /* Mellanrum mellan knapparna */
-  width: 100%; /* Fyll en stor del av bredden */
-  height: 80vh; /* Fyll en stor del av höjden */
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 0.5rem; 
+  width: 100%; 
+  height: 80vh; 
   margin-top: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .button-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr); /* AI FÖR ATT FÅ LIKA STORA */
+    height: 70vh; 
+    gap:0.1rem
+  }
 }
   
 </style>

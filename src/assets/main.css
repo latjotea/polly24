@@ -1,8 +1,72 @@
 @import './base.css';
 
 #app {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Galindo', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
+
+/*/ BUTTONS /*/
+button{
+  border-radius: 15px;
+  color: black;
+  font-size: 2rem;
+  font-family: 'Galindo';
+  cursor:pointer;
+  margin-top: 1rem;
+  border:none;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+button:hover{
+  color:white
+}
+
+.green-button{
+  background-color: #4caf50;
+}
+
+.blue-button{
+  background-color: rgb(65, 105, 225);
+
+}
+
+.pink-button{
+  background-color: hotpink;
+
+}
+
+
+.invalid{
+  color:red;
+  margin-top:1rem;
+}
+
+
+/*/ INPUT /*/
+
+input{
+  font-size: 2rem;
+  font-family: 'Galindo';
+
+}
+
+input[type="checkbox"] {
+  margin-left:2rem;
+  transform: scale(2.5); /* Chat användes för att göra knappen större */
+
+}
+
+input[type="checkbox"]:checked {
+  accent-color:hotpink; 
+}
+
+/*/ ÖVRIGT /*/
+
+
+  
+
+

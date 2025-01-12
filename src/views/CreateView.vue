@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div>
+    <h1>
     {{ uiLabels.createCrawlId }} 
-    </div>
-    <input type="text" placeholder="Ex. Bästa Rundan 123" v-model="crawlId">
-    <button v-on:click="handleCrawlIdButton">
+    </h1>
+    <input type="text" placeholder="Ex. STS RUNDAN" v-model="crawlId">
+    <button v-on:click="handleCrawlIdButton" class="green-button">
       {{ uiLabels.sendPubs }}
     </button>
-    <div v-if="takenCrawlId" id ="takenCrawlId">
+    <div v-if="takenCrawlId" class ="invalid">
         <p>{{ this.uiLabels.takenCrawlId }}</p>
     </div>
   </div>
@@ -71,32 +71,10 @@ export default {
 <style>
 body{
   margin-top: 12rem;
-  background-color:rgb(255, 240, 245);
-  font-family: 'Galindo';
-  height: 100vh;
-  }
-  div {
-  font-size: 1.7rem;
-  font-family: 'Galindo';
   }
 
-  button {
-    font-size: 2rem;
-    font-family: 'Galindo';
-    background-color: rgb(65, 105, 225);
-    cursor:pointer;
-  }
-  button:hover{
-    color:white;
-  }
-  input{
-    font-size:2rem;
-    font-family: 'Galindo';
-  }
 
-  #takenCrawlId {
-    color: red;
-  }
+
   
 </style>
 

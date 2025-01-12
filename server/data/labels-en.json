@@ -55,6 +55,7 @@
 	"controlCrawl":"Control pubcrawl",
 	"endCrawl":"End the crawl",
 	"confirmSendToNext":"Are you sure about sending the players to the next stop?",
+	"waitHost":"Waiting for host to start crawl...",
 
 
 	"seePoints": "See points",

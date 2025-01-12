@@ -1,31 +1,29 @@
 
 <template>
-  <div>
-    {{this.uiLabels.choosePubs}} 
-    <div class="pub-grid">
-      <div 
-        v-for="pub in pubList" 
-        :key="pub.name" 
-        class="pub-section" 
-        :class="{ 'selected-pub': pub.selected }"
-        @click="togglePubSelection(pub)"
-      >
-        <label :for="pub.name" class="pub-label" @click="togglePubSelection(pub)">
-          {{ pub.name }}
-        </label>
-        <input 
-          type="checkbox" 
-          class="pub-checkbox"
-          :id="pub.name" 
-          v-model="pub.selected"
-          v-on:change="updateSelectedPubs(pub)" 
-        />
+  <body>
+    <div>
+      <h2> {{this.uiLabels.choosePubs}} </h2>
+      <div class="pub-grid">
+        <div 
+          v-for="pub in pubList" 
+          :key="pub.name" 
+          class="pub-section" 
+          :class="{ 'selected-pub': pub.selected }"
+          v-on:click="togglePubSelection(pub)">
+          <label :for="pub.name" class="pub-label" @click="togglePubSelection(pub)">
+            {{ pub.name }}
+          </label>
+          <input 
+            type="checkbox" 
+            class="pub-checkbox"
+            :id="pub.name" 
+            v-model="pub.selected"
+            v-on:change="updateSelectedPubs(pub)" />
+        </div>
       </div>
+      <button v-on:click="submitSelection" v-bind:disabled="selectedPubs.length===0" class="green-button"> {{this.uiLabels.sendPubs}} </button>
     </div>
-    <button v-on:click="submitSelection" v-bind:disabled="selectedPubs.length===0"> {{this.uiLabels.sendPubs}} </button>
-  </div>
-
-
+  </body>
 </template>
 
 <script>
@@ -98,16 +96,6 @@ export default {
 </script>
 
 <style>
-body{
-  margin-top: 1rem;
-  background-color:rgb(255, 240, 245);
-  font-family: 'Galindo';
-  height: 100vh;
-  }
-  div {
-  font-size: 1.7rem;
-  font-family: 'Galindo';
-  }
 
   .pub-grid {
     display: flex;
@@ -120,42 +108,24 @@ body{
     background-color: rgb(65, 105, 225);
     font-size: 3rem;
     border-radius: 15px;
-    width:80%;
+    width:85%;
     text-align: center;
     cursor: pointer; 
-    display: flex; /* Lägg till detta */
-    justify-content: space-between; /* Lägg till detta */
-    align-items: center; /* Lägg till detta */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     padding: 0.5rem 1.5rem;
-}
-
-input[type="checkbox"] {
-    margin-left:2rem;
-    transform: scale(2.5); /* Chat användes för att göra knappen större */
-  
-}
-/* Detta kan vi ta bort om vi inte vill behålla checkboxarna */
-input[type="checkbox"]:checked {
-  accent-color:hotpink; 
-}
-
-button {
-    margin-top:3rem;
-    font-size: 2rem;
-    font-family: 'Galindo';
-    background-color: rgb(141, 242, 141);
-    cursor:pointer;
 }
 
 .selected-pub {
   background-color: rgb(135, 181, 250);
   color: white; 
-  transition: background-color 0.3s; /* Mjuk övergång */
+  transition: background-color 0.3s;
 }
 
 .pub-label {
   cursor: pointer;
-  flex-grow: 1; /* Lägg till detta */
+  flex-grow: 1; 
 }
 
 .pub-checkbox {
