@@ -23,7 +23,7 @@
 
 <script>
 import io from 'socket.io-client';
-const socket = io(sessionStorage.getItem("dataserver"));
+const socket = io(sessionStorage.getItem("dataServer"));
 
 
 export default{

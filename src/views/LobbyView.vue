@@ -57,7 +57,7 @@
 <script>
 import io from 'socket.io-client';
 import { errorMessages } from 'vue/compiler-sfc';
-const socket = io(sessionStorage.getItem("dataserver"));
+const socket = io(sessionStorage.getItem("dataServer"));
 
 export default {
   name: 'LobbyView',

@@ -50,7 +50,7 @@
 <script>
 import io from 'socket.io-client';
 sessionStorage.setItem("dataServer","172.20.10.3:3000")
-const socket = io(sessionStorage.getItem("dataserver"));
+const socket = io(sessionStorage.getItem("dataServer"));
 
 export default {
   name: 'StartView',
