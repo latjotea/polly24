@@ -59,5 +59,7 @@
 	"seePoints": "Se poäng",
 	"points": "Poängställning",
 	"loserTeams": "Övriga placeringar",
-	"teamPoints": "poäng"
+	"teamPoints": "poäng",
+	"teamPlace": "Ditt lag kom på plats:"
+
 }

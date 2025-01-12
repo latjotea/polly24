@@ -59,5 +59,6 @@
 	"seePoints": "See points",
 	"points": "Scoreboard",
 	"loserTeams": "Other teams",
-	"teamPoints": "points"
+	"teamPoints": "points",
+	"teamPlace": "Your team finished at place:"
 }

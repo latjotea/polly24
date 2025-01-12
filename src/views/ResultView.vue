@@ -2,6 +2,9 @@
   <body>
     <div class="final-container">
       <h1>{{ uiLabels.crawlEnd }}</h1>
+      <h2 v-if="!admin && teamNumber" class="placement-text">
+        {{uiLabels.teamPlace}} {{ getTeamPlace }}
+      </h2>
       
       <div class="podium-container">
         <!-- Silver - Second Place -->
@@ -74,7 +77,12 @@ export default {
       
       //AI
       return teamsWithScores.sort((a, b) => b.score - a.score).slice(0,this.teamAmount);
+    },
+
+    getTeamPlace(){
+      return this.sortedTeams.findIndex(team => team.teamNumber === parseInt(this.teamNumber)) +1;
     }
+
   },
 
   created() {
@@ -133,6 +141,12 @@ body {
 .final-container {
   text-align: center;
   padding: 2rem;
+}
+
+.placement-text{
+  font-size: 1.5rem;
+  color:rgb(65, 105, 225);
+  margin:1rem;
 }
 
 .podium-container {
