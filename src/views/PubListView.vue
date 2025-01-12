@@ -32,7 +32,7 @@
 import io from 'socket.io-client';
 import pubs from '/server/data/Pubs.json';
 
-const socket = io(sessionStorage.getItem(dataServer));
+const socket = io(sessionStorage.getItem("dataserver"));
 
 
 export default {

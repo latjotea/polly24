@@ -5,7 +5,7 @@
   "scripts": {
     "dev:frontend": "vite",
     "dev:frontendhost":"vite --host",
-    "dev:backend": "nodemon server/src/index.js",
+    "dev:backend": "nodemon server/index.js",
     "dev": "concurrently 'npm:dev:frontend' 'npm:dev:backend'",
     "host": "concurrently 'npm:dev:frontendhost' 'npm:dev:backend'",
     "build": "vite build",

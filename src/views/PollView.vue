@@ -12,7 +12,7 @@
 // @ is an alias to /src
 import QuestionComponent from '@/components/QuestionComponent.vue';
 import io from 'socket.io-client';
-const socket = io(sessionStorage.getItem(dataServer));
+const socket = io(sessionStorage.getItem("dataserver"));
 
 export default {
   name: 'PollView',

@@ -67,7 +67,7 @@
  import pubs from '/server/data/Pubs.json';
  import maps from '/server/data/Maps.json';
  
- const socket = io(sessionStorage.getItem(dataServer));
+ const socket = io(sessionStorage.getItem("dataserver"));
  
  
  export default {
