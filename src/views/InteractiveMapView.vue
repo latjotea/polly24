@@ -8,7 +8,7 @@
           <span> {{uiLabels.yourRound}} {{ round }} </span>
           <button v-on:click="sendToNextPub" class="admin-button"> {{this.uiLabels.nextStop}} </button> 
         </div>
-        <div v-else>
+        <div v-else class="user-header">
           <span>{{ uiLabels.yourRound }} {{ round }} : {{ getCurrentTeamPub() }}</span>
         </div>
       </div>
@@ -265,6 +265,13 @@
     text-align: center;
    }
   .admin-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .user-header{
     display: flex;
     justify-content: center;
     align-items: center;
