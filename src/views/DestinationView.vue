@@ -1,14 +1,20 @@
 <template>
     <body>
-      <h1 v-if="chosenPub && !crawlOver" >{{ uiLabels.goTo }} {{ chosenPub }}</h1>
-      <div v-if="!crawlOver" id="goto"> 
-        <button v-on:click="teamIsHere"> 
-          {{ uiLabels.imHere }}
-        </button>
-      </div>
-      <div v-if="crawlOver" >
-        <h1>Pubrundan är slut!</h1>
-        <h2>Vinnande laget är:</h2>
+      <div class="destination-container">
+        <h1 v-if="chosenPub && !crawlOver" class="destination-header">
+          {{ uiLabels.goTo }} {{ chosenPub }} 
+        </h1>
+
+        <div v-if="!crawlOver" id="goto"> 
+          <button v-on:click="teamIsHere"> 
+            {{ uiLabels.imHere }}
+          </button>
+        </div>
+
+        <div v-if="crawlOver" >
+          <h1>Pubrundan är slut!</h1>
+          <h2>Vinnande laget är:</h2>
+        </div>
       </div>
 
     </body>
@@ -109,6 +115,21 @@ body{
   height: 100vh;
   font-size: 2rem;
   }
+
+.destination-container {
+  text-align: center;
+}
+
+.destination-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#goto{
+  margin-top:2rem;
+}
 
 #goto button{
     font-size: 4rem;
