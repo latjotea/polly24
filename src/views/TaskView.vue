@@ -51,7 +51,7 @@ import io from 'socket.io-client';
 import taskssv from '/server/data/tasksSv.json';
 import tasksen from '/server/data/tasksEn.json';
 
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem(dataServer));
 
 export default {
   name: 'TaskView',

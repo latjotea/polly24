@@ -36,7 +36,7 @@
 	"team":"Team ",
 	"isAt":"is at:",
 	"seeMap": "View map",
-	"nextStop": "Go to next stop",
+	"nextStop": "Send to next pub",
 	"yourPosition": "You are at:",
 	"yourRound": "Pub",
 	
@@ -54,6 +54,7 @@
 	"crawlEnd": "The pubcrawl is finished",
 	"controlCrawl":"Control pubcrawl",
 	"endCrawl":"End the crawl",
+	"confirmSendToNext":"Are you sure about sending the players to the next stop?",
 
 
 	"seePoints": "See points",

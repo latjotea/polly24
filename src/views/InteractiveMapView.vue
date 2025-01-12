@@ -67,7 +67,7 @@
  import pubs from '/server/data/Pubs.json';
  import maps from '/server/data/Maps.json';
  
- const socket = io("localhost:3000");
+ const socket = io(sessionStorage.getItem(dataServer));
  
  
  export default {
@@ -217,9 +217,11 @@
     },
 
     sendToNextPub: function() {
-      socket.emit("goToNextPub", this.crawlId);
-      socket.emit("updateRound", { crawlId: this.crawlId });
-      socket.emit("getRound", { crawlId: this.crawlId });
+      if (confirm(this.uiLabels.confirmNextMessage)){
+        socket.emit("goToNextPub", this.crawlId);
+        socket.emit("updateRound", { crawlId: this.crawlId });
+        socket.emit("getRound", { crawlId: this.crawlId });
+      }
     },
 
     isCrawlOver() {

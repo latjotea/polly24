@@ -30,7 +30,7 @@ import io from 'socket.io-client';
 import pubs from '/server/data/Pubs.json';
 import maps from '/server/data/Maps.json';
 
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem(dataServer));
 
 
 export default {

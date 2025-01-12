@@ -22,7 +22,7 @@ import io from 'socket.io-client';
 import tasksen from '/server/data/tasksEn.json';
 import taskssv from '/server/data/tasksSv.json';
 
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem(dataServer));
 
 export default {
   name: 'AdminControlView',

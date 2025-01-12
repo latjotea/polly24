@@ -1,13 +1,3 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "main": "src/index.js",
-  "type": "module",
-  "scripts": {
-    "start": "npm run build && node ./dist/index.js",
-    "dev": "node src/index.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "type": "module"
 }

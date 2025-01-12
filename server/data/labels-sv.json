@@ -36,7 +36,7 @@
 	"team":"Lag ",
 	"isAt":"är på:",
 	"seeMap": "Visa karta",
-	"nextStop": "Gå till nästa ställe",
+	"nextStop": "Skicka till nästa pub",
 	"yourPosition": "Du är på:",
 	"yourRound": "Pub",
 	
@@ -54,6 +54,7 @@
 	"crawlEnd": "Pubrundan är slut",
 	"controlCrawl":"Styr pubrundan",
 	"endCrawl":"Avsluta rundan",
+	"confirmSendToNext":"Är du säker på att du vill skicka lagen vidare?",
 
 
 	"seePoints": "Se poäng",
