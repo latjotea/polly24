@@ -12,7 +12,6 @@
         </div>
         <div v-else class="user-header">
               <span>{{ uiLabels.yourRound }} {{ round }} : {{ getCurrentTeamPub() }}</span>
-              <!-- MOVED: Task button out of the span to be its own element -->
               <button v-if="!admin" v-on:click="navigateToTaskView" class="blue-button">
                 {{ uiLabels.seeTasks }}
               </button>
