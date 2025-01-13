@@ -341,6 +341,7 @@
   right: 2rem;
   font-size: 1.5rem;
   padding: 10px 20px;
+  z-index: 20;
 }
 
 .info-container{
@@ -373,7 +374,7 @@
 }
 
 .pub-label {
-  order: 3; 
+  order: 1; 
 }
 
 @media screen and (max-width: 600px) {
