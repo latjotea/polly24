@@ -100,7 +100,7 @@ created: function () {
 </script>
 
 
-<style>
+<style scoped>
 
 body{
   margin-top: 1rem;

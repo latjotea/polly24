@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-    <button v-if="admin" v-on:click="handleEndButton()">
+    <button v-if="admin" v-on:click="handleEndButton()" class="blue-button">
       {{ uiLabels.endCrawl }}
     </button>
   </body>
@@ -133,8 +133,6 @@ export default {
 <style scoped>
 body {
   margin-top: 1rem;
-  background-color: rgb(255, 240, 245);
-  font-family: 'Galindo';
   height: 100vh;
 }
 

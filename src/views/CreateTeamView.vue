@@ -68,7 +68,7 @@ methods: {
 
 </script>
 
-<style>
+<style scoped>
 body{
   margin-top: 12rem;
   }

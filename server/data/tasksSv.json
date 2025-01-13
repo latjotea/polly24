@@ -1,86 +1,86 @@
 [
     {"task": "Svep en öl",
     "mode": "standard",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Håll ett tal",
     "mode": "standard",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Gör en danskoreografi",
     "mode": "standard",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Håll ett peptalk till någon i ditt lag",
     "mode": "standard",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Ge någon ditt nummer",
     "mode": "love",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Skaffa en tinderprofil",
     "mode": "love",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Superlikea någon på tinder",
     "mode": "love",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Ge någon en komplimang",
     "mode": "love",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Alla i laget ta en shot",
     "mode": "crazy",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Håll en stand-up",
     "mode": "crazy",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Gör en mänsklig pyramid",
     "mode": "crazy",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Beställ en öl utan att prata",
     "mode": "crazy",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Drick en snaps och sjung en snapsvisa",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Ha ett luciatåg",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Köp en grogg med julmust",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Ge någon en julklapp",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Sätt på dig en tomteluva",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null }
 ]

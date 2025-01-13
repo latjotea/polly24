@@ -13,7 +13,7 @@ window.onpopstate = function () {
   <RouterView />
 </template>
 
-<style>
+<style scoped>
 
 @import url('https://fonts.googleapis.com/css2?family=Butcherman&family=Galindo&family=Geist+Mono:wght@100..900&family=Slackey&display=swap');
 

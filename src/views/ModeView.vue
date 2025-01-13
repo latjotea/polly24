@@ -41,7 +41,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   div {
   font-size: 1.7rem;
   }

@@ -5,8 +5,8 @@
           {{ uiLabels.goTo }} {{ chosenPub }} 
         </h1>
 
-        <div v-if="!crawlOver" id="goto"> 
-          <button v-on:click="teamIsHere"> 
+        <div v-if="!crawlOver"> 
+          <button v-on:click="teamIsHere" class="blue-button"> 
             {{ uiLabels.imHere }}
           </button>
         </div>
@@ -110,7 +110,6 @@ data: function () {
 <style scoped>
 body{
   margin-top: 12rem;
-  background-color:rgb(255, 240, 245);
   font-family: 'Galindo';
   height: 100vh;
   font-size: 2rem;
@@ -127,18 +126,26 @@ body{
   gap: 1rem;
 }
 
-#goto{
-  margin-top:2rem;
-}
-
-#goto button{
+.blue-button{
     font-size: 4rem;
-    font-family: 'Galindo';
-    background-color: rgb(65, 105, 225);
-    cursor:pointer;
   }
 
-#goto button:hover{
-    color:white;
+
+  @media screen and (max-width: 600px) {
+  .destination-container {
+    width: 90%;
+    height: 500px;
+    margin: 1rem;
   }
+
+  .destination-header {
+    font-size: 3rem;
+  }
+
+  .blue-button{
+    font-size: 3rem;
+  }
+
+
+}
 </style>

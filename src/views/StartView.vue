@@ -2,6 +2,7 @@
 
 
 <template>
+  
   <header>
     <div class="logo">
       <img src="/img/olglasspegel.png" class="wobble">
@@ -9,10 +10,7 @@
       <img src="/img/olglas.png" class="wobble">
     </div>
   </header>
-
-  
   <body>
-    
       <div id="colour">
       <nav id="menubar">
         <button v-on:click="switchLanguage" class="blue-button">
@@ -50,7 +48,7 @@
 
 <script>
 import io from 'socket.io-client';
-sessionStorage.setItem("dataServer","172.20.10.3:3000") //Ändra varje gång beroende på vilket nätverk vi ansluter till
+sessionStorage.setItem("dataServer","172.20.10.2:3000") //Ändra varje gång beroende på vilket nätverk vi ansluter till
 const socket = io(sessionStorage.getItem("dataServer"));
 
 export default {
@@ -173,8 +171,13 @@ export default {
 
 
   @media screen and (max-width: 600px) {
+
   header {
     padding: 0.5rem;
+  }
+
+  input{
+    font-size: 1.9rem;
   }
 
   .logo {

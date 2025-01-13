@@ -3,15 +3,22 @@
 <template>
     <body> 
       <div class="header-text">
-        <div v-if="admin && !crawlOver" class="admin-header">
-          <button v-on:click="goToCreateTask" class="admin-button">{{this.uiLabels.handleTasks}} </button>
+        
+        <div class="info-container">
+          <div v-if="admin && !crawlOver" class="admin-header">
           <span> {{uiLabels.yourRound}} {{ round }} </span>
-          <button v-on:click="sendToNextPub" class="admin-button"> {{this.uiLabels.nextStop}} </button> 
+          <button v-on:click="goToCreateTask" class="blue-button">{{this.uiLabels.handleTasks}} </button>
+          <button v-on:click="sendToNextPub" class="blue-button"> {{this.uiLabels.nextStop}} </button>
         </div>
         <div v-else class="user-header">
-          <span>{{ uiLabels.yourRound }} {{ round }} : {{ getCurrentTeamPub() }}</span>
+              <span>{{ uiLabels.yourRound }} {{ round }} : {{ getCurrentTeamPub() }}</span>
+              <!-- MOVED: Task button out of the span to be its own element -->
+              <button v-if="!admin" v-on:click="navigateToTaskView" class="blue-button">
+                {{ uiLabels.seeTasks }}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
      
       <div class="map-container">
          <img v-if="selectedMap" :src="selectedMap.picture" class="city-map"/>
@@ -36,13 +43,8 @@
             </div>
            <div class="pub-label">{{ pub.name }}</div>   
        </div>
-     </div>
-
-     <button v-if="!admin" v-on:click="navigateToTaskView" id="taskButton">
-            {{ uiLabels.seeTasks }}
-      </button>
    
-      <button @click="toggleScoreboard" id="scoreboardButton">
+      <button @click="toggleScoreboard" class="green-button">
         {{ uiLabels.seePoints }}
       </button>
 
@@ -51,13 +53,14 @@
       <p>{{ uiLabels.points }}</p>
       <ul>
         <li v-for="(score, index) in scores" :key="index">
-          {{ uiLabels.team }} {{ index + 1 }}: {{ score }}
+          {{ uiLabels.team }} {{ index + 1 }}: {{ score }} p
         </li>
       </ul>
-      <button @click="toggleScoreboard" class="close-button">
+      <button @click="toggleScoreboard" class="blue-button">
         {{ uiLabels.close }}
       </button>
     </div>
+  </div>
         
     </body>
  </template>
@@ -238,62 +241,53 @@
   }
 }
 
- 
- 
  </script>
  
- <style>
- body{
-   margin: 0; 
-   padding: 2rem;
-   display: flex;
-   justify-content: center; 
-   align-items: center;
-   background-color:rgb(255, 240, 245);
-   font-family: 'Galindo';
-   height: 100vh;
-   position:relative;
-   }
+ <style scoped>
+  .header-text {
+  position: static;
+  transform: none;
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
 
-   .header-text{
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: black;
-    font-size: 2rem;
-    z-index: 10;
-    width: 100%;
-    text-align: center;
-   }
   .admin-header{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
   }
 
-  .user-header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-  }
+  .user-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
 
+.user-header span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
   
- 
   .map-container {
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    width: 1000px;
-    height: 700px;
-    overflow: scroll;
-    border: 5px solid hotpink;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-   }
+  position: relative;
+  margin: 0 auto;
+  width: 1000px;
+  height: 700px;
+  overflow: scroll;
+  border: 5px solid hotpink;
+  margin-bottom: 1rem;
+
+}
+
+.blue-button{
+  color: black
+}
 
    .city-map {
    width: 1356px;
@@ -318,28 +312,10 @@
  }
  
  .pub-label{
-   display: block; /* Se till att texten visas som en separat rad */
-   color: white; /* Färgen för att synas på kartan */
-   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Lägg till skugga för bättre läsbarhet */
+   display: block; 
+   color: white; 
+   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); 
  }
-
-  
-
-  .admin-button{
-    font-size: 1.2rem;
-    font-family: 'Galindo';
-    background-color: hotpink;
-    color:black;
-    cursor: pointer;
-    border-radius: 15px;
-    border-color: white;
-    box-shadow: 2px 2px 6px rgba(246, 53, 143, 0.5);
-    padding: 0.5rem 1rem;
-   }
-
-  .admin-button:hover {
-      color: white;
-    }
 
   .chosenPub-label {
     display: block;
@@ -357,49 +333,23 @@
 }
  
  
- 
-
- .chosenPub-label{
-  color: rgb(76, 245, 76); ;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Lägg till skugga för bättre läsbarhet */
-  display: block; /* Se till att texten visas som en separat rad */
-
- }
- 
- #taskButton {
-    top: 5rem;
-    right: 5rem;
-    position: fixed;
-    font-size: 2rem;
-    font-family: 'Galindo';
-    background-color: hotpink;
-    z-index: 3;
-    cursor: pointer;
- }
 
 
-
-button:hover {
-    color: white;
- }
-
-
- #scoreboardButton {
+ .green-button {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   font-size: 1.5rem;
-  background-color: #4caf50;
-  color:black;
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
-#scoreboardButton:hover{
-  color: white;
 
-}
+.info-container{
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
 
 
 .scoreboard {
@@ -422,23 +372,36 @@ button:hover {
   margin: 0.5rem 0;
 }
 
-.close-button {
-  display: block;
-  margin: 1.5rem auto 0;
-  padding: 0.5rem 1rem;
-  font-family: 'Galindo';
-  background-color: rgb(65, 105, 225);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-
 .pub-label {
   order: 3; 
 }
+
+@media screen and (max-width: 600px) {
+  .map-container {
+    width: 90%;
+    height: 500px;
+    margin: 1rem;
+  }
+
+  .info-container{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 1rem;
+    gap:0.5rem
+  }
+
+
+  .city-map {
+    width: 1356px;
+    height: 1736px;
+  }
+
+  .selectedPubs-text {
+    font-size: 1.7rem;
+  }
+}
+
 
 
 

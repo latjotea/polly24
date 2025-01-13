@@ -6,13 +6,9 @@ function sockets(io, socket, data) {
 
   socket.on('createCrawl', function(d) {
     data.createCrawl(d.crawlId, d.lang)
-    socket.emit('pollData', data.getPoll(d.crawlId));
+    socket.emit('pollData', data.getCrawl(d.crawlId));
   });
 
-  socket.on('addQuestion', function(d) {
-    data.addQuestion(d.crawlId, {q: d.q, a: d.a});
-    socket.emit('questionUpdate', data.activateQuestion(d.crawlId));
-  });
 
   socket.on('joinCrawl', function(id) {
     socket.join(id);
@@ -23,19 +19,6 @@ function sockets(io, socket, data) {
     data.participateInCrawl(d.crawlId, d.name, d.admin);
     io.to(d.crawlId).emit('participantsUpdate', data.getParticipants(d.crawlId));
   });
-
-
-  
-  socket.on('runQuestion', function(d) {
-    let question = data.activateQuestion(d.crawlId, d.questionNumber);
-    io.to(d.crawlId).emit('questionUpdate', question);
-    io.to(d.crawlId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.crawlId));
-  });
-
-  socket.on('submitAnswer', function(d) {
-    data.submitAnswer(d.crawlId, d.answer);
-    io.to(d.crawlId).emit('submittedAnswersUpdate', data.getSubmittedAnswers(d.crawlId));
-  }); 
 
 
   socket.on('sendSelectedPubs', function(d) {
@@ -122,7 +105,10 @@ function sockets(io, socket, data) {
   });
 
   socket.on("initializeTasks", function(d) {
-    data.initializeTasks(d.crawlId, d.tasks);
+    const existingTasks = data.getTasks(d.crawlId);
+    if (!existingTasks || existingTasks.length === 0) {
+      data.initializeTasks(d.crawlId, d.tasks);
+    }
     io.to(d.crawlId).emit("taskListUpdated", data.getTasks(d.crawlId));
   });
 
@@ -132,12 +118,13 @@ function sockets(io, socket, data) {
   });
 
   socket.on("updateTaskStatus", function(d) {
-    data.updateTaskStatus(d.crawlId, d.taskText, d.checked, d.teamNumber);
-    io.to(d.crawlId).emit("taskListUpdated", data.getTasks(d.crawlId));
+    const updatedTasks= data.updateTaskStatus(d.crawlId, d.taskText, d.checked, d.teamNumber);
+    io.to(d.crawlId).emit("taskListUpdated", updatedTasks);
   });
 
   socket.on("getTasks", function(d) {
-    socket.emit("taskListUpdated", data.getTasks(d.crawlId));
+    const tasks = data.getTasks(d.crawlId);
+    socket.emit("taskListUpdated", tasks);
   });
 
   socket.on("updateScores", function(d) {

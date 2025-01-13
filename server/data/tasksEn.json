@@ -1,86 +1,86 @@
 [
     {"task": "Chug a beer",
      "mode": "standard",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Give a speech",
      "mode": "standard",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Create a dance choreography",
      "mode": "standard",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Give a pep talk to someone on your team",
      "mode": "standard",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Give someone your number",
      "mode": "love",
-     "clicked": false,
+    "checked": false,
      "completedBy": null },
 
     {"task": "Create a Tinder profile", 
     "mode": "love",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Superlike someone on Tinder",
      "mode": "love",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Give someone a compliment",
      "mode": "love",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Everyone on the team takes a shot",
      "mode": "crazy",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Perform a stand-up routine",
      "mode": "crazy",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Make a human pyramid",
      "mode": "crazy",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Order a beer without speaking",
      "mode": "crazy",
-     "clicked": false,
+     "checked": false,
      "completedBy": null },
 
     {"task": "Have a schnapps and sing a song",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Have a mini Lucia concert ",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Buy a drink with julmust",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Give someone a Christmas gift",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null },
 
     {"task": "Put on a Santa hat",
     "mode": "holiday",
-    "clicked": false,
+    "checked": false,
     "completedBy": null }
 ]
