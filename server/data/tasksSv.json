@@ -1,86 +1,121 @@
 [
-    {"task": "Svep en öl",
-    "mode": "standard",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Håll ett tal",
-    "mode": "standard",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Gör en danskoreografi",
-    "mode": "standard",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Håll ett peptalk till någon i ditt lag",
-    "mode": "standard",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Ge någon ditt nummer",
-    "mode": "love",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Skaffa en tinderprofil",
-    "mode": "love",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Superlikea någon på tinder",
-    "mode": "love",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Ge någon en komplimang",
-    "mode": "love",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Alla i laget ta en shot",
-    "mode": "crazy",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Håll en stand-up",
-    "mode": "crazy",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Gör en mänsklig pyramid",
-    "mode": "crazy",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Beställ en öl utan att prata",
-    "mode": "crazy",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Drick en snaps och sjung en snapsvisa",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Ha ett luciatåg",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Köp en grogg med julmust",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Ge någon en julklapp",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Sätt på dig en tomteluva",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null }
+    {
+        "id": "task1",
+        "task": "Svep en öl",
+        "mode": "standard",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task2",
+        "task": "Håll ett tal",
+        "mode": "standard",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task3",
+        "task": "Gör en danskoreografi",
+        "mode": "standard",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task4",
+        "task": "Håll ett peptalk till någon i ditt lag",
+        "mode": "standard",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task5",
+        "task": "Ge någon ditt nummer",
+        "mode": "love",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task6",
+        "task": "Skaffa en tinderprofil",
+        "mode": "love",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task7",
+        "task": "Superlikea någon på tinder",
+        "mode": "love",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task8",
+        "task": "Ge någon en komplimang",
+        "mode": "love",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task9",
+        "task": "Alla i laget ta en shot",
+        "mode": "crazy",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task10",
+        "task": "Håll en stand-up",
+        "mode": "crazy",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task11",
+        "task": "Gör en mänsklig pyramid",
+        "mode": "crazy",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task12",
+        "task": "Beställ en öl utan att prata",
+        "mode": "crazy",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task13",
+        "task": "Drick en snaps och sjung en snapsvisa",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task14",
+        "task": "Ha ett luciatåg",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task15",
+        "task": "Köp en grogg med julmust",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task16",
+        "task": "Ge någon en julklapp",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task17",
+        "task": "Sätt på dig en tomteluva",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    }
 ]

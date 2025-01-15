@@ -118,7 +118,7 @@ function sockets(io, socket, data) {
   });
 
   socket.on("updateTaskStatus", function(d) {
-    const updatedTasks= data.updateTaskStatus(d.crawlId, d.taskText, d.checked, d.teamNumber);
+    const updatedTasks= data.updateTaskStatus(d.crawlId, d.taskId, d.checked, d.teamNumber);
     io.to(d.crawlId).emit("taskListUpdated", updatedTasks);
   });
 

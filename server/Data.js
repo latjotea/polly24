@@ -258,8 +258,9 @@ Data.prototype.initializeTasks = function(crawlId, tasks) {
   if (this.crawls[crawlId].taskList && this.crawls[crawlId].taskList.length > 0) {
     return this.getTasks(crawlId);
   }
-  // AI
+  
   const tasksWithDefaults = tasks.map(task => ({
+    taskId: task.taskId,  
     text: task.text,
     mode: task.mode,
     checked: false,
@@ -276,6 +277,7 @@ Data.prototype.addTask = function(crawlId, task) {
   }
   // AI
   const newTask = {
+    taskId:task.taskId,
     text: task.text,
     mode: task.mode,
     checked: false,
@@ -286,18 +288,24 @@ Data.prototype.addTask = function(crawlId, task) {
   return this.getTasks(crawlId);
 };
 
-Data.prototype.updateTaskStatus = function(crawlId, taskText, checked, teamNumber) { 
+Data.prototype.updateTaskStatus = function(crawlId, taskId, checked, teamNumber) {
   if (!this.crawlExists(crawlId)) {
     return false;
   }
-  //AI
-  const task = this.crawls[crawlId].taskList.find(t => t.text === taskText);
-  if (task && (task.completedBy === null || task.completedBy === teamNumber)) {
-    task.checked = checked;
-    if (checked) {
-      task.completedBy = teamNumber;
-    } else if (!checked && task.completedBy === teamNumber) {
-      task.completedBy = null;
+  
+  const task = this.crawls[crawlId].taskList.find(t => t.taskId === taskId);
+  if (task) {
+    // Only allow updating if task is not completed by another team
+    if (!task.completedBy || task.completedBy === teamNumber) {
+      task.checked = checked;
+      if (checked) {
+        task.completedBy = teamNumber;
+      } else {
+        // Only clear completedBy if the team unchecking is the one who completed it
+        if (task.completedBy === teamNumber) {
+          task.completedBy = null;
+        }
+      }
     }
   }
   
@@ -341,6 +349,3 @@ Data.prototype.getScores = function(crawlId) {
 
 
 export { Data };
-
-
-

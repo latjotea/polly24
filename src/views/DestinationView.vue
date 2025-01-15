@@ -36,7 +36,8 @@ data: function () {
       selectedPubs: [],
       round: 1,
       teamNumber: '',
-      crawlOver: false
+      crawlOver: false,
+      lang: localStorage.getItem( "lang") || "en"
     }
   },
   created: function () {

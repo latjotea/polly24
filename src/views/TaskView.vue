@@ -15,11 +15,11 @@
           <h2>{{ uiLabels.taskListTitle }}</h2>
           <ul>
             <li v-for="task in filteredTasks"
-              :key="task.text"
+              :key="task.taskId"
               :class="{ 'checkedTask': task.checked }"
               @click="toggleTask(task)">
               <div class="task-item">
-                <span>{{ task.text }}</span>
+                <span>{{ getTaskText(task) }}</span>
                 <input 
                   v-if="!admin && (!task.completedBy || task.completedBy === teamNumber)"
                   type="checkbox" 
@@ -94,18 +94,17 @@ export default {
     socket.on("uiLabels", labels => this.uiLabels = labels);
     
     socket.on("selectedModeResponse", (mode) => {
-      this.selectedMode = mode;
-      
+    this.selectedMode = mode;
+  
       if (!this.initialized) {
         this.initialized = true;
-        //AI
         if (!this.tasks.length) {
-          const predefinedTasks = this.lang === "sv" ? taskssv : tasksen;
-          const initialTasks = predefinedTasks.map(task => ({
-            text: task.task,
+          const initialTasks = tasksen.map(task => ({
+            taskId: task.id,    
+            text: task.task,   
             mode: task.mode,
             checked: false,
-            completedBy: null,
+            completedBy: null
           }));
           
           socket.emit("initializeTasks", {
@@ -132,7 +131,8 @@ export default {
 
     socket.on('goToNextPub', () => {
       if (!this.admin){
-        this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}});
+        this.$router.push(`/Destination/${this.crawlId}/${this.teamNumber}`)}
+    });
 
     socket.emit("getUILabels", this.lang);
     socket.emit("getMode", { crawlId: this.crawlId });
@@ -144,13 +144,22 @@ export default {
   },
 
   methods: {
+    getTaskText(task) {
+      const taskIndex = tasksen.findIndex(t => t.id === task.taskId);
+      if (taskIndex === -1) return task.text; 
+      
+      const translations = this.lang === "sv" ? taskssv : tasksen;
+      return translations[taskIndex].task;
+    },
+
     submitTask() {
       if (this.newTask) {
         const newTaskObj = {
           text: this.newTask,
+          taskId: `admin-${Date.now()}`,// AI hjälpte oss med unik nyckel
           mode: this.selectedMode,
           checked: false,
-          completedBy: null,
+          completedBy: null
         };
         socket.emit("addTask", {
           crawlId: this.crawlId, 
@@ -172,7 +181,7 @@ export default {
         
         socket.emit("updateTaskStatus", {
           crawlId: this.crawlId,
-          taskText: task.text,
+          taskId: task.taskId,
           checked: newStatus,
           teamNumber: this.teamNumber
         });
@@ -192,7 +201,7 @@ export default {
       });
       console.log(`Team ${this.teamNumber} score updated to ${this.scores[adjustedTeamNumber]}`);
     }
-  }
+  },
 }
 </script>
 
@@ -307,6 +316,7 @@ margin: 0.5rem 0;
   bottom: 0;
   padding: 0.5rem 1rem;
 }
+
 
 @media screen and (max-width: 600px) {
 

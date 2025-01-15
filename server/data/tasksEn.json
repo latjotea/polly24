@@ -1,86 +1,121 @@
 [
-    {"task": "Chug a beer",
-     "mode": "standard",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Give a speech",
-     "mode": "standard",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Create a dance choreography",
-     "mode": "standard",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Give a pep talk to someone on your team",
-     "mode": "standard",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Give someone your number",
-     "mode": "love",
-    "checked": false,
-     "completedBy": null },
-
-    {"task": "Create a Tinder profile", 
-    "mode": "love",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Superlike someone on Tinder",
-     "mode": "love",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Give someone a compliment",
-     "mode": "love",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Everyone on the team takes a shot",
-     "mode": "crazy",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Perform a stand-up routine",
-     "mode": "crazy",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Make a human pyramid",
-     "mode": "crazy",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Order a beer without speaking",
-     "mode": "crazy",
-     "checked": false,
-     "completedBy": null },
-
-    {"task": "Have a schnapps and sing a song",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Have a mini Lucia concert ",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Buy a drink with julmust",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Give someone a Christmas gift",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null },
-
-    {"task": "Put on a Santa hat",
-    "mode": "holiday",
-    "checked": false,
-    "completedBy": null }
+    {
+        "id": "task1",
+        "task": "Chug a beer",
+        "mode": "standard",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task2",
+        "task": "Give a speech",
+        "mode": "standard",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task3",
+        "task": "Create a dance choreography",
+        "mode": "standard",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task4",
+        "task": "Give a pep talk to someone on your team",
+        "mode": "standard",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task5",
+        "task": "Give someone your number",
+        "mode": "love",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task6",
+        "task": "Create a Tinder profile",
+        "mode": "love",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task7",
+        "task": "Superlike someone on Tinder",
+        "mode": "love",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task8",
+        "task": "Give someone a compliment",
+        "mode": "love",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task9",
+        "task": "Everyone on the team takes a shot",
+        "mode": "crazy",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task10",
+        "task": "Perform a stand-up routine",
+        "mode": "crazy",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task11",
+        "task": "Make a human pyramid",
+        "mode": "crazy",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task12",
+        "task": "Order a beer without speaking",
+        "mode": "crazy",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task13",
+        "task": "Have a schnapps and sing a song",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task14",
+        "task": "Have a mini Lucia concert",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task15",
+        "task": "Buy a drink with julmust",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task16",
+        "task": "Give someone a Christmas gift",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    },
+    {
+        "id": "task17",
+        "task": "Put on a Santa hat",
+        "mode": "holiday",
+        "checked": false,
+        "completedBy": null 
+    }
 ]
