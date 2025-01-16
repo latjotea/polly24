@@ -2,7 +2,6 @@
 import {readFileSync} from "fs";
 import path, { dirname } from "path";
 
-// Store data in an object to keep the global namespace clean. In an actual implementation this would be interfacing a database...
 function Data() {
   this.crawls = {
     lang: "en",
@@ -275,7 +274,6 @@ Data.prototype.addTask = function(crawlId, task) {
   if (!this.crawlExists(crawlId)) {
     return false;
   }
-  // AI
   const newTask = {
     taskId:task.taskId,
     text: task.text,
@@ -292,16 +290,14 @@ Data.prototype.updateTaskStatus = function(crawlId, taskId, checked, teamNumber)
   if (!this.crawlExists(crawlId)) {
     return false;
   }
-  
+  //AI har skrivit den här raden:
   const task = this.crawls[crawlId].taskList.find(t => t.taskId === taskId);
   if (task) {
-    // Only allow updating if task is not completed by another team
     if (!task.completedBy || task.completedBy === teamNumber) {
       task.checked = checked;
       if (checked) {
         task.completedBy = teamNumber;
       } else {
-        // Only clear completedBy if the team unchecking is the one who completed it
         if (task.completedBy === teamNumber) {
           task.completedBy = null;
         }

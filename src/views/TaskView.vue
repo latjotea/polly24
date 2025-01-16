@@ -145,6 +145,7 @@ export default {
 
   methods: {
     getTaskText(task) {
+      //AI har hjälp med findIndex()
       const taskIndex = tasksen.findIndex(t => t.id === task.taskId);
       if (taskIndex === -1) return task.text; 
       
@@ -292,7 +293,7 @@ margin: 0.5rem 0;
 .checkedTask {
   text-decoration: line-through;
   color: gray;
-  pointer-events: none; /* Förhindrar klick */
+  pointer-events: none; 
   cursor: not-allowed;
 }
 
